@@ -2,5 +2,4 @@ pyyaml>=6.0
 mkdocs-material>=9.5
 requests>=2.31
 beautifulsoup4>=4.12
-anthropic>=0.40
 python-frontmatter>=1.1
