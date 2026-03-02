@@ -1,0 +1,35 @@
+name: リンク切れチェック（月次）
+
+on:
+  schedule:
+    - cron: "0 0 1 * *"  # 毎月1日 00:00 UTC
+  workflow_dispatch: {}   # 手動実行も可能
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 依存パッケージのインストール
+        run: pip install python-frontmatter pyyaml requests
+      - name: リンク切れチェックを実行
+        id: check
+        run: |
+          python scripts/check_links.py --github-output > broken_links.txt 2>&1 || true
+          if [ -s broken_links.txt ]; then
+            echo "has_broken_links=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_broken_links=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: リンク切れをIssueで報告
+        if: steps.check.outputs.has_broken_links == 'true'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "[broken-link] リンク切れが検出されました"
+          content-filepath: broken_links.txt
+          labels: broken-link

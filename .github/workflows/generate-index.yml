@@ -1,0 +1,27 @@
+name: インデックス自動生成
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "entries/**/*.md"
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 依存パッケージのインストール
+        run: pip install python-frontmatter pyyaml
+      - name: インデックスを生成
+        run: python scripts/generate_index.py
+      - name: 変更を自動コミット
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "[chore] インデックスを自動更新する"
+          file_pattern: "index.md indexes/**"
