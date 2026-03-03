@@ -1,0 +1,35 @@
+name: 新着QA記事チェック（週次）
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"  # 毎週月曜 00:00 UTC
+  workflow_dispatch: {}   # 手動実行も可能
+
+jobs:
+  check-rss:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 依存パッケージのインストール
+        run: pip install feedparser pyyaml python-frontmatter
+      - name: RSSフィードの巡回
+        id: rss
+        run: |
+          python scripts/check_rss.py --format markdown > rss_result.txt 2>&1 || true
+          if [ -s rss_result.txt ] && grep -q "新着QA関連記事" rss_result.txt; then
+            echo "has_new_articles=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_new_articles=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: 新着記事をIssueで通知
+        if: steps.rss.outputs.has_new_articles == 'true'
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "[new-article] 新着QA関連記事が見つかりました"
+          content-filepath: rss_result.txt
+          labels: new-article

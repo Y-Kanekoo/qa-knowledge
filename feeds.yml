@@ -1,0 +1,71 @@
+# 監視対象RSSフィード定義
+# scripts/check_rss.py が週次で巡回し、新着QA関連記事をGitHub Issueとして通知する
+
+feeds:
+  - name: Google Testing Blog
+    company: Google
+    url: https://testing.googleblog.com/feeds/posts/default
+    language: en
+    skip_keyword_filter: true  # ブログ全体がQA特化のためフィルタ不要
+
+  - name: Netflix Tech Blog
+    company: Netflix
+    url: https://medium.com/feed/netflix-techblog
+    language: en
+
+  - name: Spotify Engineering
+    company: Spotify
+    url: https://engineering.atspotify.com/feed/
+    language: en
+
+  - name: Mercari Engineering
+    company: Mercari
+    url: https://engineering.mercari.com/blog/feed.xml
+    language: ja
+
+  - name: LY Corporation Tech Blog
+    company: LY Corporation
+    url: https://techblog.lycorp.co.jp/ja/feed/index.xml
+    language: ja
+
+  - name: Cybozu Blog
+    company: Cybozu
+    url: https://blog.cybozu.io/feed
+    language: ja
+
+  - name: DeNA Engineering
+    company: DeNA
+    url: https://engineering.dena.com/blog/index.xml
+    language: ja
+
+  - name: GitLab Blog
+    company: GitLab
+    url: https://about.gitlab.com/atom.xml
+    language: en
+
+  - name: Google Cloud Blog (DevOps/SRE)
+    company: Google Cloud
+    url: https://cloudblog.withgoogle.com/products/devops-sre/rss/
+    language: en
+
+# QA関連記事のフィルタリング用キーワード（タイトル・概要に含まれるか大文字小文字無視でチェック）
+keywords:
+  - test
+  - testing
+  - quality
+  - QA
+  - automation
+  - CI/CD
+  - flaky
+  - reliability
+  - chaos
+  - SRE
+  - observability
+  - shift-left
+  - playwright
+  - selenium
+  - coverage
+  - テスト
+  - 品質
+  - 自動化
+  - 信頼性
