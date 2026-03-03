@@ -48,6 +48,31 @@ feeds:
     url: https://cloudblog.withgoogle.com/products/devops-sre/rss/
     language: en
 
+  - name: SmartHR Tech Blog
+    company: SmartHR
+    url: https://tech.smarthr.jp/feed
+    language: ja
+
+  - name: AWS Blog
+    company: Amazon
+    url: https://aws.amazon.com/blogs/aws/feed/
+    language: en
+
+  - name: Grafana Labs Blog
+    company: Grafana Labs
+    url: https://grafana.com/blog/index.xml
+    language: en
+
+  - name: Microsoft DevBlogs
+    company: Microsoft
+    url: https://devblogs.microsoft.com/feed/
+    language: en
+
+  - name: Meta Engineering
+    company: Meta
+    url: https://engineering.fb.com/feed/
+    language: en
+
 # QA関連記事のフィルタリング用キーワード（タイトル・概要に含まれるか大文字小文字無視でチェック）
 keywords:
   - test
@@ -69,3 +94,11 @@ keywords:
   - 品質
   - 自動化
   - 信頼性
+  - regression
+  - e2e
+  - integration test
+  - unit test
+  - mutation
+  - TDD
+  - contract test
+  - load test
