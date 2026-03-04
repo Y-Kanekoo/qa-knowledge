@@ -1,6 +1,10 @@
-pyyaml>=6.0
-mkdocs-material>=9.5
-requests>=2.31
-beautifulsoup4>=4.12
-python-frontmatter>=1.1
-feedparser>=6.0
+pyyaml==6.0.3
+mkdocs-material==9.6.7
+requests==2.32.3
+beautifulsoup4==4.13.3
+python-frontmatter==1.1.0
+feedparser==6.0.12
+
+# 開発依存
+pytest>=8.0
+ruff>=0.9

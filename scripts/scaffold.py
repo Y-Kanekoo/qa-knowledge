@@ -58,6 +58,10 @@ def fetch_html(url: str) -> str:
         return response.text
     except requests.RequestException as e:
         print(f"エラー: URLの取得に失敗しました: {e}", file=sys.stderr)
+        if isinstance(e, requests.exceptions.ConnectionError):
+            print("  ネットワーク接続を確認してください", file=sys.stderr)
+        elif isinstance(e, requests.exceptions.Timeout):
+            print("  タイムアウトしました。サイトが遅延している可能性があります", file=sys.stderr)
         sys.exit(1)
 
 
@@ -124,7 +128,7 @@ def generate_slug(title: str) -> str:
     slug = re.sub(r"-{2,}", "-", slug)
     # 先頭・末尾のハイフンを除去
     slug = slug.strip("-")
-    # 長すぎる場合は切り詰め
+    # 長すぎる場合は切り詰め（末尾のハイフンは除去）
     if len(slug) > 60:
         slug = slug[:60].rstrip("-")
     return slug

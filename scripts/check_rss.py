@@ -42,7 +42,8 @@ def load_existing_urls() -> set[str]:
             url = post.metadata.get("url", "")
             if url:
                 urls.add(normalize_url(url))
-        except Exception:
+        except (yaml.YAMLError, IOError) as e:
+            print(f"警告: {md_file.name} の読み込みに失敗: {e}", file=sys.stderr)
             continue
 
     return urls
@@ -74,8 +75,10 @@ def matches_keywords(text: str, keywords: list[str]) -> bool:
         kw = keyword.lower()
         # 英語キーワードは単語境界で検索（日本語キーワードは部分一致のまま）
         if kw.isascii():
-            pattern = rf'\b{re.escape(kw)}\b'
-            if re.search(pattern, text_lower):
+            # 区切り文字（スペース、ハイフン等）を柔軟にマッチ
+            parts = re.split(r'[\s\-_/]+', kw)
+            pattern = r'\b' + r'[\s\-_/]+'.join(re.escape(p) for p in parts) + r'\b'
+            if re.search(pattern, text_lower, re.ASCII):
                 return True
         else:
             if kw in text_lower:
@@ -129,7 +132,7 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
     new_articles: list[dict] = []
 
     # 日付フィルタの基準日
-    cutoff_date = datetime.now(tz=timezone.utc) - timedelta(days=days_limit)
+    cutoff_date = (datetime.now(tz=timezone.utc) - timedelta(days=days_limit)).date()
 
     for feed_config in feeds:
         name = feed_config["name"]
@@ -165,11 +168,11 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
             published = parse_published_date(entry)
             if published and days_limit:
                 try:
-                    pub_date = datetime.strptime(published, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+                    pub_date = datetime.strptime(published, "%Y-%m-%d").date()
                     if pub_date < cutoff_date:
                         continue
                 except ValueError:
-                    pass
+                    pass  # 日付形式不一致はフィルタをスキップ（記事は処理継続）
 
             # QAキーワードフィルタリング（skip_keyword_filter の場合はスキップ）
             if not skip_filter:
@@ -233,6 +236,13 @@ def format_markdown(articles: list[dict]) -> str:
 
 
 def main() -> None:
+    def positive_int(value: str) -> int:
+        """非負整数のバリデータ。"""
+        n = int(value)
+        if n < 0:
+            raise argparse.ArgumentTypeError(f"0以上の整数を指定してください: {value}")
+        return n
+
     parser = argparse.ArgumentParser(
         description="RSSフィードを巡回し、未収録のQA関連記事を検出する。"
     )
@@ -248,7 +258,7 @@ def main() -> None:
         help="各フィードの取得状況を表示する（デバッグ用）",
     )
     parser.add_argument(
-        "--days", type=int, default=365,
+        "--days", type=positive_int, default=365,
         help="この日数以内の記事のみ対象（デフォルト: 365）",
     )
     args = parser.parse_args()
@@ -273,10 +283,6 @@ def main() -> None:
     if output:
         print(output)
 
-    # 新着がなければ exit 0、あれば exit 0（Issueが必要かどうかは呼び出し側で判断）
-    if args.format == "markdown" and not articles:
-        # markdown形式で新着なしの場合は空出力（GitHub Actionsで判定に使用）
-        pass
 
 
 if __name__ == "__main__":

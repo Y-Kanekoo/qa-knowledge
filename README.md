@@ -9,7 +9,7 @@
 - YAML frontmatter による構造化メタデータ（企業名、QA領域、タグ、難易度等）
 - 会社別・QA領域別・タグ別・追加日順の自動生成インデックス
 - MkDocs Material による全文検索対応の静的サイト
-- GitHub Actions によるバリデーション・インデックス自動更新・サイトデプロイ
+- GitHub Actions による CI/CD（バリデーション、インデックス自動更新、サイトデプロイ、リンク・RSS監視）
 - RSSフィード監視による新着QA記事の自動検出（週次 → GitHub Issue通知）
 
 ## 収録対象
@@ -19,6 +19,11 @@
 **QA領域**: テスト戦略、テスト自動化、CI/CD、SRE/カオスエンジニアリング、品質メトリクス、QA組織設計、AI/LLMテスト、セキュリティテスト、パフォーマンステスト、モバイルテスト、シフトレフト、オブザーバビリティ
 
 ## クイックスタート
+
+### 環境要件
+
+- Python 3.12 以上
+- 依存パッケージ: `pip install -r requirements.txt`
 
 ### エントリを追加する
 
@@ -82,6 +87,16 @@ qa-knowledge/
 ├── mkdocs.yml         # MkDocs Material 設定
 └── index.md           # サイトトップページ（自動生成）
 ```
+
+## GitHub Actions ワークフロー
+
+| ワークフロー | トリガー | 概要 |
+|-------------|---------|------|
+| フロントマター検証 | `entries/` への push | frontmatter スキーマの自動検証 |
+| インデックス自動生成 | main への push（`entries/` 変更時） | by-company, by-domain 等のインデックスを再生成 |
+| ドキュメントサイトのデプロイ | main への push | MkDocs Material サイトを GitHub Pages にデプロイ |
+| リンク切れチェック（月次） | 月次スケジュール / 手動 | 全エントリのURLが有効か確認し、問題があれば Issue 作成 |
+| 新着QA記事チェック（週次） | 週次スケジュール / 手動 | RSS フィードを巡回し、未収録記事を Issue で通知 |
 
 ## スキーマ
 

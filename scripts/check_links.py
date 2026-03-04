@@ -64,7 +64,7 @@ def check_url(entry: dict) -> dict:
         response = requests.head(url, headers=headers, timeout=TIMEOUT_SECONDS, allow_redirects=True)
 
         # HEAD が 405 (Method Not Allowed) 等で失敗した場合は GET にフォールバック
-        if response.status_code >= 400:
+        if response.status_code == 405:
             response = requests.get(url, headers=headers, timeout=TIMEOUT_SECONDS, allow_redirects=True)
 
         success = 200 <= response.status_code <= 399
