@@ -72,8 +72,8 @@ def matches_keywords(text: str, keywords: list[str]) -> bool:
     text_lower = text.lower()
     for keyword in keywords:
         kw = keyword.lower()
-        # 英字のみのキーワードは単語境界で検索（日本語キーワードは部分一致のまま）
-        if kw.isascii() and kw.isalpha():
+        # 英語キーワードは単語境界で検索（日本語キーワードは部分一致のまま）
+        if kw.isascii():
             pattern = rf'\b{re.escape(kw)}\b'
             if re.search(pattern, text_lower):
                 return True
