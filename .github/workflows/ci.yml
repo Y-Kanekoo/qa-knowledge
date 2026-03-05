@@ -18,4 +18,4 @@ jobs:
       - name: Ruff によるコード品質チェック
         run: ruff check .
       - name: Pytest によるテスト実行
-        run: pytest --co || true
+        run: pytest -v --tb=short
