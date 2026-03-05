@@ -16,6 +16,8 @@ import requests
 from bs4 import BeautifulSoup
 
 # published_at を推定するためのmetaタグ属性（優先度順）
+VERSION = "1.0"
+
 PUBLISHED_META_ATTRS: list[dict[str, str]] = [
     {"property": "article:published_time"},
     {"name": "article:published_time"},
@@ -52,7 +54,7 @@ def fetch_html(url: str) -> str:
     print(f"URLを取得中: {url}")
     try:
         response = requests.get(url, timeout=30, headers={
-            "User-Agent": "Mozilla/5.0 (compatible; qa-knowledge-scaffold/1.0)"
+            "User-Agent": f"Mozilla/5.0 (compatible; qa-knowledge-scaffold/{VERSION})"
         })
         response.raise_for_status()
         return response.text

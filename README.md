@@ -27,19 +27,7 @@
 
 ### エントリを追加する
 
-```bash
-# 1. URLからエントリの骨格ファイルを生成
-python scripts/scaffold.py "https://example.com/blog/..." --company "CompanyName"
-
-# 2. 生成されたファイルを編集（content_type, qa_domains, tags, 概要, 何が学べるか を記入）
-# 3. バリデーション
-python scripts/validate_frontmatter.py
-
-# 4. インデックスを再生成
-python scripts/generate_index.py
-
-# 5. コミット
-```
+詳細は [CONTRIBUTING.md](CONTRIBUTING.md) を参照。
 
 ### ローカルでサイトをプレビュー
 

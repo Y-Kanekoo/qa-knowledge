@@ -86,6 +86,7 @@ def validate_file(filepath: Path) -> list[str]:
         errors.append("必須フィールド 'published_at' がありません")
     elif isinstance(published_at, date):
         # python-frontmatter が自動的に date オブジェクトに変換する場合がある
+        # date 型は有効なのでバリデーションOK（何もしない）
         pass
     elif isinstance(published_at, str):
         if not _is_valid_date(published_at):
@@ -150,6 +151,7 @@ def validate_file(filepath: Path) -> list[str]:
     if added_at is None:
         errors.append("必須フィールド 'added_at' がありません")
     elif isinstance(added_at, date):
+        # date 型は有効なのでバリデーションOK（何もしない）
         pass
     elif isinstance(added_at, str):
         if not _is_valid_date(added_at):

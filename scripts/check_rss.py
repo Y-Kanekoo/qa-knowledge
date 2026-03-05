@@ -284,6 +284,5 @@ def main() -> None:
         print(output)
 
 
-
 if __name__ == "__main__":
     main()
