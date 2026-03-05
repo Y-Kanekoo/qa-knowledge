@@ -18,10 +18,14 @@
 
 ## 推奨フィールド
 
+> **注記**: 推奨フィールドは現在バリデーション対象外です。記入を推奨しますが、未記入でもエラーにはなりません。
+
 | フィールド | 型 | 説明 | 許可値 |
 |-----------|------|------|--------|
 | `industry` | string | 企業の業種 | `tech`, `finance`, `ecommerce`, `media`, `gaming`, `saas`, `other` |
 | `difficulty` | string | 内容の難易度 | `beginner`, `intermediate`, `advanced` |
+
+※ `industry` および `difficulty` はバリデータ（`validate_frontmatter.py`）では検証されません。将来的に未記入時の警告出力を検討中です。
 
 ## オプションフィールド
 
