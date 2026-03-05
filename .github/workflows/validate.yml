@@ -17,3 +17,12 @@ jobs:
         run: pip install python-frontmatter pyyaml
       - name: フロントマター検証を実行
         run: python scripts/validate_frontmatter.py
+      - name: 失敗時にIssueで通知
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "[CI失敗] ${{ github.workflow }}" \
+            --body "ブランチ: ${{ github.ref_name }}\nコミット: ${{ github.sha }}\n実行: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --label "ci-failure"

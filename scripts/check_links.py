@@ -6,18 +6,29 @@
 """
 
 import argparse
+import logging
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import frontmatter
-import requests
+
+try:
+    from scripts._http import create_session
+except ImportError:
+    from _http import create_session
+
+# モジュールレベルのロガー
+logger = logging.getLogger(__name__)
 
 # 定数
 ENTRIES_DIR = Path(__file__).resolve().parent.parent / "entries"
 USER_AGENT = "qa-knowledge-link-checker/1.0"
 TIMEOUT_SECONDS = 10
 MAX_WORKERS = 5
+
+# モジュールレベルの共通セッション
+_session = create_session(timeout=TIMEOUT_SECONDS)
 
 
 def load_entries() -> list[dict]:
@@ -61,11 +72,11 @@ def check_url(entry: dict) -> dict:
 
     try:
         # まず HEAD リクエストを試行
-        response = requests.head(url, headers=headers, timeout=TIMEOUT_SECONDS, allow_redirects=True)
+        response = _session.head(url, headers=headers, timeout=TIMEOUT_SECONDS, allow_redirects=True)
 
         # HEAD が 405 (Method Not Allowed) 等で失敗した場合は GET にフォールバック
         if response.status_code == 405:
-            response = requests.get(url, headers=headers, timeout=TIMEOUT_SECONDS, allow_redirects=True)
+            response = _session.get(url, headers=headers, timeout=TIMEOUT_SECONDS, allow_redirects=True)
 
         success = 200 <= response.status_code <= 399
         status_text = f"{response.status_code} {response.reason}"
@@ -77,26 +88,21 @@ def check_url(entry: dict) -> dict:
             "status": status_text,
         }
 
-    except requests.exceptions.Timeout:
+    except Exception as e:
+        # タイムアウト・接続エラー等の個別ハンドリング
+        import requests as _requests
+        if isinstance(e, _requests.exceptions.Timeout):
+            status = f"タイムアウト（{TIMEOUT_SECONDS}秒）"
+        elif isinstance(e, _requests.exceptions.ConnectionError):
+            status = "接続エラー"
+        else:
+            status = f"リクエストエラー: {e}"
+
         return {
             "filename": filename,
             "url": url,
             "success": False,
-            "status": f"タイムアウト（{TIMEOUT_SECONDS}秒）",
-        }
-    except requests.exceptions.ConnectionError:
-        return {
-            "filename": filename,
-            "url": url,
-            "success": False,
-            "status": "接続エラー",
-        }
-    except requests.exceptions.RequestException as e:
-        return {
-            "filename": filename,
-            "url": url,
-            "success": False,
-            "status": f"リクエストエラー: {e}",
+            "status": status,
         }
 
 
@@ -150,12 +156,21 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    # ロギングの設定
+    logging.basicConfig(
+        level=logging.INFO,
+        format="[%(levelname)s] %(message)s",
+        stream=sys.stderr,
+    )
+
     # エントリ読み込み
     entries = load_entries()
 
     if not entries:
-        print("チェック対象のエントリが見つかりませんでした。")
+        logger.info("チェック対象のエントリが見つかりませんでした。")
         sys.exit(0)
+
+    logger.info("URLチェック開始: %d件", len(entries))
 
     # URLチェック実行
     results = run_checks(entries)
