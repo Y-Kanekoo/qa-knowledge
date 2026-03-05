@@ -12,6 +12,7 @@ entries/ 内の .md ファイルを読み込み、各種インデックスと in
 
 from __future__ import annotations
 
+import logging
 import sys
 from collections import defaultdict
 from datetime import date, datetime
@@ -19,6 +20,8 @@ from pathlib import Path
 from typing import TypedDict
 
 import frontmatter
+
+logger = logging.getLogger(__name__)
 
 # ---------- 定数 ----------
 
@@ -359,6 +362,12 @@ def write_file(path: Path, content: str) -> None:
 
 def main() -> None:
     """エントリを読み込み、全インデックスファイルを生成する。"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format="[%(levelname)s] %(message)s",
+        stream=sys.stderr,
+    )
+
     entries = load_entries()
 
     # 各インデックスファイルを生成

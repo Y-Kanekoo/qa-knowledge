@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """entries/ ディレクトリ内の .md ファイルの YAML frontmatter をバリデーションするスクリプト。"""
 
+import logging
 import re
 import sys
 from datetime import date
 from pathlib import Path
 
 import frontmatter
+
+logger = logging.getLogger(__name__)
 
 # --- 許可値定義 ---
 
@@ -216,13 +219,19 @@ def check_duplicate_urls(files: list[Path]) -> dict[Path, list[str]]:
 
 def main() -> int:
     """メインエントリーポイント。"""
+    logging.basicConfig(
+        level=logging.INFO,
+        format="[%(levelname)s] %(message)s",
+        stream=sys.stderr,
+    )
+
     # プロジェクトルートを基準に entries/ ディレクトリを特定
     script_dir = Path(__file__).resolve().parent
     project_root = script_dir.parent
     entries_dir = project_root / "entries"
 
     if not entries_dir.is_dir():
-        print(f"エラー: entries/ ディレクトリが見つかりません: {entries_dir}", file=sys.stderr)
+        logger.error("entries/ ディレクトリが見つかりません: %s", entries_dir)
         return 1
 
     # CLI引数の処理: 指定ファイルのみ or 全エントリ
@@ -232,7 +241,7 @@ def main() -> int:
         for arg in sys.argv[1:]:
             filepath = Path(arg).resolve()
             if not filepath.exists():
-                print(f"エラー: ファイルが見つかりません: {arg}", file=sys.stderr)
+                logger.error("ファイルが見つかりません: %s", arg)
                 return 1
             target_files.append(filepath)
         # 重複URLチェック用に全エントリファイルも取得
@@ -243,7 +252,7 @@ def main() -> int:
         all_files = target_files
 
     if not target_files:
-        print("検証対象のエントリファイルがありません。", file=sys.stderr)
+        logger.warning("検証対象のエントリファイルがありません。")
         return 0
 
     # 各ファイルのバリデーション
@@ -265,7 +274,7 @@ def main() -> int:
     for filepath, errors in file_errors.items():
         relative_path = filepath.relative_to(project_root)
         for error in errors:
-            print(f"{relative_path}: {error}", file=sys.stderr)
+            logger.error("%s: %s", relative_path, error)
         has_errors = True
 
     if has_errors:
