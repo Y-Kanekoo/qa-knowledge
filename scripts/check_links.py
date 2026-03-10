@@ -12,6 +12,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import frontmatter
+import requests
 
 try:
     from scripts._http import create_session
@@ -24,7 +25,7 @@ logger = logging.getLogger(__name__)
 # 定数
 ENTRIES_DIR = Path(__file__).resolve().parent.parent / "entries"
 USER_AGENT = "qa-knowledge-link-checker/1.0"
-TIMEOUT_SECONDS = 10
+TIMEOUT_SECONDS = 10  # 死活確認（HEAD/GET）のため短めに設定
 MAX_WORKERS = 5
 
 # モジュールレベルの共通セッション
@@ -88,12 +89,11 @@ def check_url(entry: dict) -> dict:
             "status": status_text,
         }
 
-    except Exception as e:
+    except requests.exceptions.RequestException as e:
         # タイムアウト・接続エラー等の個別ハンドリング
-        import requests as _requests
-        if isinstance(e, _requests.exceptions.Timeout):
+        if isinstance(e, requests.exceptions.Timeout):
             status = f"タイムアウト（{TIMEOUT_SECONDS}秒）"
-        elif isinstance(e, _requests.exceptions.ConnectionError):
+        elif isinstance(e, requests.exceptions.ConnectionError):
             status = "接続エラー"
         else:
             status = f"リクエストエラー: {e}"

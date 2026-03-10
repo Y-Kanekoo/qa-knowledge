@@ -13,6 +13,7 @@ import re
 import sys
 from datetime import date
 
+import requests
 from bs4 import BeautifulSoup
 
 try:
@@ -38,7 +39,7 @@ PUBLISHED_META_ATTRS: list[dict[str, str]] = [
 ]
 
 # 共通セッション
-_session = create_session(timeout=30)
+_session = create_session(timeout=30)  # HTML全文取得のため長めに設定
 
 
 def parse_args() -> argparse.Namespace:
@@ -69,12 +70,11 @@ def fetch_html(url: str) -> str:
         })
         response.raise_for_status()
         return response.text
-    except Exception as e:
-        import requests as _requests
+    except requests.exceptions.RequestException as e:
         logger.error("URLの取得に失敗しました: %s", e)
-        if isinstance(e, _requests.exceptions.ConnectionError):
+        if isinstance(e, requests.exceptions.ConnectionError):
             logger.error("  ネットワーク接続を確認してください")
-        elif isinstance(e, _requests.exceptions.Timeout):
+        elif isinstance(e, requests.exceptions.Timeout):
             logger.error("  タイムアウトしました。サイトが遅延している可能性があります")
         sys.exit(1)
 

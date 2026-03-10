@@ -69,7 +69,7 @@ def load_existing_urls() -> set[str]:
             url = post.metadata.get("url", "")
             if url:
                 urls.add(normalize_url(url))
-        except (yaml.YAMLError, IOError) as e:
+        except (yaml.YAMLError, OSError) as e:
             logger.warning("%s の読み込みに失敗: %s", md_file.name, e)
             continue
 

@@ -6,7 +6,12 @@ from urllib3.util.retry import Retry
 
 
 def create_session(timeout: int = 10, retries: int = 3) -> requests.Session:
-    """リトライ付きHTTPセッションを作成する。"""
+    """リトライ付きHTTPセッションを作成する。
+
+    Args:
+        timeout: デフォルトタイムアウト秒数。用途に応じて呼び出し側で上書き可能。
+        retries: 最大リトライ回数。
+    """
     session = requests.Session()
     retry = Retry(
         total=retries,

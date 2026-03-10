@@ -35,7 +35,19 @@ python scripts/scaffold.py "https://example.com/blog/..." --company "CompanyName
 python scripts/validate_frontmatter.py
 ```
 
-### 4. PR作成
+### 4. テスト・Lint の実行
+
+PR を作成する前に、以下のチェックを実行してください:
+
+```bash
+# テスト実行
+pytest
+
+# コード品質チェック
+ruff check .
+```
+
+### 5. PR作成
 
 - ブランチ名: `add/{company}-{slug}`
 - 1つのPRに複数エントリを含めてOK
