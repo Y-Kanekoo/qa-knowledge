@@ -2,7 +2,10 @@
 
 import time
 
+from unittest.mock import MagicMock, patch
+
 from scripts.check_rss import (
+    check_feeds,
     format_markdown,
     format_text,
     matches_keywords,
@@ -159,3 +162,123 @@ class TestFormatMarkdown:
     def test_記事なしの場合は空文字を返す(self):
         result = format_markdown([])
         assert result == ""
+
+
+# ==========================================================
+# check_feeds 統合テスト（4ケース）
+# ==========================================================
+
+
+class TestCheckFeeds:
+    """check_feeds() の統合テスト。"""
+
+    def _make_feed_config(self, feeds=None, keywords=None):
+        """テスト用のフィード設定を生成するヘルパー。"""
+        return {
+            "feeds": feeds or [],
+            "keywords": keywords or ["test", "テスト"],
+        }
+
+    def _make_feed_entry(self, title="テスト記事", link="https://example.com/article", published="2025-06-15"):
+        """テスト用のフィードエントリを生成するヘルパー。"""
+        import time
+        entry = MagicMock()
+        entry.get = lambda k, d="": {
+            "title": title,
+            "link": link,
+            "summary": title,
+            "tags": [],
+        }.get(k, d)
+        entry.__getitem__ = lambda self_inner, k: {"title": title, "link": link}[k]
+        return entry
+
+    @patch("scripts.check_rss.feedparser.parse")
+    def test_新着QA記事を検出する(self, mock_parse):
+        """キーワードに一致する新着記事を検出する。"""
+        mock_entry = MagicMock()
+        mock_entry.get.side_effect = lambda k, d="": {
+            "title": "テスト自動化の最新手法",
+            "link": "https://example.com/test-automation",
+            "summary": "テスト自動化に関する記事",
+        }.get(k, d)
+        mock_entry.__contains__ = lambda self_inner, k: k in {"title", "link", "summary"}
+
+        mock_result = MagicMock()
+        mock_result.bozo = False
+        mock_result.entries = [mock_entry]
+        mock_parse.return_value = mock_result
+
+        config = {
+            "feeds": [{"name": "Test Blog", "url": "https://example.com/feed", "company": "Example", "language": "ja"}],
+            "keywords": ["テスト"],
+        }
+        results = check_feeds(config, existing_urls=set(), dry_run=False, days_limit=0)
+        assert len(results) >= 1
+        assert any("test-automation" in r["url"] for r in results)
+
+    @patch("scripts.check_rss.feedparser.parse")
+    def test_既存URLは除外する(self, mock_parse):
+        """existing_urls に含まれるURLの記事はスキップされる。"""
+        mock_entry = MagicMock()
+        mock_entry.get.side_effect = lambda k, d="": {
+            "title": "テスト記事",
+            "link": "https://example.com/existing",
+            "summary": "テスト",
+        }.get(k, d)
+
+        mock_result = MagicMock()
+        mock_result.bozo = False
+        mock_result.entries = [mock_entry]
+        mock_parse.return_value = mock_result
+
+        config = {
+            "feeds": [{"name": "Test Blog", "url": "https://example.com/feed", "company": "Example", "language": "ja"}],
+            "keywords": ["テスト"],
+        }
+        results = check_feeds(config, existing_urls={"https://example.com/existing"}, dry_run=False, days_limit=0)
+        assert len(results) == 0
+
+    @patch("scripts.check_rss.feedparser.parse")
+    def test_キーワード不一致は除外する(self, mock_parse):
+        """キーワードに一致しない記事は結果に含まれない。"""
+        mock_entry = MagicMock()
+        mock_entry.get.side_effect = lambda k, d="": {
+            "title": "料理レシピ特集",
+            "link": "https://example.com/cooking",
+            "summary": "美味しい料理の作り方",
+        }.get(k, d)
+        mock_entry.__contains__ = lambda self_inner, k: k in {"title", "link", "summary"}
+
+        mock_result = MagicMock()
+        mock_result.bozo = False
+        mock_result.entries = [mock_entry]
+        mock_parse.return_value = mock_result
+
+        config = {
+            "feeds": [{"name": "Blog", "url": "https://example.com/feed", "company": "Example", "language": "ja"}],
+            "keywords": ["テスト", "test"],
+        }
+        results = check_feeds(config, existing_urls=set(), dry_run=False, days_limit=0)
+        assert len(results) == 0
+
+    @patch("scripts.check_rss.feedparser.parse")
+    def test_skip_keyword_filterでキーワードフィルタをスキップ(self, mock_parse):
+        """skip_keyword_filter: true の場合、キーワード不一致でも記事が含まれる。"""
+        mock_entry = MagicMock()
+        mock_entry.get.side_effect = lambda k, d="": {
+            "title": "全く関係ない記事",
+            "link": "https://example.com/unrelated",
+            "summary": "キーワードに一致しない内容",
+        }.get(k, d)
+
+        mock_result = MagicMock()
+        mock_result.bozo = False
+        mock_result.entries = [mock_entry]
+        mock_parse.return_value = mock_result
+
+        config = {
+            "feeds": [{"name": "Blog", "url": "https://example.com/feed", "company": "Example", "language": "ja", "skip_keyword_filter": True}],
+            "keywords": ["テスト"],
+        }
+        results = check_feeds(config, existing_urls=set(), dry_run=False, days_limit=0)
+        assert len(results) >= 1

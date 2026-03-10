@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 
 import requests
 
-from scripts.check_links import check_url, load_entries
+from scripts.check_links import check_url, load_entries, run_checks
 
 
 # ==========================================================
@@ -135,3 +135,60 @@ class TestLoadEntries:
         filenames = [r["filename"] for r in result]
         assert "_template.md" not in filenames
         assert "real-entry.md" in filenames
+
+
+# ==========================================================
+# run_checks 統合テスト（3ケース）
+# ==========================================================
+
+
+class TestRunChecks:
+    """run_checks() の統合テスト。"""
+
+    @patch("scripts.check_links._session")
+    def test_複数エントリの結果をファイル名順で返す(self, mock_session):
+        """2件のエントリを並列チェックし、ファイル名順にソートされた結果を返す。"""
+        mock_response = MagicMock()
+        mock_response.status_code = 200
+        mock_response.reason = "OK"
+        mock_session.head.return_value = mock_response
+
+        entries = [
+            {"filename": "b-entry.md", "url": "https://example.com/b"},
+            {"filename": "a-entry.md", "url": "https://example.com/a"},
+        ]
+        results = run_checks(entries)
+        assert len(results) == 2
+        assert results[0]["filename"] == "a-entry.md"
+        assert results[1]["filename"] == "b-entry.md"
+        assert all(r["success"] for r in results)
+
+    @patch("scripts.check_links._session")
+    def test_成功と失敗が混在する場合(self, mock_session):
+        """成功と失敗の両方を正しく記録する。"""
+        ok_response = MagicMock()
+        ok_response.status_code = 200
+        ok_response.reason = "OK"
+
+        import requests
+        mock_session.head.side_effect = [
+            ok_response,
+            requests.exceptions.Timeout("タイムアウト"),
+        ]
+
+        entries = [
+            {"filename": "a.md", "url": "https://example.com/a"},
+            {"filename": "b.md", "url": "https://example.com/b"},
+        ]
+        results = run_checks(entries)
+        assert len(results) == 2
+        successes = [r for r in results if r["success"]]
+        failures = [r for r in results if not r["success"]]
+        assert len(successes) == 1
+        assert len(failures) == 1
+
+    @patch("scripts.check_links._session")
+    def test_空リストの場合は空リストを返す(self, mock_session):
+        """空のエントリリストを渡すと空リストを返す。"""
+        results = run_checks([])
+        assert results == []
