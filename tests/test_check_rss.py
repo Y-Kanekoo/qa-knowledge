@@ -172,26 +172,6 @@ class TestFormatMarkdown:
 class TestCheckFeeds:
     """check_feeds() の統合テスト。"""
 
-    def _make_feed_config(self, feeds=None, keywords=None):
-        """テスト用のフィード設定を生成するヘルパー。"""
-        return {
-            "feeds": feeds or [],
-            "keywords": keywords or ["test", "テスト"],
-        }
-
-    def _make_feed_entry(self, title="テスト記事", link="https://example.com/article", published="2025-06-15"):
-        """テスト用のフィードエントリを生成するヘルパー。"""
-        import time
-        entry = MagicMock()
-        entry.get = lambda k, d="": {
-            "title": title,
-            "link": link,
-            "summary": title,
-            "tags": [],
-        }.get(k, d)
-        entry.__getitem__ = lambda self_inner, k: {"title": title, "link": link}[k]
-        return entry
-
     @patch("scripts.check_rss.feedparser.parse")
     def test_新着QA記事を検出する(self, mock_parse):
         """キーワードに一致する新着記事を検出する。"""
