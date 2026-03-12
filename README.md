@@ -1,5 +1,7 @@
 # QA Knowledge — 他社QA事例・ナレッジ集
 
+[![コード品質チェック](https://github.com/Y-Kanekoo/qa-knowledge/actions/workflows/ci.yml/badge.svg)](https://github.com/Y-Kanekoo/qa-knowledge/actions/workflows/ci.yml)
+
 テック企業のQA（品質保証）事例・ナレッジを構造化して収集するリポジトリ。
 
 各エントリには元記事へのリンクだけでなく、**「何が学べるか」** を具体的に記述し、単なるリンク集を超えた実用的なナレッジベースを目指す。
@@ -11,6 +13,7 @@
 - MkDocs Material による全文検索対応の静的サイト
 - GitHub Actions による CI/CD（バリデーション、インデックス自動更新、サイトデプロイ、リンク・RSS監視）
 - RSSフィード監視による新着QA記事の自動検出（週次 → GitHub Issue通知）
+- [ドキュメントサイト](https://y-kanekoo.github.io/qa-knowledge/)（GitHub Pages）
 
 ## 収録対象
 

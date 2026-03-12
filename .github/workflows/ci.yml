@@ -14,8 +14,8 @@ jobs:
         with:
           python-version: "3.12"
       - name: 依存パッケージのインストール
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt pytest-cov
       - name: Ruff によるコード品質チェック
         run: ruff check .
       - name: Pytest によるテスト実行
-        run: pytest -v --tb=short
+        run: pytest -v --tb=short --cov=scripts --cov-report=term-missing
