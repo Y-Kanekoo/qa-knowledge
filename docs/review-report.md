@@ -1,16 +1,16 @@
 ---
 schema_version: 1
-generated_at: 2026-03-06T01:24:46+09:00
-commit_hash: f4e1251fba01a894019a12ce82ba7692968b12e0
+generated_at: 2026-03-13T00:00:00+09:00
+commit_hash: 10e2484da70ebe14b9501b41815a14746b33b655
 previous_commit: 6db7fc145e36f5ce67703fb03db183e455a34054
 file_count: 82
 stack: Python (pyyaml, mkdocs-material, requests, bs4, python-frontmatter, feedparser)
 stage: ベータ
-total_issues: 4
+total_issues: 1
 critical: 0
 high: 0
-medium: 1
-low: 3
+medium: 0
+low: 1
 ---
 
 # プロジェクトレビューレポート（差分レビュー）
@@ -24,11 +24,11 @@ low: 3
 | 変更ファイル | 22ファイル（7コミット） |
 | スタック | Python |
 | 段階 | ベータ（前回: アルファ → 昇格） |
-| 指摘数 | 4件（Critical: 0 / High: 0 / Medium: 1 / Low: 3） |
+| 指摘数 | 1件（Critical: 0 / High: 0 / Medium: 0 / Low: 1） |
 
 ## エグゼクティブサマリ
 
-前回レビュー（`6db7fc1`）で指摘した **25件が全て対応済み**。テスト基盤（pytest 57テスト）、CI品質ゲート（ruff + pytest）、HTTPリトライ機構、loggingモジュール統一、依存パッケージのピンロック、ドキュメント整備が完了し、プロジェクト段階はアルファからベータに昇格した。残る指摘は軽微な4件のみで、Critical/High の問題はない。
+前回レビュー（`6db7fc1`）で指摘した **25件が全て対応済み**。テスト基盤（pytest 57テスト）、CI品質ゲート（ruff + pytest）、HTTPリトライ機構、loggingモジュール統一、依存パッケージのピンロック、ドキュメント整備が完了し、プロジェクト段階はアルファからベータに昇格した。C-009/D-009/C-010 は対応完了、T-009 は統合テスト7件追加で部分対応。残る指摘は S-002 の1件のみで、Critical/High の問題はない。
 
 ## 前回指摘の対応状況
 
@@ -77,14 +77,17 @@ low: 3
 |------|------|------|
 | [1] 今すぐやる | 0 | — |
 | [2] 計画的に対応 | 0 | — |
-| [3] 手が空いたら | 1 | requests の動的インポート |
-| [4] 余裕があれば | 3 | ドキュメント・テスト・設定の軽微な改善 |
+| [3] 手が空いたら | 0 | — |
+| [4] 余裕があれば | 1 | 統合テストの拡充（T-009 部分対応） |
 
 ---
 
 ## [3] 手が空いたら（Medium × small）
 
 ### C-009 | Medium | コード品質 | `scripts/check_links.py:91-93`, `scripts/scaffold.py:72-73`
+
+**対応済み（コミット `4d08ec6`）**
+
 - **問題**: `requests` をモジュールレベルでインポートせず、`except Exception as e:` ブロック内で `import requests as _requests` として動的インポートしている。`_http.create_session()` 経由で `requests` は間接的に利用されているが、例外型の参照のためだけに動的インポートするのはアンチパターン
 - **対応**: `import requests` をモジュールレベルに追加し、`except Exception` を `except requests.exceptions.RequestException` に絞り込む
 - **修正案**:
@@ -105,16 +108,25 @@ low: 3
 ## [4] 余裕があれば（Low）
 
 ### D-009 | Low | ドキュメント | `CONTRIBUTING.md`
+
+**対応済み（コミット `4d08ec6`）**
+
 - **問題**: PR前に実行すべき品質チェック（`pytest`, `ruff check .`）の手順が未記載
 - **対応**: 「3. バリデーション」セクションに `pytest` と `ruff check .` の実行手順を追加
 - **工数**: small
 
 ### T-009 | Low | テスト | テスト全体
+
+**部分対応（コミット `5523512`）**
+
 - **問題**: 57テストは全て純関数の単体テスト。`check_feeds()`, `main()` 等の統合関数はテスト未実装
 - **対応**: モック付き結合テストの段階的追加（`check_feeds()` → `check_url()` → `main()` の順）
 - **工数**: medium | **根拠**: 現段階（ベータ）では単体テストで十分だが、次のステップとして有効
 
 ### C-010 | Low | 設定 | `scripts/check_links.py:28`, `scripts/scaffold.py:41`, `scripts/_http.py:8`
+
+**対応済み（コミット `4d08ec6`）**
+
 - **問題**: タイムアウト値がスクリプト間で異なる（check_links: 10秒、scaffold: 30秒、_http.pyデフォルト: 10秒）が、値の根拠がコード上に未記載
 - **対応**: 各タイムアウト値にコメントで根拠を付記（check_links: 死活確認のため短め、scaffold: HTML全文取得のため長め）
 - **工数**: small
