@@ -2,8 +2,9 @@
 
 from datetime import date
 from pathlib import Path
+from unittest.mock import patch
 
-from scripts.validate_frontmatter import find_entry_files, validate_file
+from scripts.validate_frontmatter import find_entry_files, main, validate_file
 
 
 def _write_md(path: Path, meta: dict) -> Path:
@@ -133,3 +134,57 @@ class TestFindEntryFiles:
         filenames = [f.name for f in files]
         assert "_template.md" not in filenames
         assert len(filenames) >= 1
+
+
+# ==========================================================
+# main() 統合テスト
+# ==========================================================
+
+
+class TestMain:
+    """main() 関数の統合テスト。"""
+
+    @staticmethod
+    def _run_main_with_fake_root(tmp_path: Path) -> int:
+        """tmp_path をプロジェクトルートとみなして main() を実行するヘルパー。
+
+        main() は Path(__file__).resolve().parent.parent で entries/ を探すため、
+        モジュールの __file__ を tmp_path/scripts/validate_frontmatter.py に差し替える。
+        """
+        import scripts.validate_frontmatter as mod
+
+        fake_script = tmp_path / "scripts" / "validate_frontmatter.py"
+        fake_script.parent.mkdir(parents=True, exist_ok=True)
+
+        original_file = mod.__file__
+        try:
+            mod.__file__ = str(fake_script)
+            with patch("scripts.validate_frontmatter.sys.argv", ["validate_frontmatter.py"]):
+                return main()
+        finally:
+            mod.__file__ = original_file
+
+    def test_エントリがバリデーション成功する場合は0を返す(self, tmp_path: Path):
+        """正常なエントリのみの場合、main() は 0 を返す。"""
+        entries_dir = tmp_path / "entries"
+        entries_dir.mkdir()
+        _write_md(entries_dir / "valid-entry.md", _valid_meta())
+
+        result = self._run_main_with_fake_root(tmp_path)
+        assert result == 0
+
+    def test_エントリにエラーがある場合は1を返す(self, tmp_path: Path):
+        """バリデーションエラーがあるエントリの場合、main() は 1 を返す。"""
+        entries_dir = tmp_path / "entries"
+        entries_dir.mkdir()
+        # 必須フィールドが欠けたエントリ
+        _write_md(entries_dir / "bad-entry.md", {"title": "Bad Entry"})
+
+        result = self._run_main_with_fake_root(tmp_path)
+        assert result == 1
+
+    def test_entriesディレクトリが存在しない場合は1を返す(self, tmp_path: Path):
+        """entries/ ディレクトリが存在しない場合、main() は 1 を返す。"""
+        # entries/ ディレクトリは作成しない
+        result = self._run_main_with_fake_root(tmp_path)
+        assert result == 1

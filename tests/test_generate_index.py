@@ -1,6 +1,8 @@
 """generate_index.py のユニットテスト。"""
 
 from datetime import date, datetime
+from pathlib import Path
+from unittest.mock import patch
 
 from scripts.generate_index import (
     EntryMeta,
@@ -9,6 +11,7 @@ from scripts.generate_index import (
     generate_by_domain,
     generate_by_tag,
     generate_index_md,
+    main,
 )
 
 
@@ -179,3 +182,99 @@ class TestGenerateIndexMd:
         result = generate_index_md([])
         assert "エントリ追加後に自動更新されます" in result
         assert "| 総エントリ数 | 0 |" in result
+
+
+# ==========================================================
+# main() 統合テスト
+# ==========================================================
+
+
+def _write_entry_md(path: Path, meta: dict) -> None:
+    """テスト用の frontmatter 付き MD ファイルを生成する。"""
+    lines = ["---"]
+    for key, value in meta.items():
+        if isinstance(value, list):
+            lines.append(f"{key}:")
+            for item in value:
+                lines.append(f"  - {item}")
+        elif isinstance(value, date):
+            lines.append(f"{key}: {value.isoformat()}")
+        else:
+            lines.append(f'{key}: "{value}"')
+    lines.append("---")
+    lines.append("")
+    lines.append("本文")
+    path.write_text("\n".join(lines), encoding="utf-8")
+
+
+class TestMain:
+    """main() 関数の統合テスト。"""
+
+    def test_エントリがある場合はインデックスファイルを生成する(self, tmp_path: Path):
+        """entries/ にエントリがある場合、indexes/ と index.md が生成される。"""
+        entries_dir = tmp_path / "entries"
+        entries_dir.mkdir()
+        indexes_dir = tmp_path / "indexes"
+        index_md = tmp_path / "index.md"
+
+        _write_entry_md(
+            entries_dir / "test-entry.md",
+            {
+                "title": "テスト記事",
+                "company": "Example Inc.",
+                "url": "https://example.com/test",
+                "published_at": date(2024, 6, 15),
+                "content_type": "blog",
+                "qa_domains": ["test-automation"],
+                "tags": ["selenium"],
+                "added_at": date(2024, 7, 1),
+            },
+        )
+
+        with (
+            patch("scripts.generate_index.ENTRIES_DIR", entries_dir),
+            patch("scripts.generate_index.INDEXES_DIR", indexes_dir),
+            patch("scripts.generate_index.INDEX_MD", index_md),
+        ):
+            main()
+
+        # インデックスファイルが生成されていること
+        assert (indexes_dir / "by-company.md").exists()
+        assert (indexes_dir / "by-domain.md").exists()
+        assert (indexes_dir / "by-tag.md").exists()
+        assert (indexes_dir / "by-date.md").exists()
+        assert index_md.exists()
+
+        # 内容にエントリ情報が含まれていること
+        company_content = (indexes_dir / "by-company.md").read_text(encoding="utf-8")
+        assert "Example Inc." in company_content
+        assert "テスト記事" in company_content
+
+        index_content = index_md.read_text(encoding="utf-8")
+        assert "| 総エントリ数 | 1 |" in index_content
+
+    def test_エントリがない場合は空テンプレートを生成する(self, tmp_path: Path):
+        """entries/ が空の場合、空テンプレートのインデックスファイルが生成される。"""
+        entries_dir = tmp_path / "entries"
+        entries_dir.mkdir()
+        indexes_dir = tmp_path / "indexes"
+        index_md = tmp_path / "index.md"
+
+        with (
+            patch("scripts.generate_index.ENTRIES_DIR", entries_dir),
+            patch("scripts.generate_index.INDEXES_DIR", indexes_dir),
+            patch("scripts.generate_index.INDEX_MD", index_md),
+        ):
+            main()
+
+        # ファイルが生成されていること
+        assert (indexes_dir / "by-company.md").exists()
+        assert index_md.exists()
+
+        # 空テンプレートの内容を確認
+        company_content = (indexes_dir / "by-company.md").read_text(encoding="utf-8")
+        assert "エントリがありません" in company_content
+
+        index_content = index_md.read_text(encoding="utf-8")
+        assert "| 総エントリ数 | 0 |" in index_content
+        assert "エントリ追加後に自動更新されます" in index_content

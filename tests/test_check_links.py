@@ -3,10 +3,10 @@
 from pathlib import Path
 from unittest.mock import MagicMock, patch
 
+import pytest
 import requests
 
-from scripts.check_links import check_url, load_entries, run_checks
-
+from scripts.check_links import check_url, load_entries, main, run_checks
 
 # ==========================================================
 # check_url テスト（4ケース）
@@ -192,3 +192,56 @@ class TestRunChecks:
         """空のエントリリストを渡すと空リストを返す。"""
         results = run_checks([])
         assert results == []
+
+
+# ==========================================================
+# main() 統合テスト
+# ==========================================================
+
+
+class TestMain:
+    """main() 関数の統合テスト。"""
+
+    @patch("scripts.check_links.sys.argv", ["check_links.py"])
+    @patch("scripts.check_links.load_entries", return_value=[])
+    def test_エントリなしの場合は正常終了(self, mock_load):
+        """チェック対象のエントリがない場合、exit code 0 で終了する。"""
+        with pytest.raises(SystemExit) as exc_info:
+            main()
+        assert exc_info.value.code == 0
+
+    @patch("scripts.check_links.sys.argv", ["check_links.py"])
+    @patch("scripts.check_links.run_checks")
+    @patch("scripts.check_links.load_entries")
+    def test_全URL成功の場合は正常終了(self, mock_load, mock_run_checks):
+        """全URLが成功の場合、exit code 0 で終了する。"""
+        mock_load.return_value = [
+            {"filename": "a.md", "url": "https://example.com/a"},
+            {"filename": "b.md", "url": "https://example.com/b"},
+        ]
+        mock_run_checks.return_value = [
+            {"filename": "a.md", "url": "https://example.com/a", "success": True, "status": "200 OK"},
+            {"filename": "b.md", "url": "https://example.com/b", "success": True, "status": "200 OK"},
+        ]
+
+        with pytest.raises(SystemExit) as exc_info:
+            main()
+        assert exc_info.value.code == 0
+
+    @patch("scripts.check_links.sys.argv", ["check_links.py"])
+    @patch("scripts.check_links.run_checks")
+    @patch("scripts.check_links.load_entries")
+    def test_一部失敗の場合はエラー終了(self, mock_load, mock_run_checks):
+        """一部のURLが失敗の場合、exit code 1 で終了する。"""
+        mock_load.return_value = [
+            {"filename": "a.md", "url": "https://example.com/a"},
+            {"filename": "b.md", "url": "https://example.com/b"},
+        ]
+        mock_run_checks.return_value = [
+            {"filename": "a.md", "url": "https://example.com/a", "success": True, "status": "200 OK"},
+            {"filename": "b.md", "url": "https://example.com/b", "success": False, "status": "404 Not Found"},
+        ]
+
+        with pytest.raises(SystemExit) as exc_info:
+            main()
+        assert exc_info.value.code == 1
