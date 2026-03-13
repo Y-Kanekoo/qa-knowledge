@@ -1,8 +1,8 @@
 """テスト共通フィクスチャ。"""
 
 import sys
-from pathlib import Path
 from datetime import date
+from pathlib import Path
 
 import pytest
 

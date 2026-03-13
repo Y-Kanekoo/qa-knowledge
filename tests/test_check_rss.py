@@ -1,7 +1,6 @@
 """check_rss.py のユニットテスト。"""
 
 import time
-
 from unittest.mock import MagicMock, patch
 
 from scripts.check_rss import (
@@ -12,7 +11,6 @@ from scripts.check_rss import (
     normalize_url,
     parse_published_date,
 )
-
 
 # ==========================================================
 # normalize_url（5ケース）
@@ -257,7 +255,11 @@ class TestCheckFeeds:
         mock_parse.return_value = mock_result
 
         config = {
-            "feeds": [{"name": "Blog", "url": "https://example.com/feed", "company": "Example", "language": "ja", "skip_keyword_filter": True}],
+            "feeds": [{
+                "name": "Blog", "url": "https://example.com/feed",
+                "company": "Example", "language": "ja",
+                "skip_keyword_filter": True,
+            }],
             "keywords": ["テスト"],
         }
         results = check_feeds(config, existing_urls=set(), dry_run=False, days_limit=0)

@@ -9,9 +9,9 @@ import argparse
 import logging
 import re
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from urllib.parse import urlparse, parse_qs, urlencode
+from urllib.parse import parse_qs, urlencode, urlparse
 
 import feedparser
 import frontmatter
@@ -120,7 +120,7 @@ def parse_published_date(entry: dict) -> str:
         parsed = entry.get(date_field)
         if parsed:
             try:
-                dt = datetime(*parsed[:6], tzinfo=timezone.utc)
+                dt = datetime(*parsed[:6], tzinfo=UTC)
                 return dt.strftime("%Y-%m-%d")
             except (TypeError, ValueError):
                 continue
@@ -159,7 +159,7 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
     new_articles: list[dict] = []
 
     # 日付フィルタの基準日
-    cutoff_date = (datetime.now(tz=timezone.utc) - timedelta(days=days_limit)).date()
+    cutoff_date = (datetime.now(tz=UTC) - timedelta(days=days_limit)).date()
 
     for feed_config in feeds:
         name = feed_config["name"]
