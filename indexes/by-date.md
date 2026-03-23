@@ -4,6 +4,31 @@
 
 | 追加日 | タイトル | 会社 | QA領域 |
 |--------|---------|------|--------|
+| 2026-03-24 | [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) | Airbnb | test-automation, mobile-cross-browser |
+| 2026-03-24 | [CodeQL team uses AI to power vulnerability detection in code](../entries/github-codeql-team-uses-ai-to-power-vulnerability-detection-in-code.md) | GitHub | security-test, ai-testing |
+| 2026-03-24 | [Leveling Up Fuzzing: Finding more vulnerabilities with AI](../entries/google-leveling-up-fuzzing-finding-more-vulnerabilities-with-ai.md) | Google | security-test, ai-testing, test-automation |
+| 2026-03-24 | [Scaling security with AI:  from detection to solution](../entries/google-scaling-security-with-ai-from-detection-to-solution.md) | Google | security-test, ai-testing, test-automation |
+| 2026-03-24 | [Tech on the Toilet: Driving Software Excellence, One Bathroom Break at a Time](../entries/google-tech-on-toilet-driving-software-excellence.md) | Google | test-strategy, org-design, shift-left |
+| 2026-03-24 | [Observability Survey 2024](../entries/grafana-labs-observability-survey-2024.md) | Grafana Labs | observability, quality-metrics, reliability |
+| 2026-03-24 | [Honeycomb + Tracetest: Observability-Driven Development](../entries/honeycomb-observability-driven-development.md) | Honeycomb | observability, test-automation, ci-cd |
+| 2026-03-24 | [Eliminating Toil with Fully Automated Load Testing](../entries/linkedin-eliminating-toil-automated-load-testing.md) | LinkedIn | performance-test, test-automation, reliability, observability |
+| 2026-03-24 | [Closing the Visual Testing Gap on Android with Screenshot Tests](../entries/mercari-closing-visual-testing-gap-android-screenshot.md) | Mercari | test-automation, mobile-cross-browser, ci-cd |
+| 2026-03-24 | [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) | Meta | test-automation, ci-cd, shift-left, ai-testing, quality-metrics, reliability |
+| 2026-03-24 | [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) | Microsoft | test-strategy, test-automation, ci-cd |
+| 2026-03-24 | [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) | Microsoft | shift-left, test-strategy, test-automation, ci-cd, reliability, quality-metrics |
+| 2026-03-24 | [Automated Testing on Devices](../entries/netflix-automated-testing-on-devices.md) | Netflix | mobile-cross-browser, test-automation, test-strategy |
+| 2026-03-24 | [Fixing Performance Regressions Before They Happen](../entries/netflix-fixing-performance-regressions.md) | Netflix | performance-test, test-automation, ci-cd, quality-metrics, shift-left |
+| 2026-03-24 | [Title Launch Observability at Netflix Scale](../entries/netflix-title-launch-observability-at-scale.md) | Netflix | observability, reliability, test-automation, quality-metrics |
+| 2026-03-24 | [Automated Accessibility Testing at Slack](../entries/slack-automated-accessibility-testing.md) | Slack | test-automation, test-strategy, ci-cd, shift-left |
+| 2026-03-24 | [Load Testing for 2022 Wrapped](../entries/spotify-load-testing-2022-wrapped.md) | Spotify | performance-test, test-strategy, reliability, observability |
+| 2026-03-24 | [Fast builds, secure builds. Choose two.](../entries/stripe-fast-secure-builds-choose-two.md) | Stripe | ci-cd, security-test, performance-test, reliability |
+| 2026-03-24 | [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) | ThoughtWorks | test-strategy, test-automation, ci-cd |
+| 2026-03-24 | [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) | ThoughtWorks | test-strategy, test-automation, ci-cd |
+| 2026-03-24 | [Data Quality Automation at Twitter](../entries/twitter-data-quality-automation.md) | Twitter | test-automation, quality-metrics, observability, ci-cd, reliability |
+| 2026-03-24 | [DragonCrawl: Generative AI for High-Quality Mobile Testing](../entries/uber-generative-ai-for-high-quality-mobile-testing.md) | Uber | ai-testing, test-automation, mobile-cross-browser |
+| 2026-03-24 | [Introducing Ballast: An Adaptive Load Test Framework](../entries/uber-introducing-ballast-adaptive-load-test.md) | Uber | performance-test, test-automation, reliability |
+| 2026-03-24 | [Shifting E2E Testing Left at Uber](../entries/uber-shifting-e2e-testing-left.md) | Uber | test-strategy, test-automation, ci-cd, reliability, shift-left, observability |
+| 2026-03-24 | [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) | Uber | test-strategy, test-automation, ci-cd, shift-left, reliability, observability |
 | 2026-03-03 | [リレーブログ企画：サイボウズ QAエンジニアの取り組み紹介](../entries/cybozu-qa-engineer-relay-blog.md) | Cybozu | org-design |
 | 2026-03-03 | [SETからPlatform QAへ：DevOps推進のための組織再編](../entries/cybozu-set-to-platform-qa.md) | Cybozu | org-design |
 | 2026-03-03 | [DeNA 品質管理部門が挑むAI化戦略](../entries/dena-qa-ai-strategy.md) | DeNA | ai-testing, org-design |

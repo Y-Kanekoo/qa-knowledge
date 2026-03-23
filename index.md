@@ -8,25 +8,25 @@
 
 | 項目 | 数値 |
 |------|------|
-| 総エントリ数 | 25 |
-| 収録企業数 | 15 |
-| QA領域数 | 9 |
-| 最終更新 | 2026-03-02 |
+| 総エントリ数 | 50 |
+| 収録企業数 | 25 |
+| QA領域数 | 12 |
+| 最終更新 | 2026-03-24 |
 
 ## 最近追加されたエントリ
 
 | 追加日 | タイトル | 会社 | QA領域 |
 |--------|---------|------|--------|
-| 2026-03-03 | [リレーブログ企画：サイボウズ QAエンジニアの取り組み紹介](entries/cybozu-qa-engineer-relay-blog.md) | Cybozu | org-design |
-| 2026-03-03 | [SETからPlatform QAへ：DevOps推進のための組織再編](entries/cybozu-set-to-platform-qa.md) | Cybozu | org-design |
-| 2026-03-03 | [DeNA 品質管理部門が挑むAI化戦略](entries/dena-qa-ai-strategy.md) | DeNA | ai-testing, org-design |
-| 2026-03-03 | [DeNAのエンジニアが信頼を寄せるSWETって一体何者!?](entries/dena-what-is-swet.md) | DeNA | org-design, test-automation |
-| 2026-03-03 | [Infrastructure and Quality department | The GitLab Handbook](entries/gitlab-infrastructure-quality-handbook.md) | GitLab | org-design, quality-metrics |
-| 2026-03-03 | [Announcing the 2024 DORA Report](entries/google-cloud-announcing-the-2024-dora-report.md) | Google Cloud | quality-metrics, ci-cd |
-| 2026-03-03 | [Flaky Tests at Google and How We Mitigate Them](entries/google-flaky-tests-mitigation.md) | Google | test-automation, ci-cd |
-| 2026-03-03 | [From QA to Engineering Productivity](entries/google-from-qa-to-engineering-productivity.md) | Google | org-design |
-| 2026-03-03 | [Mutation Testing](entries/google-mutation-testing.md) | Google | test-automation, test-strategy |
-| 2026-03-03 | [Testing for Reliability | Google SRE Book Chapter 17](entries/google-sre-book-testing-reliability.md) | Google | reliability, test-strategy |
+| 2026-03-24 | [Better Android Testing at Airbnb — Part 3: Interaction Testing](entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) | Airbnb | test-automation, mobile-cross-browser |
+| 2026-03-24 | [CodeQL team uses AI to power vulnerability detection in code](entries/github-codeql-team-uses-ai-to-power-vulnerability-detection-in-code.md) | GitHub | security-test, ai-testing |
+| 2026-03-24 | [Leveling Up Fuzzing: Finding more vulnerabilities with AI](entries/google-leveling-up-fuzzing-finding-more-vulnerabilities-with-ai.md) | Google | security-test, ai-testing, test-automation |
+| 2026-03-24 | [Scaling security with AI:  from detection to solution](entries/google-scaling-security-with-ai-from-detection-to-solution.md) | Google | security-test, ai-testing, test-automation |
+| 2026-03-24 | [Tech on the Toilet: Driving Software Excellence, One Bathroom Break at a Time](entries/google-tech-on-toilet-driving-software-excellence.md) | Google | test-strategy, org-design, shift-left |
+| 2026-03-24 | [Observability Survey 2024](entries/grafana-labs-observability-survey-2024.md) | Grafana Labs | observability, quality-metrics, reliability |
+| 2026-03-24 | [Honeycomb + Tracetest: Observability-Driven Development](entries/honeycomb-observability-driven-development.md) | Honeycomb | observability, test-automation, ci-cd |
+| 2026-03-24 | [Eliminating Toil with Fully Automated Load Testing](entries/linkedin-eliminating-toil-automated-load-testing.md) | LinkedIn | performance-test, test-automation, reliability, observability |
+| 2026-03-24 | [Closing the Visual Testing Gap on Android with Screenshot Tests](entries/mercari-closing-visual-testing-gap-android-screenshot.md) | Mercari | test-automation, mobile-cross-browser, ci-cd |
+| 2026-03-24 | [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](entries/meta-predictive-test-selection.md) | Meta | test-automation, ci-cd, shift-left, ai-testing, quality-metrics, reliability |
 
 ## インデックス
 
