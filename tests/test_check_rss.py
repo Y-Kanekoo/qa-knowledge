@@ -1,7 +1,10 @@
 """check_rss.py のユニットテスト。"""
 
+import json
 import time
 from unittest.mock import MagicMock, patch
+
+import requests
 
 from scripts.check_rss import (
     check_feeds,
@@ -10,6 +13,7 @@ from scripts.check_rss import (
     matches_keywords,
     normalize_url,
     parse_published_date,
+    send_discord_notification,
 )
 
 # ==========================================================
@@ -264,3 +268,67 @@ class TestCheckFeeds:
         }
         results = check_feeds(config, existing_urls=set(), dry_run=False, days_limit=0)
         assert len(results) >= 1
+
+
+# ==========================================================
+# send_discord_notification（4ケース）
+# ==========================================================
+
+
+class TestSendDiscordNotification:
+    """Discord通知テスト。"""
+
+    SAMPLE_ARTICLES = [
+        {
+            "blog": "Google Testing Blog",
+            "company": "Google",
+            "title": "テスト自動化の最新手法",
+            "url": "https://testing.googleblog.com/2026/03/test-automation.html",
+            "published": "2026-03-15",
+            "language": "en",
+        }
+    ]
+
+    @patch("scripts.check_rss.requests.post")
+    def test_記事ありの場合にWebhookを送信する(self, mock_post):
+        mock_resp = MagicMock()
+        mock_resp.raise_for_status.return_value = None
+        mock_post.return_value = mock_resp
+
+        result = send_discord_notification("https://discord.com/api/webhooks/test", self.SAMPLE_ARTICLES)
+        assert result is True
+        mock_post.assert_called_once()
+
+        # 送信ペイロードの検証
+        call_kwargs = mock_post.call_args
+        payload = json.loads(call_kwargs.kwargs["data"] if "data" in call_kwargs.kwargs else call_kwargs[1]["data"])
+        assert len(payload["embeds"]) == 1
+        assert payload["embeds"][0]["title"] == "テスト自動化の最新手法"
+
+    @patch("scripts.check_rss.requests.post")
+    def test_記事なしの場合は送信しない(self, mock_post):
+        result = send_discord_notification("https://discord.com/api/webhooks/test", [])
+        assert result is True
+        mock_post.assert_not_called()
+
+    @patch("scripts.check_rss.requests.post")
+    def test_送信失敗時にFalseを返す(self, mock_post):
+        mock_post.side_effect = requests.exceptions.ConnectionError("接続エラー")
+
+        result = send_discord_notification("https://discord.com/api/webhooks/test", self.SAMPLE_ARTICLES)
+        assert result is False
+
+    @patch("scripts.check_rss.requests.post")
+    def test_11件以上の場合にバッチ分割する(self, mock_post):
+        mock_resp = MagicMock()
+        mock_resp.raise_for_status.return_value = None
+        mock_post.return_value = mock_resp
+
+        # 11件の記事を生成
+        articles = [
+            {**self.SAMPLE_ARTICLES[0], "title": f"記事{i}", "url": f"https://example.com/{i}"}
+            for i in range(11)
+        ]
+        result = send_discord_notification("https://discord.com/api/webhooks/test", articles)
+        assert result is True
+        assert mock_post.call_count == 2  # 10件 + 1件 の2バッチ

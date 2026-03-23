@@ -1,8 +1,8 @@
-name: 新着QA記事チェック（週次）
+name: 新着QA記事チェック（日次）
 
 on:
   schedule:
-    - cron: "0 0 * * 1"  # 毎週月曜 00:00 UTC
+    - cron: "0 0 * * *"  # 毎日 00:00 UTC（JST 09:00）
   workflow_dispatch: {}   # 手動実行も可能
 
 jobs:
@@ -16,11 +16,17 @@ jobs:
         with:
           python-version: "3.12"
       - name: 依存パッケージのインストール
-        run: pip install feedparser pyyaml python-frontmatter
+        run: pip install feedparser pyyaml python-frontmatter requests
       - name: RSSフィードの巡回
         id: rss
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          python scripts/check_rss.py --format markdown > rss_result.txt 2>&1 || true
+          NOTIFY_FLAG=""
+          if [ -n "$DISCORD_WEBHOOK_URL" ]; then
+            NOTIFY_FLAG="--notify discord"
+          fi
+          python scripts/check_rss.py --format markdown $NOTIFY_FLAG > rss_result.txt 2>&1 || true
           if [ -s rss_result.txt ] && grep -q "新着QA関連記事" rss_result.txt; then
             echo "has_new_articles=true" >> "$GITHUB_OUTPUT"
           else
