@@ -8,8 +8,8 @@
 
 | 項目 | 数値 |
 |------|------|
-| 総エントリ数 | 50 |
-| 収録企業数 | 25 |
+| 総エントリ数 | 103 |
+| 収録企業数 | 39 |
 | QA領域数 | 12 |
 | 最終更新 | 2026-03-24 |
 
@@ -18,15 +18,15 @@
 | 追加日 | タイトル | 会社 | QA領域 |
 |--------|---------|------|--------|
 | 2026-03-24 | [Better Android Testing at Airbnb — Part 3: Interaction Testing](entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) | Airbnb | test-automation, mobile-cross-browser |
-| 2026-03-24 | [CodeQL team uses AI to power vulnerability detection in code](entries/github-codeql-team-uses-ai-to-power-vulnerability-detection-in-code.md) | GitHub | security-test, ai-testing |
-| 2026-03-24 | [Leveling Up Fuzzing: Finding more vulnerabilities with AI](entries/google-leveling-up-fuzzing-finding-more-vulnerabilities-with-ai.md) | Google | security-test, ai-testing, test-automation |
-| 2026-03-24 | [Scaling security with AI:  from detection to solution](entries/google-scaling-security-with-ai-from-detection-to-solution.md) | Google | security-test, ai-testing, test-automation |
-| 2026-03-24 | [Tech on the Toilet: Driving Software Excellence, One Bathroom Break at a Time](entries/google-tech-on-toilet-driving-software-excellence.md) | Google | test-strategy, org-design, shift-left |
-| 2026-03-24 | [Observability Survey 2024](entries/grafana-labs-observability-survey-2024.md) | Grafana Labs | observability, quality-metrics, reliability |
-| 2026-03-24 | [Honeycomb + Tracetest: Observability-Driven Development](entries/honeycomb-observability-driven-development.md) | Honeycomb | observability, test-automation, ci-cd |
-| 2026-03-24 | [Eliminating Toil with Fully Automated Load Testing](entries/linkedin-eliminating-toil-automated-load-testing.md) | LinkedIn | performance-test, test-automation, reliability, observability |
-| 2026-03-24 | [Closing the Visual Testing Gap on Android with Screenshot Tests](entries/mercari-closing-visual-testing-gap-android-screenshot.md) | Mercari | test-automation, mobile-cross-browser, ci-cd |
-| 2026-03-24 | [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](entries/meta-predictive-test-selection.md) | Meta | test-automation, ci-cd, shift-left, ai-testing, quality-metrics, reliability |
+| 2026-03-24 | [Automating safe, hands-off deployments](entries/amazon-automating-safe-hands-off-deployments.md) | Amazon | test-automation, ci-cd, reliability |
+| 2026-03-24 | [Avoiding fallback in distributed systems](entries/amazon-avoiding-fallback-in-distributed-systems.md) | Amazon | reliability, test-strategy |
+| 2026-03-24 | [Challenges with distributed systems](entries/amazon-challenges-with-distributed-systems.md) | Amazon | test-strategy, reliability |
+| 2026-03-24 | [Ensuring rollback safety during deployments](entries/amazon-ensuring-rollback-safety-during-deployments.md) | Amazon | test-strategy, reliability, ci-cd |
+| 2026-03-24 | [Going faster with continuous delivery](entries/amazon-going-faster-with-continuous-delivery.md) | Amazon | ci-cd, test-automation, test-strategy |
+| 2026-03-24 | [Implementing health checks](entries/amazon-implementing-health-checks.md) | Amazon | reliability, observability |
+| 2026-03-24 | [Timeouts, retries and backoff with jitter](entries/amazon-timeouts-retries-backoff-with-jitter.md) | Amazon | reliability, test-strategy, performance-test |
+| 2026-03-24 | [Using load shedding to avoid overload](entries/amazon-using-load-shedding-to-avoid-overload.md) | Amazon | reliability, performance-test, observability |
+| 2026-03-24 | [Chaos Engineering in the Wild: Findings from GitHub](entries/arxiv-chaos-engineering-in-the-wild.md) | Jheronimus Academy of Data Science | reliability, test-strategy |
 
 ## インデックス
 
