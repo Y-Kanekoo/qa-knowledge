@@ -18,60 +18,72 @@ jobs:
         with:
           python-version: "3.12"
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-
       - name: 依存パッケージのインストール
-        run: |
-          pip install -r requirements.txt
-          npm install -g @anthropic-ai/claude-code
+        run: pip install -r requirements.txt
 
-      - name: RSS新着記事の確認
-        id: rss
+      - name: RSS新着記事の検出と骨格エントリ生成
+        id: collect
         run: |
-          python scripts/check_rss.py --days 7 > /tmp/rss_result.txt 2>&1 || true
-          if grep -q "新着QA関連記事" /tmp/rss_result.txt; then
-            echo "has_new=true" >> "$GITHUB_OUTPUT"
-            cat /tmp/rss_result.txt
-          else
-            echo "has_new=false" >> "$GITHUB_OUTPUT"
+          # RSS新着記事を取得（JSON形式で出力するため一時的にテキスト出力を解析）
+          python scripts/check_rss.py --days 3 > /tmp/rss_result.txt 2>/tmp/rss_log.txt || true
+
+          if ! grep -q "新着QA関連記事" /tmp/rss_result.txt; then
             echo "新着記事なし"
+            echo "has_new=false" >> "$GITHUB_OUTPUT"
+            exit 0
           fi
 
-      - name: Claude Code で記事を自動追加
-        if: steps.rss.outputs.has_new == 'true'
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          claude -p --allowedTools 'Bash(python:*),Bash(.venv/bin/*),Read,Write,Edit,Glob,Grep,WebFetch,WebSearch' "
-          以下の手順でQAナレッジベースに記事を追加してください。
+          echo "has_new=true" >> "$GITHUB_OUTPUT"
+          ADDED=0
 
-          1. まず scripts/check_rss.py --days 7 を実行して新着記事を確認
-          2. 新着記事のURLごとに:
-             a. WebFetch で記事の内容を取得
-             b. 以下の品質基準を満たすか判定:
-                - 一次情報（公式テックブログ、カンファレンス発表等）であること
-                - 具体的な手法、ツール、定量データを含むこと
-                - 単なるニュース記事や広告でないこと
-             c. 品質基準を満たす場合のみ、entries/ にエントリファイルを作成
-          3. entries/_template.md の形式に従い、全フィールドを埋める
-             - content_type: blog, conference_talk, slide_deck, oss_config, handbook, case_study, book_excerpt, podcast, video
-             - qa_domains: test-strategy, test-automation, ci-cd, reliability, quality-metrics, org-design, ai-testing, security-test, performance-test, mobile-cross-browser, shift-left, observability
-             - tags: ケバブケース、3-7個
-             - 概要（2-3文）と何が学べるか（3-5点）を記事に基づき生成
-          4. python scripts/validate_frontmatter.py でバリデーション
-          5. python scripts/generate_index.py でインデックス再生成
-          6. 追加した記事のタイトル一覧を標準出力に表示
-          "
+          # テキスト出力からURLと企業名を抽出して scaffold.py で骨格生成
+          # check_rss.py のテキスト出力形式: "  [ブログ名] タイトル\n    URL: https://...\n"
+          while IFS= read -r url_line; do
+            URL=$(echo "$url_line" | sed 's/^.*URL: //')
+            # 直前の行からブログ名を取得（feeds.yml の company に対応）
+            BLOG_LINE=$(grep -B1 "$URL" /tmp/rss_result.txt | head -1)
+            BLOG_NAME=$(echo "$BLOG_LINE" | sed 's/^.*\[//' | sed 's/\].*//')
+
+            # feeds.yml からブログ名に対応する企業名を取得
+            COMPANY=$(python -c "
+          import yaml
+          with open('feeds.yml') as f:
+              config = yaml.safe_load(f)
+          for feed in config.get('feeds', []):
+              if feed['name'] == '$BLOG_NAME':
+                  print(feed['company'])
+                  break
+          " 2>/dev/null || echo "")
+
+            if [ -z "$COMPANY" ]; then
+              echo "企業名が取得できませんでした: $BLOG_NAME"
+              continue
+            fi
+
+            echo "骨格生成: $URL (企業: $COMPANY)"
+            python scripts/scaffold.py "$URL" --company "$COMPANY" 2>/tmp/scaffold_err.txt || {
+              echo "  scaffold失敗: $(cat /tmp/scaffold_err.txt)"
+              continue
+            }
+            ADDED=$((ADDED + 1))
+          done < <(grep "URL:" /tmp/rss_result.txt)
+
+          echo "added_count=$ADDED" >> "$GITHUB_OUTPUT"
+          echo "追加件数: $ADDED"
+
+      - name: バリデーション
+        if: steps.collect.outputs.has_new == 'true' && steps.collect.outputs.added_count != '0'
+        run: |
+          python scripts/validate_frontmatter.py || true
+          python scripts/generate_index.py
 
       - name: 変更の確認
         id: changes
         run: |
-          if git diff --quiet && git diff --cached --quiet; then
+          if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard entries/)" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
           else
-            ADDED=$(git diff --name-only | grep '^entries/' | wc -l | tr -d ' ')
+            ADDED=$(git ls-files --others --exclude-standard entries/ | wc -l | tr -d ' ')
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
             echo "added_count=$ADDED" >> "$GITHUB_OUTPUT"
           fi
@@ -81,17 +93,20 @@ jobs:
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "[feat] QA記事を自動収集する（${{ steps.changes.outputs.added_count }}件）"
-          title: "[auto] QA記事自動収集 (${{ steps.changes.outputs.added_count }}件) - ${{ github.run_id }}"
+          commit-message: "[feat] QA記事の骨格を自動生成する（${{ steps.changes.outputs.added_count }}件）"
+          title: "[auto] QA記事骨格 (${{ steps.changes.outputs.added_count }}件) - ${{ github.run_id }}"
           body: |
-            ## 自動収集された記事
+            ## 自動生成された記事骨格
 
-            RSS日次巡回で検出された新着QA記事を Claude Code が自動追加しました。
+            RSS日次巡回で検出された新着QA記事の骨格ファイルを `scaffold.py` で自動生成しました。
 
             - 追加件数: ${{ steps.changes.outputs.added_count }}件
-            - 品質基準: 一次情報・具体的手法/データを含むもののみ
-            - バリデーション: 全エントリパス済み
+            - **title, company, url, published_at, language** は自動入力済み
+            - **content_type, qa_domains, tags, 概要, 何が学べるか** は未記入
 
-            **レビューしてマージしてください。**
+            ### 次のステップ
+            1. このPRをチェックアウト
+            2. 各エントリに対して `/add-entry` で内容を補完（ローカルの Claude Code で無料実行）
+            3. レビューしてマージ
           branch: auto/collect-articles-${{ github.run_number }}
           labels: auto-collect,new-article
