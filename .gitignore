@@ -17,5 +17,8 @@ Thumbs.db
 .vscode/
 *.swp
 
+# パッケージマネージャ
+uv.lock
+
 # 環境変数（APIキー等）
 .env

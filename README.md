@@ -6,13 +6,20 @@
 
 各エントリには元記事へのリンクだけでなく、**「何が学べるか」** を具体的に記述し、単なるリンク集を超えた実用的なナレッジベースを目指す。
 
+## 規模
+
+- **103件**のエントリ、**22社**以上の企業事例を収録
+- **全12 QAドメイン**をカバー（テスト戦略、テスト自動化、CI/CD、信頼性、品質メトリクス、QA組織設計、AIテスト、セキュリティテスト、パフォーマンステスト、モバイルテスト、シフトレフト、オブザーバビリティ）
+- 日本語 39件 / 英語 64件
+
 ## 特徴
 
 - YAML frontmatter による構造化メタデータ（企業名、QA領域、タグ、難易度等）
 - 会社別・QA領域別・タグ別・追加日順の自動生成インデックス
 - MkDocs Material による全文検索対応の静的サイト
 - GitHub Actions による CI/CD（バリデーション、インデックス自動更新、サイトデプロイ、リンク・RSS監視）
-- RSSフィード監視による新着QA記事の自動検出（週次 → GitHub Issue通知）
+- RSSフィード日次巡回による新着QA記事の自動検出（Discord通知 + GitHub Issue）
+- Claude Code カスタムコマンド14種によるワークフロー自動化
 - [ドキュメントサイト](https://y-kanekoo.github.io/qa-knowledge/)（GitHub Pages）
 
 ## 収録対象
@@ -40,14 +47,14 @@ mkdocs serve
 # http://127.0.0.1:8000 で確認
 ```
 
-## RSS監視（自動）
+## RSS監視（自動・日次）
 
-毎週月曜に GitHub Actions が RSS フィードを巡回し、
-未収録のQA関連記事を GitHub Issue で通知する。
+毎日 GitHub Actions が RSS フィードを巡回し、未収録のQA関連記事を検出する。
 
-- 監視対象: `feeds.yml` で定義（Google Testing Blog, Netflix, Spotify, メルカリ 等）
+- **通知先**: Discord Webhook（リッチEmbed形式）+ GitHub Issue
+- 監視対象: `feeds.yml` で定義（Google, Netflix, Spotify, Mercari, LY Corporation, Cybozu, DeNA 等14フィード）
 - QAキーワードでフィルタリング（汎用ブログからQA記事のみ抽出）
-- 手動実行: Actions タブ → 「新着QA記事チェック（週次）」→ Run workflow
+- 手動実行: Actions タブ → 「新着QA記事チェック（日次）」→ Run workflow
 
 ### フィードの追加
 
@@ -87,7 +94,7 @@ qa-knowledge/
 | インデックス自動生成 | main への push（`entries/` 変更時） | by-company, by-domain 等のインデックスを再生成 |
 | ドキュメントサイトのデプロイ | main への push | MkDocs Material サイトを GitHub Pages にデプロイ |
 | リンク切れチェック（月次） | 月次スケジュール / 手動 | 全エントリのURLが有効か確認し、問題があれば Issue 作成 |
-| 新着QA記事チェック（週次） | 週次スケジュール / 手動 | RSS フィードを巡回し、未収録記事を Issue で通知 |
+| 新着QA記事チェック（日次） | 日次スケジュール / 手動 | RSS 巡回、未収録記事を Discord + Issue で通知 |
 
 ## スキーマ
 

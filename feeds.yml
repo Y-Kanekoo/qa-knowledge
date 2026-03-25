@@ -1,5 +1,5 @@
 # 監視対象RSSフィード定義
-# scripts/check_rss.py が週次で巡回し、新着QA関連記事をGitHub Issueとして通知する
+# scripts/check_rss.py が日次で巡回し、Discord + GitHub Issueで通知する
 
 feeds:
   - name: Google Testing Blog
@@ -71,6 +71,41 @@ feeds:
   - name: Meta Engineering
     company: Meta
     url: https://engineering.fb.com/feed/
+    language: en
+
+  - name: freee Developers Blog
+    company: freee
+    url: https://developers.freee.co.jp/feed
+    language: ja
+
+  - name: ZOZO Tech Blog
+    company: ZOZO
+    url: https://techblog.zozo.com/rss
+    language: ja
+
+  - name: Cookpad Developers Blog
+    company: Cookpad
+    url: https://techlife.cookpad.com/rss
+    language: ja
+
+  - name: LayerX Tech Blog
+    company: LayerX
+    url: https://tech.layerx.co.jp/rss
+    language: ja
+
+  - name: Uber Engineering
+    company: Uber
+    url: https://www.uber.com/blog/engineering/rss/
+    language: en
+
+  - name: Slack Engineering
+    company: Slack
+    url: https://slack.engineering/feed/
+    language: en
+
+  - name: Stripe Blog
+    company: Stripe
+    url: https://stripe.com/blog/feed.rss
     language: en
 
 # QA関連記事のフィルタリング用キーワード（タイトル・概要に含まれるか大文字小文字無視でチェック）
