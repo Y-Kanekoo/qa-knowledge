@@ -13,12 +13,16 @@ import re
 import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from urllib.parse import parse_qs, urlencode, urlparse
 
 import feedparser
 import frontmatter
 import requests
 import yaml
+
+try:
+    from scripts._url import normalize_url
+except ImportError:
+    from _url import normalize_url
 
 # モジュールレベルのロガー
 logger = logging.getLogger(__name__)
@@ -77,25 +81,6 @@ def load_existing_urls() -> set[str]:
             continue
 
     return urls
-
-
-def normalize_url(url: str) -> str:
-    """URLを正規化する（スキーム・www・トラッキングパラメータ対応）。"""
-    parsed = urlparse(url)
-    scheme = "https"
-    netloc = parsed.netloc.lower()
-    if netloc.startswith("www."):
-        netloc = netloc[4:]
-    path = parsed.path.rstrip("/")
-    # UTM等のトラッキングパラメータを除去
-    params = parse_qs(parsed.query, keep_blank_values=True)
-    clean_params = {k: v for k, v in params.items()
-                    if not k.lower().startswith(("utm_", "fbclid", "gclid"))}
-    query = urlencode(clean_params, doseq=True) if clean_params else ""
-    normalized = f"{scheme}://{netloc}{path}"
-    if query:
-        normalized += f"?{query}"
-    return normalized
 
 
 def matches_keywords(text: str, keywords: list[str]) -> bool:

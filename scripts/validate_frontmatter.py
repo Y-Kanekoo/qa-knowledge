@@ -9,6 +9,11 @@ from pathlib import Path
 
 import frontmatter
 
+try:
+    from scripts._url import normalize_url
+except ImportError:
+    from _url import normalize_url
+
 logger = logging.getLogger(__name__)
 
 # --- 許可値定義 ---
@@ -202,7 +207,8 @@ def check_duplicate_urls(files: list[Path]) -> dict[Path, list[str]]:
 
         url = post.metadata.get("url")
         if isinstance(url, str) and url.strip():
-            url_to_files.setdefault(url, []).append(filepath)
+            normalized = normalize_url(url)
+            url_to_files.setdefault(normalized, []).append(filepath)
 
     # 重複している URL を報告
     for url, filepaths in url_to_files.items():

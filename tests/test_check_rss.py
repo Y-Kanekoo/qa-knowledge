@@ -6,12 +6,12 @@ from unittest.mock import MagicMock, patch
 
 import requests
 
+from scripts._url import normalize_url
 from scripts.check_rss import (
     check_feeds,
     format_markdown,
     format_text,
     matches_keywords,
-    normalize_url,
     parse_published_date,
     send_discord_notification,
 )
