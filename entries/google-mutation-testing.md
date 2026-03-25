@@ -34,4 +34,7 @@ Googleが2013年のハッカソンから始め、2015年に本格展開したミ
 
 ## 関連エントリ
 
-- google-flaky-tests-mitigation.md
+
+- [Google - Test Sizes](google-test-sizes.md)
+- [Amazon - Going faster with continuous delivery](amazon-going-faster-with-continuous-delivery.md)
+- [Ariga - Testing Data Migrations](atlasgo-testing-data-migrations.md)

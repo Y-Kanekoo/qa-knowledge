@@ -40,3 +40,7 @@ deprecated: false
 
 ## 関連エントリ
 
+
+- [freee - ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](freee-testing-strategy-based-on-software-architecture.md)
+- [GitLab - The GitLab guide to modern software testing](gitlab-guide-to-modern-software-testing.md)
+- [GitLab - An inside look at software testing at GitLab](gitlab-inside-look-software-testing.md)

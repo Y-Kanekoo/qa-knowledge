@@ -33,3 +33,7 @@ GitLabのInfrastructure and Quality部門のハンドブックページ。エン
 - ハンドブック自体をオープンソースとして公開し、QAプロセスを透明化・外部共有する文化的実践
 
 ## 関連エントリ
+
+- [DeNA - 「受身から攻めのQA」に至るまでの道のり](dena-road-to-aggressive-qa.md)
+- [GitLab - Software Engineer in Test Job Family | The GitLab ](gitlab-software-engineer-in-test-job-family.md)
+- [ZOZO - 「品質」の基準とは？](zozo-quality-standard-definition.md)

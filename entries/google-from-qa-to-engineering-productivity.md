@@ -32,3 +32,7 @@ GoogleがQA部門をEngineering Productivity組織へと進化させた経緯を
 - エンジニア投票（91%賛成）で新職種名を決定するという、組織変化への合意形成手法
 
 ## 関連エントリ
+
+- [Cybozu - リレーブログ企画：サイボウズ QAエンジニアの取り組み紹介](cybozu-qa-engineer-relay-blog.md)
+- [GitLab - Software Engineer in Test Job Family | The GitLab ](gitlab-software-engineer-in-test-job-family.md)
+- [Google - Tech on the Toilet: Driving Software Excellence, O](google-tech-on-toilet-driving-software-excellence.md)

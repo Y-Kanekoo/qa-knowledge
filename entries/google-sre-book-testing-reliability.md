@@ -33,3 +33,7 @@ Google SREブック第17章「Testing for Reliability」の全文。SREエンジ
 - 「テスト成功は確実な信頼性を保証しない」という前提のもと、テスト結果と信頼性指標を組み合わせて判断する姿勢
 
 ## 関連エントリ
+
+- [Google - Google Cloud Introduces Chaos Engineering Framewor](google-cloud-chaos-engineering-framework.md)
+- [Microsoft - Shadow Testing - Engineering Fundamentals Playbook](microsoft-shadow-testing-playbook.md)
+- [Netflix - FIT: Failure Injection Testing](netflix-fit-failure-injection-testing.md)

@@ -32,3 +32,7 @@ SmartHRの届出書類機能チームが、Capybara + SeleniumベースのE2Eテ
 - チームディスカッションを通じた段階的な移行の進め方
 
 ## 関連エントリ
+
+- [Slack - Automated Accessibility Testing at Slack](slack-automated-accessibility-testing.md)
+- [TestDino - Cypress to Playwright Migration: A Step-by-Step Gu](testdino-cypress-to-playwright-migration.md)
+- [Cybozu - 自動テストのガイドライン策定によるテスト改善への取り組み](cybozu-automated-test-guidelines.md)

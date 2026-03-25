@@ -33,3 +33,7 @@ Google SREワークブック付録Bに掲載されている、エラーバジェ
 - 「信頼性と機能開発のバランスにインセンティブを与える」というエラーバジェットの組織的な活用目的
 
 ## 関連エントリ
+
+- [Grafana Labs - Observability Survey 2024](grafana-labs-observability-survey-2024.md)
+- [GitLab - Flaky tests management and processes | The GitLab ](gitlab-flaky-tests-management.md)
+- [Google - Testing for Reliability | Google SRE Book Chapter ](google-sre-book-testing-reliability.md)

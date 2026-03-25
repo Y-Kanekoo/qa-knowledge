@@ -38,3 +38,7 @@ LayerXバクラク事業部のQAチームマネージャーが、探索的テス
 
 ## 関連エントリ
 
+
+- [freee - スクラムマスターを兼任して見えてきた、シフトレフトのための立ち回りとやってきたQAの活動](freee-shift-left-scrum-master-qa.md)
+- [LayerX - バクラク開発におけるテストプランの進化 アジャイル、インプロセスQAでの試行錯誤](layerx-test-plan-evolution-agile.md)
+- [SmartHR - 探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](smarthr-exploratory-test-llm-auto-generation.md)

@@ -48,3 +48,7 @@ Stripeが数万のテストスイートを支えるCIビルドシステムにお
 - セキュリティとビルド速度のトレードオフを段階的に解消していく、大規模フィンテック企業のCI基盤進化の実例
 
 ## 関連エントリ
+
+- [Amazon - Automating safe, hands-off deployments](amazon-automating-safe-hands-off-deployments.md)
+- [Amazon - Ensuring rollback safety during deployments](amazon-ensuring-rollback-safety-during-deployments.md)
+- [Amazon - Timeouts, retries and backoff with jitter](amazon-timeouts-retries-backoff-with-jitter.md)

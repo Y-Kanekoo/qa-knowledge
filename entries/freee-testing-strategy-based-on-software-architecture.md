@@ -32,3 +32,7 @@ freeeの経費精算領域のテックリードが、ソフトウェアアーキ
 
 ## 関連エントリ
 
+
+- [freee - freeeの自動テストの全体構成](freee-automated-test-structure.md)
+- [Microsoft - Shift Left to Make Testing Fast and Reliable](microsoft-shift-left-make-testing-fast-reliable.md)
+- [Slack - Automated Accessibility Testing at Slack](slack-automated-accessibility-testing.md)

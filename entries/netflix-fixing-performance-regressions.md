@@ -38,3 +38,7 @@ NetflixのTVUIチームが、パフォーマンス回帰をリリース前（多
 
 ## 関連エントリ
 
+
+- [Meta - Predictive Test Selection: A More Efficient Way to](meta-predictive-test-selection.md)
+- [Microsoft - Shift Left to Make Testing Fast and Reliable](microsoft-shift-left-make-testing-fast-reliable.md)
+- [Slack - Automated Accessibility Testing at Slack](slack-automated-accessibility-testing.md)

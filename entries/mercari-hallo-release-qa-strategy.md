@@ -34,3 +34,7 @@ deprecated: false
 
 ## 関連エントリ
 
+
+- [Cookpad - テストケース作成を仕様詳細化の手段とする実験](cookpad-test-case-creation-as-spec-refinement.md)
+- [DeNA - Pocochaで実践するAgile Testing](dena-pococha-agile-testing.md)
+- [freee - 仕様検討段階でのQAの関わり方やチームでの品質保証について](freee-qa-involvement-in-spec-review.md)

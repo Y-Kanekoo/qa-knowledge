@@ -39,3 +39,7 @@ deprecated: false
 
 ## 関連エントリ
 
+
+- [freee - 仕様検討段階でのQAの関わり方やチームでの品質保証について](freee-qa-involvement-in-spec-review.md)
+- [freee - スクラムマスターを兼任して見えてきた、シフトレフトのための立ち回りとやってきたQAの活動](freee-shift-left-scrum-master-qa.md)
+- [Cookpad - テストを使いサービス開発を駆動していくために取り組んでいること](cookpad-test-driven-service-development.md)

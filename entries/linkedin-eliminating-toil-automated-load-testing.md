@@ -37,3 +37,7 @@ LinkedInが負荷テストを手動運用から完全自動化へ移行した取
 
 ## 関連エントリ
 
+
+- [Spotify - Load Testing for 2022 Wrapped](spotify-load-testing-2022-wrapped.md)
+- [Uber - Introducing Ballast: An Adaptive Load Test Framewo](uber-introducing-ballast-adaptive-load-test.md)
+- [Amazon - Using load shedding to avoid overload](amazon-using-load-shedding-to-avoid-overload.md)

@@ -32,3 +32,7 @@ freee人事労務チームが、CIの自動テスト実行時間を30分から10
 
 ## 関連エントリ
 
+
+- [Amazon - Automating safe, hands-off deployments](amazon-automating-safe-hands-off-deployments.md)
+- [freee - freeeの自動テストの全体構成](freee-automated-test-structure.md)
+- [freee - E2Eテスト分析基盤としてReportPortalを導入しました](freee-reportportal-e2e-test-analysis.md)

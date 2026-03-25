@@ -32,3 +32,7 @@ deprecated: false
 - 技術プラットフォーム刷新に伴うチームトポロジーの見直しと、新しい組織構造が定着するまでのプロセス
 
 ## 関連エントリ
+
+- [Cybozu - アジャイル型QAの心構え](cybozu-agile-qa-mindset.md)
+- [Cybozu - リレーブログ企画：サイボウズ QAエンジニアの取り組み紹介](cybozu-qa-engineer-relay-blog.md)
+- [Cybozu - リレーブログ企画：自動テストをQAが実装可能にする取り組み「QAムキムキ化」](cybozu-qa-mukimuki-automation.md)

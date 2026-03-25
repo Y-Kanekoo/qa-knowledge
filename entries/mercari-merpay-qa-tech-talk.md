@@ -33,3 +33,7 @@ deprecated: false
 - 自動化ノウハウの横展開とD&I（多様性推進）を今後の課題として掲げる、QA組織の中長期的な成長戦略
 
 ## 関連エントリ
+
+- [JaSST - JaSST'24 Tokyo レポート](jasst-jasst24-tokyo-report.md)
+- [Cybozu - アジャイル型QAの心構え](cybozu-agile-qa-mindset.md)
+- [Cybozu - リレーブログ企画：サイボウズ QAエンジニアの取り組み紹介](cybozu-qa-engineer-relay-blog.md)

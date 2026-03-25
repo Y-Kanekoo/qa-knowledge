@@ -34,3 +34,7 @@ deprecated: false
 
 ## 関連エントリ
 
+
+- [Uber - Shifting E2E Testing Left at Uber](uber-shifting-e2e-testing-left.md)
+- [Amazon - Going faster with continuous delivery](amazon-going-faster-with-continuous-delivery.md)
+- [Ariga - Testing Data Migrations](atlasgo-testing-data-migrations.md)

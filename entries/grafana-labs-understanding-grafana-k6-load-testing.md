@@ -32,3 +32,7 @@ deprecated: false
 
 ## 関連エントリ
 
+
+- [Amazon - Using load shedding to avoid overload](amazon-using-load-shedding-to-avoid-overload.md)
+- [LinkedIn - Eliminating Toil with Fully Automated Load Testing](linkedin-eliminating-toil-automated-load-testing.md)
+- [Spotify - Load Testing for 2022 Wrapped](spotify-load-testing-2022-wrapped.md)

@@ -41,3 +41,7 @@ deprecated: false
 
 ## 関連エントリ
 
+
+- [Mercari - Closing the Visual Testing Gap on Android with Scr](mercari-closing-visual-testing-gap-android-screenshot.md)
+- [Airbnb - Better Android Testing at Airbnb — Part 3: Interac](airbnb-better-android-testing-at-airbnb-part-3-interaction.md)
+- [freee - 自動テスト速度改善 - 自動テストが品質のボトルネックとならないために](freee-improving-ci-testing-speed.md)

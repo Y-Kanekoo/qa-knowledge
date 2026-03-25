@@ -35,3 +35,7 @@ deprecated: false
 
 ## 関連エントリ
 
+
+- [Mercari - メルペイQAメンバーが明かした「全員品質」のリアルと本音｜merpay QA Tech Talk レ](mercari-merpay-qa-tech-talk.md)
+- [Cybozu - アジャイル型QAの心構え](cybozu-agile-qa-mindset.md)
+- [freee - 仕様検討段階でのQAの関わり方やチームでの品質保証について](freee-qa-involvement-in-spec-review.md)

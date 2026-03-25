@@ -32,3 +32,7 @@ freeeのAI駆動QA基盤チームが構築した、生成AIエージェント（
 
 ## 関連エントリ
 
+
+- [DeNA - AIと開発プロセスの改善チャレンジ](dena-swet-ai-development-process.md)
+- [freee - freeeの自動テストの全体構成](freee-automated-test-structure.md)
+- [freee - テストアーキテクチャの実践](freee-test-architecture-practice.md)

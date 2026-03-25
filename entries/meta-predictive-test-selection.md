@@ -40,3 +40,7 @@ Metaが開発した機械学習ベースの予測的テスト選択（Predictive
 
 ## 関連エントリ
 
+
+- [Microsoft - Shift Left to Make Testing Fast and Reliable](microsoft-shift-left-make-testing-fast-reliable.md)
+- [Uber - Shifting E2E Testing Left at Uber](uber-shifting-e2e-testing-left.md)
+- [Netflix - Fixing Performance Regressions Before They Happen](netflix-fixing-performance-regressions.md)

@@ -40,3 +40,7 @@ deprecated: false
 - CI/CDパイプラインへのマイグレーションテスト統合と、本番規模データスナップショットによるパフォーマンス検証
 
 ## 関連エントリ
+
+- [Ariga - Testing Data Migrations](atlasgo-testing-data-migrations.md)
+- [Amazon - Going faster with continuous delivery](amazon-going-faster-with-continuous-delivery.md)
+- [Cookpad - テストを使いサービス開発を駆動していくために取り組んでいること](cookpad-test-driven-service-development.md)

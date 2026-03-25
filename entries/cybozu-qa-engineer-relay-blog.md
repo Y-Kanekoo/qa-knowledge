@@ -31,3 +31,7 @@ deprecated: false
 - リレーブログ形式で社内の複数チームの知見を段階的に外部公開する情報共有戦略
 
 ## 関連エントリ
+
+- [Mercari - メルペイQAメンバーが明かした「全員品質」のリアルと本音｜merpay QA Tech Talk レ](mercari-merpay-qa-tech-talk.md)
+- [Cybozu - アジャイル型QAの心構え](cybozu-agile-qa-mindset.md)
+- [Cybozu - リレーブログ企画：自動テストをQAが実装可能にする取り組み「QAムキムキ化」](cybozu-qa-mukimuki-automation.md)

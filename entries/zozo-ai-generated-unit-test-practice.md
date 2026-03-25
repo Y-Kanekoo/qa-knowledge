@@ -32,3 +32,7 @@ ZOZOのグローバルシステム部フロントエンドチームがClaude Cod
 
 ## 関連エントリ
 
+
+- [DeNA - AIと開発プロセスの改善チャレンジ](dena-swet-ai-development-process.md)
+- [Meta - Predictive Test Selection: A More Efficient Way to](meta-predictive-test-selection.md)
+- [freee - AI駆動QA基盤の紹介](freee-ai-driven-qa-infrastructure.md)

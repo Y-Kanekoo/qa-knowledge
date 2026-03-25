@@ -34,3 +34,7 @@ SmartHRの勤怠管理機能チームのQAエンジニアが、AIアシスタン
 - AI生成結果の精度特性（基本→複雑→組み合わせ→見落としの順で推測度が上がる）
 
 ## 関連エントリ
+
+- [freee - AI駆動QA基盤の紹介](freee-ai-driven-qa-infrastructure.md)
+- [GitLab - Inside look: How GitLab's Test Platform team valid](gitlab-test-platform-validates-ai-features.md)
+- [LY Corporation - LINEヤフーのQAエンジニアが生成AIを利用して品質管理の生産性を向上させる方法](ly-corporation-qa-generative-ai-productivity.md)
