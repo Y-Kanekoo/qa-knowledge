@@ -248,8 +248,8 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
-| [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) | test-strategy, test-automation, ci-cd | 2018-02-26 | テックブログ |
-| [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) | test-strategy, test-automation, ci-cd | 2014-11-18 | テックブログ |
+| [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) | test-strategy, test-automation, ci-cd | 2018-02-26 | article |
+| [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) | test-strategy, test-automation, ci-cd | 2014-11-18 | article |
 
 ## Tim Deschryver
 
