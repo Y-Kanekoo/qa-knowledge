@@ -1,0 +1,97 @@
+name: QA記事自動収集（日次）
+
+on:
+  schedule:
+    - cron: "30 0 * * *"  # 毎日 00:30 UTC（JST 09:30）、RSS巡回の30分後
+  workflow_dispatch: {}    # 手動実行も可能
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: 依存パッケージのインストール
+        run: |
+          pip install -r requirements.txt
+          npm install -g @anthropic-ai/claude-code
+
+      - name: RSS新着記事の確認
+        id: rss
+        run: |
+          python scripts/check_rss.py --days 7 > /tmp/rss_result.txt 2>&1 || true
+          if grep -q "新着QA関連記事" /tmp/rss_result.txt; then
+            echo "has_new=true" >> "$GITHUB_OUTPUT"
+            cat /tmp/rss_result.txt
+          else
+            echo "has_new=false" >> "$GITHUB_OUTPUT"
+            echo "新着記事なし"
+          fi
+
+      - name: Claude Code で記事を自動追加
+        if: steps.rss.outputs.has_new == 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude -p --allowedTools 'Bash(python:*),Bash(.venv/bin/*),Read,Write,Edit,Glob,Grep,WebFetch,WebSearch' "
+          以下の手順でQAナレッジベースに記事を追加してください。
+
+          1. まず scripts/check_rss.py --days 7 を実行して新着記事を確認
+          2. 新着記事のURLごとに:
+             a. WebFetch で記事の内容を取得
+             b. 以下の品質基準を満たすか判定:
+                - 一次情報（公式テックブログ、カンファレンス発表等）であること
+                - 具体的な手法、ツール、定量データを含むこと
+                - 単なるニュース記事や広告でないこと
+             c. 品質基準を満たす場合のみ、entries/ にエントリファイルを作成
+          3. entries/_template.md の形式に従い、全フィールドを埋める
+             - content_type: blog, conference_talk, slide_deck, oss_config, handbook, case_study, book_excerpt, podcast, video
+             - qa_domains: test-strategy, test-automation, ci-cd, reliability, quality-metrics, org-design, ai-testing, security-test, performance-test, mobile-cross-browser, shift-left, observability
+             - tags: ケバブケース、3-7個
+             - 概要（2-3文）と何が学べるか（3-5点）を記事に基づき生成
+          4. python scripts/validate_frontmatter.py でバリデーション
+          5. python scripts/generate_index.py でインデックス再生成
+          6. 追加した記事のタイトル一覧を標準出力に表示
+          "
+
+      - name: 変更の確認
+        id: changes
+        run: |
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            ADDED=$(git diff --name-only | grep '^entries/' | wc -l | tr -d ' ')
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "added_count=$ADDED" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: PRを作成
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "[feat] QA記事を自動収集する（${{ steps.changes.outputs.added_count }}件）"
+          title: "[auto] QA記事自動収集 (${{ steps.changes.outputs.added_count }}件) - ${{ github.run_id }}"
+          body: |
+            ## 自動収集された記事
+
+            RSS日次巡回で検出された新着QA記事を Claude Code が自動追加しました。
+
+            - 追加件数: ${{ steps.changes.outputs.added_count }}件
+            - 品質基準: 一次情報・具体的手法/データを含むもののみ
+            - バリデーション: 全エントリパス済み
+
+            **レビューしてマージしてください。**
+          branch: auto/collect-articles-${{ github.run_number }}
+          labels: auto-collect,new-article

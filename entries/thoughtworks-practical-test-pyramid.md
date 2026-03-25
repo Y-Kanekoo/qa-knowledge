@@ -3,7 +3,7 @@ title: "The Practical Test Pyramid"
 company: "ThoughtWorks"
 url: "https://martinfowler.com/articles/practical-test-pyramid.html"
 published_at: "2018-02-26"
-content_type: "blog"
+content_type: "article"
 qa_domains:
   - "test-strategy"
   - "test-automation"

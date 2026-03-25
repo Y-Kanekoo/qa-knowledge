@@ -3,7 +3,7 @@ title: "Testing Strategies in a Microservice Architecture"
 company: "ThoughtWorks"
 url: "https://martinfowler.com/articles/microservice-testing/"
 published_at: "2014-11-18"
-content_type: "blog"
+content_type: "article"
 qa_domains:
   - "test-strategy"
   - "test-automation"

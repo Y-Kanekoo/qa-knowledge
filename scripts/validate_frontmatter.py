@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 ALLOWED_CONTENT_TYPES: set[str] = {
     "blog",
+    "article",
     "conference_talk",
     "slide_deck",
     "oss_config",
