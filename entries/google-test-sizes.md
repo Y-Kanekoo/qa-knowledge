@@ -10,8 +10,8 @@ qa_domains:
 tags:
   - "test-classification"
   - "test-pyramid"
-  - "unit-test"
-  - "integration-test"
+  - "unit-testing"
+  - "integration-testing"
   - "test-isolation"
 language: "en"
 added_at: "2026-03-03"

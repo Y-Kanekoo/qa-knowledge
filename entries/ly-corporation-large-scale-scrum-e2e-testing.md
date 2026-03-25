@@ -8,7 +8,7 @@ qa_domains:
   - "test-automation"
   - "ci-cd"
 tags:
-  - "e2e"
+  - "e2e-testing"
   - "scrum"
   - "large-scale-scrum"
   - "regression-testing"

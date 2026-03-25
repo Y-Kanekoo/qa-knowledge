@@ -13,7 +13,7 @@ tags:
   - "pact"
   - "consumer-driven-contracts"
   - "microservices"
-  - "integration-test"
+  - "integration-testing"
   - "spring-boot"
   - "java"
   - "kafka"

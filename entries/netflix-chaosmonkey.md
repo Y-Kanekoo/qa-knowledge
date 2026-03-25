@@ -11,7 +11,7 @@ tags:
   - "resilience"
   - "microservices"
   - "fault-injection"
-  - "production-testing"
+  - "testing-in-production"
 language: "en"
 added_at: "2026-03-03"
 industry: "media"

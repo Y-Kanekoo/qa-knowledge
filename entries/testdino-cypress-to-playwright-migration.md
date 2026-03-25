@@ -14,7 +14,7 @@ tags:
   - "cross-browser"
   - "parallel-testing"
   - "ci-optimization"
-  - "e2e-test"
+  - "e2e-testing"
 language: "en"
 added_at: "2026-03-24"
 industry: "fintech"

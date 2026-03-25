@@ -4,7 +4,17 @@ QA事例・ナレッジの追加を歓迎します。
 
 ## エントリの追加方法
 
-### 1. 骨格ファイルの生成
+### 推奨: Claude Code カスタムコマンド
+
+Claude Code を使っている場合、`/add-entry` コマンドで骨格生成からメタデータ・概要・学びの自動補完まで一括で実行できます:
+
+```
+/add-entry https://example.com/blog/... --company CompanyName
+```
+
+### 手動での追加
+
+#### 1. 骨格ファイルの生成
 
 ```bash
 python scripts/scaffold.py "https://example.com/blog/..." --company "CompanyName"
@@ -12,7 +22,7 @@ python scripts/scaffold.py "https://example.com/blog/..." --company "CompanyName
 
 `entries/` にタイトル・公開日が自動入力された骨格ファイルが生成されます。
 
-### 2. 内容の記入
+#### 2. 内容の記入
 
 以下のフィールドを手動で記入してください:
 
@@ -29,13 +39,13 @@ python scripts/scaffold.py "https://example.com/blog/..." --company "CompanyName
 - **概要**: 2〜3文で記事の内容を説明
 - **何が学べるか**: 3〜5点の箇条書き。抽象的な感想ではなく、記事に書かれた具体的な手法・数値を記述
 
-### 3. バリデーション
+#### 3. バリデーション
 
 ```bash
 python scripts/validate_frontmatter.py
 ```
 
-### 4. テスト・Lint の実行
+#### 4. テスト・Lint の実行
 
 PR を作成する前に、以下のチェックを実行してください:
 
@@ -47,7 +57,7 @@ pytest
 ruff check .
 ```
 
-### 5. PR作成
+#### 5. PR作成
 
 - ブランチ名: `add/{company}-{slug}`
 - 1つのPRに複数エントリを含めてOK

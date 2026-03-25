@@ -7,7 +7,7 @@ content_type: "blog"
 qa_domains:
   - "test-automation"
 tags:
-  - "e2e-test"
+  - "e2e-testing"
   - "playwright"
   - "selenium-migration"
   - "test-infrastructure"

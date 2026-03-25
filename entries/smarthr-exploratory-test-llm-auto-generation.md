@@ -10,7 +10,7 @@ qa_domains:
 tags:
   - "exploratory-testing"
   - "llm"
-  - "test-case-generation"
+  - "test-generation"
   - "cline"
   - "mcp"
   - "prompt-engineering"

@@ -95,7 +95,7 @@ feeds:
 
   - name: Uber Engineering
     company: Uber
-    url: https://www.uber.com/blog/engineering/rss/
+    url: https://www.uber.com/en-JP/blog/engineering/rss/
     language: en
 
   - name: Slack Engineering

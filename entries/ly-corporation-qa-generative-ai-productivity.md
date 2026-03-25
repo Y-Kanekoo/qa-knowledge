@@ -11,7 +11,7 @@ tags:
   - "test-design"
   - "qa-productivity"
   - "llm"
-  - "test-case-generation"
+  - "test-generation"
 language: "ja"
 added_at: "2026-03-03"
 industry: "tech"

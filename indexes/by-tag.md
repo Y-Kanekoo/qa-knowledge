@@ -2,6 +2,23 @@
 
 # タグ別インデックス
 
+## e2e-testing (14)
+
+- [Cypress to Playwright Migration: A Step-by-Step Guide](../entries/testdino-cypress-to-playwright-migration.md) — TestDino
+- [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) — Cybozu
+- [大規模スクラム×E2E自動テストへの挑戦で見えてきたこと](../entries/ly-corporation-large-scale-scrum-e2e-testing.md) — LY Corporation
+- [Automated Accessibility Testing at Slack](../entries/slack-automated-accessibility-testing.md) — Slack
+- [Shifting E2E Testing Left at Uber](../entries/uber-shifting-e2e-testing-left.md) — Uber
+- [リレーブログ企画：自動テストをQAが実装可能にする取り組み「QAムキムキ化」](../entries/cybozu-qa-mukimuki-automation.md) — Cybozu
+- [DragonCrawl: Generative AI for High-Quality Mobile Testing](../entries/uber-generative-ai-for-high-quality-mobile-testing.md) — Uber
+- [E2Eテストを Playwright で作り直して開発プロセスに組み込む話](../entries/smarthr-e2e-test-playwright-migration.md) — SmartHR
+- [E2Eテスト自動化の裏話。開発生産性やプロダクト品質の向上を目指して](../entries/ly-corporation-e2e-test-automation-story.md) — LY Corporation
+- [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) — Uber
+- [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) — ZOZO
+- [An inside look at software testing at GitLab](../entries/gitlab-inside-look-software-testing.md) — GitLab
+- [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
+- [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
+
 ## microservices (13)
 
 - [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) — Microsoft
@@ -28,17 +45,6 @@
 - [Implementing health checks](../entries/amazon-implementing-health-checks.md) — Amazon
 - [Timeouts, retries and backoff with jitter](../entries/amazon-timeouts-retries-backoff-with-jitter.md) — Amazon
 - [Using load shedding to avoid overload](../entries/amazon-using-load-shedding-to-avoid-overload.md) — Amazon
-
-## e2e-testing (8)
-
-- [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) — Cybozu
-- [Automated Accessibility Testing at Slack](../entries/slack-automated-accessibility-testing.md) — Slack
-- [Shifting E2E Testing Left at Uber](../entries/uber-shifting-e2e-testing-left.md) — Uber
-- [リレーブログ企画：自動テストをQAが実装可能にする取り組み「QAムキムキ化」](../entries/cybozu-qa-mukimuki-automation.md) — Cybozu
-- [DragonCrawl: Generative AI for High-Quality Mobile Testing](../entries/uber-generative-ai-for-high-quality-mobile-testing.md) — Uber
-- [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) — Uber
-- [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) — ZOZO
-- [An inside look at software testing at GitLab](../entries/gitlab-inside-look-software-testing.md) — GitLab
 
 ## test-pyramid (8)
 
@@ -81,12 +87,12 @@
 - [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
 - [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
 
-## unit-test (7)
+## unit-testing (7)
 
-- [AI生成ユニットテスト運用の実践 — カバレッジ2倍の成果とレビュー設計のリアル](../entries/zozo-ai-generated-unit-test-practice.md) — ZOZO
-- [ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](../entries/freee-testing-strategy-based-on-software-architecture.md) — freee
+- [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) — Cybozu
 - [Automated Unit Test Improvement using Large Language Models at Meta](../entries/meta-automated-unit-test-improvement-llm.md) — Meta
-- [freeeの自動テストの全体構成](../entries/freee-automated-test-structure.md) — freee
+- [Pocochaで実践するAgile Testing](../entries/dena-pococha-agile-testing.md) — DeNA
+- [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) — Microsoft
 - [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
 - [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
 - [Test Sizes](../entries/google-test-sizes.md) — Google
@@ -99,6 +105,15 @@
 - [Tech on the Toilet: Driving Software Excellence, One Bathroom Break at a Time](../entries/google-tech-on-toilet-driving-software-excellence.md) — Google
 - [Mutation Testing](../entries/google-mutation-testing.md) — Google
 - [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) — Amazon
+
+## integration-testing (6)
+
+- [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) — Microsoft
+- [Honeycomb + Tracetest: Observability-Driven Development](../entries/honeycomb-observability-driven-development.md) — Honeycomb
+- [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) — Amazon
+- [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
+- [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
+- [Test Sizes](../entries/google-test-sizes.md) — Google
 
 ## playwright (6)
 
@@ -135,22 +150,6 @@
 - [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
 - [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
 
-## e2e (5)
-
-- [ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](../entries/freee-testing-strategy-based-on-software-architecture.md) — freee
-- [大規模スクラム×E2E自動テストへの挑戦で見えてきたこと](../entries/ly-corporation-large-scale-scrum-e2e-testing.md) — LY Corporation
-- [E2Eテスト分析基盤としてReportPortalを導入しました](../entries/freee-reportportal-e2e-test-analysis.md) — freee
-- [E2Eテスト自動化の裏話。開発生産性やプロダクト品質の向上を目指して](../entries/ly-corporation-e2e-test-automation-story.md) — LY Corporation
-- [freeeの自動テストの全体構成](../entries/freee-automated-test-structure.md) — freee
-
-## integration-test (5)
-
-- [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) — Microsoft
-- [ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](../entries/freee-testing-strategy-based-on-software-architecture.md) — freee
-- [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
-- [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
-- [Test Sizes](../entries/google-test-sizes.md) — Google
-
 ## load-testing (5)
 
 - [Understanding Grafana k6: A simple guide to the load testing tool](../entries/grafana-labs-understanding-grafana-k6-load-testing.md) — Grafana Labs
@@ -175,12 +174,27 @@
 - [「受身から攻めのQA」に至るまでの道のり](../entries/dena-road-to-aggressive-qa.md) — DeNA
 - [テストケース作成を仕様詳細化の手段とする実験](../entries/cookpad-test-case-creation-as-spec-refinement.md) — Cookpad
 
+## testing-in-production (5)
+
+- [Shadow Testing Superpowers: Four Ways To Bulletproof APIs](../entries/signadot-shadow-testing-bulletproof-apis.md) — Signadot
+- [Shadow Testing - Engineering Fundamentals Playbook](../entries/microsoft-shadow-testing-playbook.md) — Microsoft
+- [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
+- [Testing for Reliability | Google SRE Book Chapter 17](../entries/google-sre-book-testing-reliability.md) — Google
+- [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
+
 ## ci-optimization (4)
 
 - [Cypress to Playwright Migration: A Step-by-Step Guide](../entries/testdino-cypress-to-playwright-migration.md) — TestDino
 - [Using Playwright Test Shards in Combination with a Job Matrix to Improve Your CI Speed](../entries/timdeschryver-playwright-sharding-ci.md) — Tim Deschryver
 - [自動テスト速度改善 - 自動テストが品質のボトルネックとならないために](../entries/freee-improving-ci-testing-speed.md) — freee
 - [Spark Joy by Running Fewer Tests](../entries/shopify-spark-joy-fewer-tests.md) — Shopify
+
+## contract-testing (4)
+
+- [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) — Microsoft
+- [Shadow Testing Superpowers: Four Ways To Bulletproof APIs](../entries/signadot-shadow-testing-bulletproof-apis.md) — Signadot
+- [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
+- [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
 
 ## developer-experience (4)
 
@@ -209,6 +223,13 @@
 - [【QAエンジニア考案】スクラムチームの品質保証を強化する「不安ニングポーカー」](../entries/smarthr-fuan-ning-poker.md) — SmartHR
 - [大規模スクラム×E2E自動テストへの挑戦で見えてきたこと](../entries/ly-corporation-large-scale-scrum-e2e-testing.md) — LY Corporation
 - [スクラムマスターを兼任して見えてきた、シフトレフトのための立ち回りとやってきたQAの活動](../entries/freee-shift-left-scrum-master-qa.md) — freee
+
+## test-generation (4)
+
+- [探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](../entries/smarthr-exploratory-test-llm-auto-generation.md) — SmartHR
+- [LINEヤフーのQAエンジニアが生成AIを利用して品質管理の生産性を向上させる方法](../entries/ly-corporation-qa-generative-ai-productivity.md) — LY Corporation
+- [Automated Unit Test Improvement using Large Language Models at Meta](../entries/meta-automated-unit-test-improvement-llm.md) — Meta
+- [Getting Started With Property-Based Testing in Python With Hypothesis and Pytest](../entries/semaphore-property-based-testing-python-hypothesis.md) — Semaphore
 
 ## test-infrastructure (4)
 
@@ -247,11 +268,11 @@
 - [Fast builds, secure builds. Choose two.](../entries/stripe-fast-secure-builds-choose-two.md) — Stripe
 - [DeNAのエンジニアが信頼を寄せるSWETって一体何者!?](../entries/dena-what-is-swet.md) — DeNA
 
-## e2e-test (3)
+## e2e (3)
 
-- [Cypress to Playwright Migration: A Step-by-Step Guide](../entries/testdino-cypress-to-playwright-migration.md) — TestDino
-- [E2Eテストを Playwright で作り直して開発プロセスに組み込む話](../entries/smarthr-e2e-test-playwright-migration.md) — SmartHR
-- [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
+- [ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](../entries/freee-testing-strategy-based-on-software-architecture.md) — freee
+- [E2Eテスト分析基盤としてReportPortalを導入しました](../entries/freee-reportportal-e2e-test-analysis.md) — freee
+- [freeeの自動テストの全体構成](../entries/freee-automated-test-structure.md) — freee
 
 ## exploratory-testing (3)
 
@@ -295,12 +316,6 @@
 - [SETからPlatform QAへ：DevOps推進のための組織再編](../entries/cybozu-set-to-platform-qa.md) — Cybozu
 - [How We Use Golden Paths to Solve Fragmentation in Our Software Ecosystem](../entries/spotify-golden-paths-fragmentation.md) — Spotify
 
-## production-testing (3)
-
-- [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
-- [Testing for Reliability | Google SRE Book Chapter 17](../entries/google-sre-book-testing-reliability.md) — Google
-- [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
-
 ## quality-engineering (3)
 
 - [Infrastructure and Quality department | The GitLab Handbook](../entries/gitlab-infrastructure-quality-handbook.md) — GitLab
@@ -325,11 +340,11 @@
 - [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) — Uber
 - [Test Sizes](../entries/google-test-sizes.md) — Google
 
-## unit-testing (3)
+## unit-test (3)
 
-- [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) — Cybozu
-- [Pocochaで実践するAgile Testing](../entries/dena-pococha-agile-testing.md) — DeNA
-- [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) — Microsoft
+- [AI生成ユニットテスト運用の実践 — カバレッジ2倍の成果とレビュー設計のリアル](../entries/zozo-ai-generated-unit-test-practice.md) — ZOZO
+- [ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](../entries/freee-testing-strategy-based-on-software-architecture.md) — freee
+- [freeeの自動テストの全体構成](../entries/freee-automated-test-structure.md) — freee
 
 ## vulnerability-detection (3)
 
@@ -391,16 +406,6 @@
 
 - [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) — Microsoft
 - [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
-
-## contract-test (2)
-
-- [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
-- [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
-
-## contract-testing (2)
-
-- [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) — Microsoft
-- [Shadow Testing Superpowers: Four Ways To Bulletproof APIs](../entries/signadot-shadow-testing-bulletproof-apis.md) — Signadot
 
 ## cross-browser (2)
 
@@ -477,11 +482,6 @@
 - [Getting Started With Property-Based Testing in Python With Hypothesis and Pytest](../entries/semaphore-property-based-testing-python-hypothesis.md) — Semaphore
 - [In Praise of Property-Based Testing](../entries/increment-property-based-testing.md) — Increment
 
-## integration-testing (2)
-
-- [Honeycomb + Tracetest: Observability-Driven Development](../entries/honeycomb-observability-driven-development.md) — Honeycomb
-- [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) — Amazon
-
 ## ios (2)
 
 - [テストケース作成を仕様詳細化の手段とする実験](../entries/cookpad-test-case-creation-as-spec-refinement.md) — Cookpad
@@ -521,6 +521,11 @@
 
 - [AIと開発プロセスの改善チャレンジ](../entries/dena-swet-ai-development-process.md) — DeNA
 - [Mutation Testing](../entries/google-mutation-testing.md) — Google
+
+## non-determinism (2)
+
+- [Challenges with distributed systems](../entries/amazon-challenges-with-distributed-systems.md) — Amazon
+- [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) — Google
 
 ## open-source (2)
 
@@ -617,16 +622,6 @@
 - [ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](../entries/freee-testing-strategy-based-on-software-architecture.md) — freee
 - [テストアーキテクチャの実践](../entries/freee-test-architecture-practice.md) — freee
 
-## test-case-generation (2)
-
-- [探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](../entries/smarthr-exploratory-test-llm-auto-generation.md) — SmartHR
-- [LINEヤフーのQAエンジニアが生成AIを利用して品質管理の生産性を向上させる方法](../entries/ly-corporation-qa-generative-ai-productivity.md) — LY Corporation
-
-## test-generation (2)
-
-- [Automated Unit Test Improvement using Large Language Models at Meta](../entries/meta-automated-unit-test-improvement-llm.md) — Meta
-- [Getting Started With Property-Based Testing in Python With Hypothesis and Pytest](../entries/semaphore-property-based-testing-python-hypothesis.md) — Semaphore
-
 ## test-quarantine (2)
 
 - [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) — GitLab
@@ -646,11 +641,6 @@
 
 - [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) — Cybozu
 - [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) — GitLab
-
-## testing-in-production (2)
-
-- [Shadow Testing Superpowers: Four Ways To Bulletproof APIs](../entries/signadot-shadow-testing-bulletproof-apis.md) — Signadot
-- [Shadow Testing - Engineering Fundamentals Playbook](../entries/microsoft-shadow-testing-playbook.md) — Microsoft
 
 ## a11y (1)
 
@@ -1000,10 +990,6 @@
 
 - [Chaos Engineering in the Wild: Findings from GitHub](../entries/arxiv-chaos-engineering-in-the-wild.md) — Jheronimus Academy of Data Science
 
-## end-to-end-test (1)
-
-- [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
-
 ## engineering-excellence (1)
 
 - [Tech on the Toilet: Driving Software Excellence, One Bathroom Break at a Time](../entries/google-tech-on-toilet-driving-software-excellence.md) — Google
@@ -1135,6 +1121,10 @@
 ## in-process-qa (1)
 
 - [バクラク開発におけるテストプランの進化 アジャイル、インプロセスQAでの試行錯誤](../entries/layerx-test-plan-evolution-agile.md) — LayerX
+
+## integration-test (1)
+
+- [ソフトウェアアーキテクチャに基づいた自動テスト戦略と実装ガイドライン](../entries/freee-testing-strategy-based-on-software-architecture.md) — freee
 
 ## interaction-testing (1)
 
@@ -1316,17 +1306,9 @@
 
 - [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) — ZOZO
 
-## non-determinism (1)
-
-- [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) — Google
-
 ## non-deterministic-testing (1)
 
 - [Inside look: How GitLab's Test Platform team validates AI features](../entries/gitlab-test-platform-validates-ai-features.md) — GitLab
-
-## nondeterminism (1)
-
-- [Challenges with distributed systems](../entries/amazon-challenges-with-distributed-systems.md) — Amazon
 
 ## notion (1)
 

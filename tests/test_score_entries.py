@@ -1,8 +1,9 @@
 """score_entries.py のユニットテスト。"""
 
 from pathlib import Path
+from unittest.mock import patch
 
-from scripts.score_entries import score_entry
+from scripts.score_entries import main, score_entry
 
 
 def _create_entry(tmp_path: Path, content: str) -> Path:
@@ -173,3 +174,56 @@ added_at: "2026-03-24"
 """
         result = score_entry(_create_entry(tmp_path, content))
         assert any("関連エントリ" in d and "+2" in d for d in result["details"])
+
+
+class TestMain:
+    """main() のテスト。"""
+
+    @patch("scripts.score_entries.ENTRIES_DIR")
+    def test_エントリがある場合はスコアレポートを出力する(self, mock_dir, tmp_path, capsys):
+        entry = tmp_path / "test.md"
+        entry.write_text("""\
+---
+title: "テスト"
+company: "Example"
+url: "https://example.com"
+published_at: "2024-01-01"
+content_type: "blog"
+qa_domains: ["test-automation"]
+tags: ["test", "automation", "ci"]
+language: "en"
+added_at: "2026-03-24"
+industry: "tech"
+difficulty: "intermediate"
+---
+
+## 概要
+
+テスト概要です。
+
+## 何が学べるか
+
+- 学び1
+- 学び2
+- 学び3
+""", encoding="utf-8")
+        mock_dir.exists.return_value = True
+        mock_dir.glob.return_value = [entry]
+
+        with patch("sys.argv", ["score_entries.py"]):
+            main()
+
+        captured = capsys.readouterr()
+        assert "品質スコアレポート" in captured.out
+        assert "1件" in captured.out
+
+    @patch("scripts.score_entries.ENTRIES_DIR")
+    def test_エントリなしの場合はメッセージを出力する(self, mock_dir, capsys):
+        mock_dir.exists.return_value = True
+        mock_dir.glob.return_value = []
+
+        with patch("sys.argv", ["score_entries.py"]):
+            main()
+
+        captured = capsys.readouterr()
+        assert "エントリがありません" in captured.out

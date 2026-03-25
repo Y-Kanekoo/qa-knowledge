@@ -7,7 +7,7 @@ content_type: "blog"
 qa_domains:
   - "test-automation"
 tags:
-  - "e2e"
+  - "e2e-testing"
   - "magicpod"
   - "no-code-testing"
   - "test-automation-culture"
