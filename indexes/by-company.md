@@ -12,6 +12,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [AWS Weekly Roundup: NVIDIA Nemotron 3 Super on Amazon Bedrock, Nova Forge SDK, Amazon Corretto 26, and more (March 23, 2026) | Amazon Web Services](../entries/amazon-aws-weekly-roundup-nvidia-nemotron-3-super-on-amazon-bedrock.md) |  | 2026-03-23 |  |
 | [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) | test-automation, ci-cd, reliability | 2019-09-01 | テックブログ |
 | [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) | reliability, test-strategy | 2019-09-01 | テックブログ |
 | [Challenges with distributed systems](../entries/amazon-challenges-with-distributed-systems.md) | test-strategy, reliability | 2019-09-01 | テックブログ |
@@ -71,6 +72,7 @@
 | [Software Engineer in Test Job Family | The GitLab Handbook](../entries/gitlab-software-engineer-in-test-job-family.md) | org-design, test-automation | 2024-01-01 | ハンドブック |
 | [The GitLab guide to modern software testing](../entries/gitlab-guide-to-modern-software-testing.md) | test-strategy, test-automation, quality-metrics | 2022-08-18 | テックブログ |
 | [An inside look at software testing at GitLab](../entries/gitlab-inside-look-software-testing.md) | test-strategy, test-automation, reliability | 2019-08-30 | テックブログ |
+| [Manage vulnerability noise at scale with auto-dismiss policies](../entries/gitlab-manage-vulnerability-noise-at-scale-with-auto-dismiss-polici.md) |  |  |  |
 
 ## Google
 
@@ -97,6 +99,16 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) |  | 2026-03-25 |  |
+| [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) |  | 2026-03-23 |  |
+| [How to monitor LLMs in production with Grafana Cloud,OpenLIT, and OpenTelemetry | Grafana Labs](../entries/grafanalabs-how-to-monitor-llms-in-production-with-grafana-cloudopenlit.md) |  | 2026-03-20 |  |
+| [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) |  | 2026-03-20 |  |
+| [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) |  | 2026-03-20 |  |
+| [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) |  | 2026-03-20 |  |
+| [AI in observability in 2026: Huge potential, lingering concerns  | Grafana Labs](../entries/grafanalabs-ai-in-observability-in-2026-huge-potential-lingering-concern.md) |  | 2026-03-18 |  |
+| [Open standards in 2026: The backbone of modern observability | Grafana Labs](../entries/grafanalabs-open-standards-in-2026-the-backbone-of-modern-observability.md) |  | 2026-03-18 |  |
+| [Bridge the DevSec divide: Using Grafana Cloud and Miggo for runtime protection | Grafana Labs](../entries/grafanalabs-bridge-the-devsec-divide-using-grafana-cloud-and-miggo-for-r.md) |  | 2026-03-17 |  |
+| [Quickly go from exploration to action with new one-click integrations in Grafana Drilldown | Grafana Labs](../entries/grafanalabs-quickly-go-from-exploration-to-action-with-new-one-click-int.md) |  | 2026-03-16 |  |
 | [Observability Survey 2024](../entries/grafana-labs-observability-survey-2024.md) | observability, quality-metrics, reliability | 2024-01-01 | ケーススタディ |
 | [Understanding Grafana k6: A simple guide to the load testing tool](../entries/grafana-labs-understanding-grafana-k6-load-testing.md) | performance-test | 2023-08-10 | テックブログ |
 
@@ -142,6 +154,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [OpenClaw-RLで学ぶAgentic RLの報酬設計 - LayerX エンジニアブログ](../entries/layerx-openclaw-rlで学ぶagentic-rlの報酬設計-layerx-エンジニアブログ.md) |  | 2026-03-24 |  |
 | [バクラク開発におけるテストプランの進化 アジャイル、インプロセスQAでの試行錯誤](../entries/layerx-test-plan-evolution-agile.md) | test-strategy, org-design | 2025-03-21 | テックブログ |
 | [LayerX バクラク事業部における探索的テストへの取り組み](../entries/layerx-exploratory-testing-bakuraku.md) | test-strategy | 2024-12-03 | テックブログ |
 
@@ -219,6 +232,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [チーム外からの問い合わせ対応、私はこうしてます - SmartHR Tech Blog](../entries/smarthr-チーム外からの問い合わせ対応私はこうしてます-smarthr-tech-blog.md) |  | 2026-03-24 |  |
 | [探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](../entries/smarthr-exploratory-test-llm-auto-generation.md) | ai-testing, test-strategy | 2025-09-01 | テックブログ |
 | [【QAエンジニア考案】スクラムチームの品質保証を強化する「不安ニングポーカー」](../entries/smarthr-fuan-ning-poker.md) | test-strategy, quality-metrics | 2025-02-28 | テックブログ |
 | [SmartHR 品質保証部 プロダクト基盤ユニットの紹介 ── より良いものを目指して、品質の土台を築く](../entries/smarthr-qa-product-platform-unit.md) | org-design, test-strategy | 2024-12-26 | テックブログ |
@@ -282,6 +296,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [ZOZOFIT Androidで進めたMVVMからMVIへの移行と独自MVIライブラリの開発 - ZOZO TECH BLOG](../entries/zozo-zozofit-androidで進めたmvvmからmviへの移行と独自mviライブラリの開発-zozo-tech-blo.md) |  | 2026-03-25 |  |
 | [AI生成ユニットテスト運用の実践 — カバレッジ2倍の成果とレビュー設計のリアル](../entries/zozo-ai-generated-unit-test-practice.md) | ai-testing, test-automation, quality-metrics | 2026-03-04 | テックブログ |
 | [フロントエンドテストの正解って？FAANSにおけるテスト戦略の振り返りとこれから](../entries/zozo-faans-frontend-test-strategy.md) | test-strategy, test-automation, ci-cd, quality-metrics | 2025-01-21 | テックブログ |
 | [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) | test-automation, mobile-cross-browser | 2020-05-28 | テックブログ |

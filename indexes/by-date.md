@@ -4,6 +4,21 @@
 
 | 追加日 | タイトル | 会社 | QA領域 |
 |--------|---------|------|--------|
+| 2026-03-26 | [AWS Weekly Roundup: NVIDIA Nemotron 3 Super on Amazon Bedrock, Nova Forge SDK, Amazon Corretto 26, and more (March 23, 2026) | Amazon Web Services](../entries/amazon-aws-weekly-roundup-nvidia-nemotron-3-super-on-amazon-bedrock.md) | Amazon |  |
+| 2026-03-26 | [Manage vulnerability noise at scale with auto-dismiss policies](../entries/gitlab-manage-vulnerability-noise-at-scale-with-auto-dismiss-polici.md) | GitLab |  |
+| 2026-03-26 | [AI in observability in 2026: Huge potential, lingering concerns  | Grafana Labs](../entries/grafanalabs-ai-in-observability-in-2026-huge-potential-lingering-concern.md) | Grafana Labs |  |
+| 2026-03-26 | [Bridge the DevSec divide: Using Grafana Cloud and Miggo for runtime protection | Grafana Labs](../entries/grafanalabs-bridge-the-devsec-divide-using-grafana-cloud-and-miggo-for-r.md) | Grafana Labs |  |
+| 2026-03-26 | [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) | Grafana Labs |  |
+| 2026-03-26 | [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) | Grafana Labs |  |
+| 2026-03-26 | [How to monitor LLMs in production with Grafana Cloud,OpenLIT, and OpenTelemetry | Grafana Labs](../entries/grafanalabs-how-to-monitor-llms-in-production-with-grafana-cloudopenlit.md) | Grafana Labs |  |
+| 2026-03-26 | [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) | Grafana Labs |  |
+| 2026-03-26 | [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) | Grafana Labs |  |
+| 2026-03-26 | [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) | Grafana Labs |  |
+| 2026-03-26 | [Open standards in 2026: The backbone of modern observability | Grafana Labs](../entries/grafanalabs-open-standards-in-2026-the-backbone-of-modern-observability.md) | Grafana Labs |  |
+| 2026-03-26 | [Quickly go from exploration to action with new one-click integrations in Grafana Drilldown | Grafana Labs](../entries/grafanalabs-quickly-go-from-exploration-to-action-with-new-one-click-int.md) | Grafana Labs |  |
+| 2026-03-26 | [OpenClaw-RLで学ぶAgentic RLの報酬設計 - LayerX エンジニアブログ](../entries/layerx-openclaw-rlで学ぶagentic-rlの報酬設計-layerx-エンジニアブログ.md) | LayerX |  |
+| 2026-03-26 | [チーム外からの問い合わせ対応、私はこうしてます - SmartHR Tech Blog](../entries/smarthr-チーム外からの問い合わせ対応私はこうしてます-smarthr-tech-blog.md) | SmartHR |  |
+| 2026-03-26 | [ZOZOFIT Androidで進めたMVVMからMVIへの移行と独自MVIライブラリの開発 - ZOZO TECH BLOG](../entries/zozo-zozofit-androidで進めたmvvmからmviへの移行と独自mviライブラリの開発-zozo-tech-blo.md) | ZOZO |  |
 | 2026-03-24 | [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) | Airbnb | test-automation, mobile-cross-browser |
 | 2026-03-24 | [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) | Amazon | test-automation, ci-cd, reliability |
 | 2026-03-24 | [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) | Amazon | reliability, test-strategy |
