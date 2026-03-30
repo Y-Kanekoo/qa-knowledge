@@ -97,6 +97,15 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) |  | 2026-03-25 |  |
+| [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) |  | 2026-03-23 |  |
+| [How to monitor LLMs in production with Grafana Cloud,OpenLIT, and OpenTelemetry | Grafana Labs](../entries/grafanalabs-how-to-monitor-llms-in-production-with-grafana-cloudopenlit.md) |  | 2026-03-20 |  |
+| [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) |  | 2026-03-20 |  |
+| [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) |  | 2026-03-20 |  |
+| [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) |  | 2026-03-20 |  |
+| [AI in observability in 2026: Huge potential, lingering concerns  | Grafana Labs](../entries/grafanalabs-ai-in-observability-in-2026-huge-potential-lingering-concern.md) |  | 2026-03-18 |  |
+| [Open standards in 2026: The backbone of modern observability | Grafana Labs](../entries/grafanalabs-open-standards-in-2026-the-backbone-of-modern-observability.md) |  | 2026-03-18 |  |
+| [Bridge the DevSec divide: Using Grafana Cloud and Miggo for runtime protection | Grafana Labs](../entries/grafanalabs-bridge-the-devsec-divide-using-grafana-cloud-and-miggo-for-r.md) |  | 2026-03-17 |  |
 | [Observability Survey 2024](../entries/grafana-labs-observability-survey-2024.md) | observability, quality-metrics, reliability | 2024-01-01 | ケーススタディ |
 | [Understanding Grafana k6: A simple guide to the load testing tool](../entries/grafana-labs-understanding-grafana-k6-load-testing.md) | performance-test | 2023-08-10 | テックブログ |
 
@@ -219,6 +228,8 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [QAエンジニアがバックエンドの自動テストに踏み込めるようになるために —— タレントマネジメントユニットでの学びと実務での活用 - SmartHR Tech Blog](../entries/smarthr-qaエンジニアがバックエンドの自動テストに踏み込めるようになるために-タレントマネジメントユニットでの学びと実務での活用.md) |  | 2026-03-30 |  |
+| [SmartHRの労務プロダクトに興味をお持ちの方へ - SmartHR Tech Blog](../entries/smarthr-smarthrの労務プロダクトに興味をお持ちの方へ-smarthr-tech-blog.md) |  | 2026-03-27 |  |
 | [探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](../entries/smarthr-exploratory-test-llm-auto-generation.md) | ai-testing, test-strategy | 2025-09-01 | テックブログ |
 | [【QAエンジニア考案】スクラムチームの品質保証を強化する「不安ニングポーカー」](../entries/smarthr-fuan-ning-poker.md) | test-strategy, quality-metrics | 2025-02-28 | テックブログ |
 | [SmartHR 品質保証部 プロダクト基盤ユニットの紹介 ── より良いものを目指して、品質の土台を築く](../entries/smarthr-qa-product-platform-unit.md) | org-design, test-strategy | 2024-12-26 | テックブログ |
@@ -282,6 +293,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [実践CQRS+ES ── 小さな集約と大きな業務出力を両立する - ZOZO TECH BLOG](../entries/zozo-実践cqrses-小さな集約と大きな業務出力を両立する-zozo-tech-blog.md) |  | 2026-03-27 |  |
 | [AI生成ユニットテスト運用の実践 — カバレッジ2倍の成果とレビュー設計のリアル](../entries/zozo-ai-generated-unit-test-practice.md) | ai-testing, test-automation, quality-metrics | 2026-03-04 | テックブログ |
 | [フロントエンドテストの正解って？FAANSにおけるテスト戦略の振り返りとこれから](../entries/zozo-faans-frontend-test-strategy.md) | test-strategy, test-automation, ci-cd, quality-metrics | 2025-01-21 | テックブログ |
 | [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) | test-automation, mobile-cross-browser | 2020-05-28 | テックブログ |
