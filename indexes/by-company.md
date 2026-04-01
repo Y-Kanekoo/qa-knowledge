@@ -39,6 +39,9 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [サイボウズにフロントエンドエンジニアとして新卒入社して1年が経ちました - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-サイボウズにフロントエンドエンジニアとして新卒入社して1年が経ちました-cybozu-inside-out-サイボウズエ.md) |  | 2026-04-01 |  |
+| [Renovate Custom Manager × JSONata で独自 YAML のバージョン更新を自動化する - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-renovate-custom-manager-jsonata-で独自-yaml-のバージョン更新を自動化する-cybo.md) |  | 2026-03-31 |  |
+| [ギャルマインドで、もっと他職能と「つながる」～QAエンジニアの活動を「テスト実施以外」にフォーカスして社内発信した！ - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-ギャルマインドでもっと他職能とつながるqaエンジニアの活動をテスト実施以外にフォーカスして社内発信した-cybozu-i.md) |  | 2026-03-31 |  |
 | [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) | test-strategy, test-automation | 2025-07-16 | テックブログ |
 | [SETからPlatform QAへ：DevOps推進のための組織再編](../entries/cybozu-set-to-platform-qa.md) | org-design | 2024-08-16 | テックブログ |
 | [アジャイル型QAの心構え](../entries/cybozu-agile-qa-mindset.md) | test-strategy, org-design | 2024-08-14 | テックブログ |
@@ -71,6 +74,7 @@
 | [Software Engineer in Test Job Family | The GitLab Handbook](../entries/gitlab-software-engineer-in-test-job-family.md) | org-design, test-automation | 2024-01-01 | ハンドブック |
 | [The GitLab guide to modern software testing](../entries/gitlab-guide-to-modern-software-testing.md) | test-strategy, test-automation, quality-metrics | 2022-08-18 | テックブログ |
 | [An inside look at software testing at GitLab](../entries/gitlab-inside-look-software-testing.md) | test-strategy, test-automation, reliability | 2019-08-30 | テックブログ |
+| [Changes to packages.gitlab.com: What you need to know](../entries/gitlab-changes-to-packagesgitlabcom-what-you-need-to-know.md) |  |  |  |
 
 ## Google
 
@@ -97,6 +101,15 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [Finding performance bottlenecks with Pyroscope and Alloy: An example using TON blockchain | Grafana Labs](../entries/grafanalabs-finding-performance-bottlenecks-with-pyroscope-and-alloy-an.md) |  | 2026-03-26 |  |
+| [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) |  | 2026-03-25 |  |
+| [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) |  | 2026-03-23 |  |
+| [How to monitor LLMs in production with Grafana Cloud,OpenLIT, and OpenTelemetry | Grafana Labs](../entries/grafanalabs-how-to-monitor-llms-in-production-with-grafana-cloudopenlit.md) |  | 2026-03-20 |  |
+| [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) |  | 2026-03-20 |  |
+| [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) |  | 2026-03-20 |  |
+| [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) |  | 2026-03-20 |  |
+| [AI in observability in 2026: Huge potential, lingering concerns  | Grafana Labs](../entries/grafanalabs-ai-in-observability-in-2026-huge-potential-lingering-concern.md) |  | 2026-03-18 |  |
+| [Open standards in 2026: The backbone of modern observability | Grafana Labs](../entries/grafanalabs-open-standards-in-2026-the-backbone-of-modern-observability.md) |  | 2026-03-18 |  |
 | [Observability Survey 2024](../entries/grafana-labs-observability-survey-2024.md) | observability, quality-metrics, reliability | 2024-01-01 | ケーススタディ |
 | [Understanding Grafana k6: A simple guide to the load testing tool](../entries/grafana-labs-understanding-grafana-k6-load-testing.md) | performance-test | 2023-08-10 | テックブログ |
 
@@ -142,6 +155,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [現場の泥臭さをプロダクト改善に繋げるFDEチームの魅力 #インターン体験 - LayerX エンジニアブログ](../entries/layerx-現場の泥臭さをプロダクト改善に繋げるfdeチームの魅力-インターン体験-layerx-エンジニアブログ.md) |  | 2026-03-31 |  |
 | [バクラク開発におけるテストプランの進化 アジャイル、インプロセスQAでの試行錯誤](../entries/layerx-test-plan-evolution-agile.md) | test-strategy, org-design | 2025-03-21 | テックブログ |
 | [LayerX バクラク事業部における探索的テストへの取り組み](../entries/layerx-exploratory-testing-bakuraku.md) | test-strategy | 2024-12-03 | テックブログ |
 
@@ -163,6 +177,8 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [Meta Adaptive Ranking Model: Bending the Inference Scaling Curve to Serve LLM-Scale Models for Ads](../entries/meta-meta-adaptive-ranking-model-bending-the-inference-scaling-cu.md) |  | 2026-03-31 |  |
+| [AI for American-Produced Cement and Concrete](../entries/meta-ai-for-american-produced-cement-and-concrete.md) |  | 2026-03-30 |  |
 | [Automated Unit Test Improvement using Large Language Models at Meta](../entries/meta-automated-unit-test-improvement-llm.md) | ai-testing, test-automation | 2024-02-14 | 書籍 |
 | [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) | test-automation, ci-cd, shift-left, ai-testing, quality-metrics, reliability | 2018-11-21 | テックブログ |
 
@@ -214,11 +230,13 @@
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
 | [Automated Accessibility Testing at Slack](../entries/slack-automated-accessibility-testing.md) | test-automation, test-strategy, ci-cd, shift-left | 2025-01-07 | テックブログ |
+| [From Custom to Open: Scalable Network Probing and HTTP/3 Readiness with Prometheus](../entries/slack-from-custom-to-open-scalable-network-probing-and-http3-readi.md) |  |  |  |
 
 ## SmartHR
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [QAエンジニアがバックエンドの自動テストに踏み込めるようになるために —— タレントマネジメントユニットでの学びと実務での活用 - SmartHR Tech Blog](../entries/smarthr-qaエンジニアがバックエンドの自動テストに踏み込めるようになるために-タレントマネジメントユニットでの学びと実務での活用.md) |  | 2026-03-30 |  |
 | [探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](../entries/smarthr-exploratory-test-llm-auto-generation.md) | ai-testing, test-strategy | 2025-09-01 | テックブログ |
 | [【QAエンジニア考案】スクラムチームの品質保証を強化する「不安ニングポーカー」](../entries/smarthr-fuan-ning-poker.md) | test-strategy, quality-metrics | 2025-02-28 | テックブログ |
 | [SmartHR 品質保証部 プロダクト基盤ユニットの紹介 ── より良いものを目指して、品質の土台を築く](../entries/smarthr-qa-product-platform-unit.md) | org-design, test-strategy | 2024-12-26 | テックブログ |
@@ -282,6 +300,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [仕様が異なる2つのECをつなぐ設計 ── 元営業エンジニアが取り組んだZOZOTOWN Yahoo!店 ギフト導入の記録 - ZOZO TECH BLOG](../entries/zozo-仕様が異なる2つのecをつなぐ設計-元営業エンジニアが取り組んだzozotown-yahoo店-ギフト導入の記録-zoz.md) |  | 2026-04-01 |  |
 | [AI生成ユニットテスト運用の実践 — カバレッジ2倍の成果とレビュー設計のリアル](../entries/zozo-ai-generated-unit-test-practice.md) | ai-testing, test-automation, quality-metrics | 2026-03-04 | テックブログ |
 | [フロントエンドテストの正解って？FAANSにおけるテスト戦略の振り返りとこれから](../entries/zozo-faans-frontend-test-strategy.md) | test-strategy, test-automation, ci-cd, quality-metrics | 2025-01-21 | テックブログ |
 | [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) | test-automation, mobile-cross-browser | 2020-05-28 | テックブログ |
