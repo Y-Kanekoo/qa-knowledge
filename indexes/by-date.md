@@ -4,6 +4,28 @@
 
 | 追加日 | タイトル | 会社 | QA領域 |
 |--------|---------|------|--------|
+| 2026-04-04 | [Amazon Bedrock Guardrails supports cross-account safeguards with centralized control and management | Amazon Web Services](../entries/amazon-amazon-bedrock-guardrails-supports-cross-account-safeguards.md) | Amazon |  |
+| 2026-04-04 | [Announcing managed daemon support for Amazon ECS Managed Instances | Amazon Web Services](../entries/amazon-announcing-managed-daemon-support-for-amazon-ecs-managed-ins.md) | Amazon |  |
+| 2026-04-04 | [JaSST'26 Tokyo 参加レポート - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-jasst26-tokyo-参加レポート-cybozu-inside-out-サイボウズエンジニアのブログ.md) | Cybozu |  |
+| 2026-04-04 | [サイボウズにフロントエンドエンジニアとして新卒入社して1年が経ちました - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-サイボウズにフロントエンドエンジニアとして新卒入社して1年が経ちました-cybozu-inside-out-サイボウズエ.md) | Cybozu |  |
+| 2026-04-04 | [目的から見直すリリース基準の改善活動 - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-目的から見直すリリース基準の改善活動-cybozu-inside-out-サイボウズエンジニアのブログ.md) | Cybozu |  |
+| 2026-04-04 | [AI in observability in 2026: Huge potential, lingering concerns  | Grafana Labs](../entries/grafanalabs-ai-in-observability-in-2026-huge-potential-lingering-concern.md) | Grafana Labs |  |
+| 2026-04-04 | [Finding performance bottlenecks with Pyroscope and Alloy: An example using TON blockchain | Grafana Labs](../entries/grafanalabs-finding-performance-bottlenecks-with-pyroscope-and-alloy-an.md) | Grafana Labs |  |
+| 2026-04-04 | [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) | Grafana Labs |  |
+| 2026-04-04 | [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) | Grafana Labs |  |
+| 2026-04-04 | [How to monitor LLMs in production with Grafana Cloud,OpenLIT, and OpenTelemetry | Grafana Labs](../entries/grafanalabs-how-to-monitor-llms-in-production-with-grafana-cloudopenlit.md) | Grafana Labs |  |
+| 2026-04-04 | [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) | Grafana Labs |  |
+| 2026-04-04 | [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) | Grafana Labs |  |
+| 2026-04-04 | [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) | Grafana Labs |  |
+| 2026-04-04 | [Open standards in 2026: The backbone of modern observability | Grafana Labs](../entries/grafanalabs-open-standards-in-2026-the-backbone-of-modern-observability.md) | Grafana Labs |  |
+| 2026-04-04 | [AIエージェントのHuman-in-the-Loop評価を深化させる - LayerX エンジニアブログ](../entries/layerx-aiエージェントのhuman-in-the-loop評価を深化させる-layerx-エンジニアブログ.md) | LayerX |  |
+| 2026-04-04 | [AWS re:Invent 2025現地参加レポート - LayerX エンジニアブログ](../entries/layerx-aws-reinvent-2025現地参加レポート-layerx-エンジニアブログ.md) | LayerX |  |
+| 2026-04-04 | [Self-Maintainable CI ── Go testの失敗をClaudeで自動修復する仕組み - LayerX エンジニアブログ](../entries/layerx-self-maintainable-ci-go-testの失敗をclaudeで自動修復する仕組み-layerx-エンジニ.md) | LayerX |  |
+| 2026-04-04 | [KernelEvolve: How Meta’s Ranking Engineer Agent Optimizes AI Infrastructure](../entries/meta-kernelevolve-how-metas-ranking-engineer-agent-optimizes-ai-i.md) | Meta |  |
+| 2026-04-04 | [Fukuoka CRE Lounge イベントレポート —— 3社のCREが語る過去・現在・未来 - SmartHR Tech Blog](../entries/smarthr-fukuoka-cre-lounge-イベントレポート-3社のcreが語る過去現在未来-smarthr-tech-blo.md) | SmartHR |  |
+| 2026-04-04 | [WEARの検索基盤をElasticsearch 7.10.2からOpenSearch 2.19.0へ無停止で移行する ── ダブルライトとカナリアリリースによる段階的アプローチ - ZOZO TECH BLOG](../entries/zozo-wearの検索基盤をelasticsearch-7102からopensearch-2190へ無停止で移行する-ダブルライ.md) | ZOZO |  |
+| 2026-04-04 | [ドメインエキスパートとの評価サイクル構築による、WEARのファッション特徴抽出とプロンプト改善 - ZOZO TECH BLOG](../entries/zozo-ドメインエキスパートとの評価サイクル構築によるwearのファッション特徴抽出とプロンプト改善-zozo-tech-blo.md) | ZOZO |  |
+| 2026-04-04 | [仕様が異なる2つのECをつなぐ設計 ── 元営業エンジニアが取り組んだZOZOTOWN Yahoo!店 ギフト導入の記録 - ZOZO TECH BLOG](../entries/zozo-仕様が異なる2つのecをつなぐ設計-元営業エンジニアが取り組んだzozotown-yahoo店-ギフト導入の記録-zoz.md) | ZOZO |  |
 | 2026-03-24 | [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) | Airbnb | test-automation, mobile-cross-browser |
 | 2026-03-24 | [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) | Amazon | test-automation, ci-cd, reliability |
 | 2026-03-24 | [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) | Amazon | reliability, test-strategy |
