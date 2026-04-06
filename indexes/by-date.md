@@ -4,6 +4,21 @@
 
 | 追加日 | タイトル | 会社 | QA領域 |
 |--------|---------|------|--------|
+| 2026-04-06 | [Amazon Bedrock Guardrails supports cross-account safeguards with centralized control and management | Amazon Web Services](../entries/amazon-amazon-bedrock-guardrails-supports-cross-account-safeguards.md) | Amazon |  |
+| 2026-04-06 | [JaSST'26 Tokyo 参加レポート - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-jasst26-tokyo-参加レポート-cybozu-inside-out-サイボウズエンジニアのブログ.md) | Cybozu |  |
+| 2026-04-06 | [プロダクトエンジニア×QAエンジニアでもっと”一緒に”つくるリグレッションテスト - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-プロダクトエンジニアqaエンジニアでもっと一緒につくるリグレッションテスト-cybozu-inside-out-サイボウ.md) | Cybozu |  |
+| 2026-04-06 | [目的から見直すリリース基準の改善活動 - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-目的から見直すリリース基準の改善活動-cybozu-inside-out-サイボウズエンジニアのブログ.md) | Cybozu |  |
+| 2026-04-06 | [AI in observability in 2026: Huge potential, lingering concerns  | Grafana Labs](../entries/grafanalabs-ai-in-observability-in-2026-huge-potential-lingering-concern.md) | Grafana Labs |  |
+| 2026-04-06 | [Finding performance bottlenecks with Pyroscope and Alloy: An example using TON blockchain | Grafana Labs](../entries/grafanalabs-finding-performance-bottlenecks-with-pyroscope-and-alloy-an.md) | Grafana Labs |  |
+| 2026-04-06 | [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) | Grafana Labs |  |
+| 2026-04-06 | [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) | Grafana Labs |  |
+| 2026-04-06 | [How to monitor LLMs in production with Grafana Cloud,OpenLIT, and OpenTelemetry | Grafana Labs](../entries/grafanalabs-how-to-monitor-llms-in-production-with-grafana-cloudopenlit.md) | Grafana Labs |  |
+| 2026-04-06 | [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) | Grafana Labs |  |
+| 2026-04-06 | [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) | Grafana Labs |  |
+| 2026-04-06 | [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) | Grafana Labs |  |
+| 2026-04-06 | [Open standards in 2026: The backbone of modern observability | Grafana Labs](../entries/grafanalabs-open-standards-in-2026-the-backbone-of-modern-observability.md) | Grafana Labs |  |
+| 2026-04-06 | [Figmaコンポーネントとガイドラインで実現するLP制作基盤の標準化 - ZOZO TECH BLOG](../entries/zozo-figmaコンポーネントとガイドラインで実現するlp制作基盤の標準化-zozo-tech-blog.md) | ZOZO |  |
+| 2026-04-06 | [ドメインエキスパートとの評価サイクル構築による、WEARのファッション特徴抽出とプロンプト改善 - ZOZO TECH BLOG](../entries/zozo-ドメインエキスパートとの評価サイクル構築によるwearのファッション特徴抽出とプロンプト改善-zozo-tech-blo.md) | ZOZO |  |
 | 2026-03-24 | [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) | Airbnb | test-automation, mobile-cross-browser |
 | 2026-03-24 | [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) | Amazon | test-automation, ci-cd, reliability |
 | 2026-03-24 | [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) | Amazon | reliability, test-strategy |

@@ -12,6 +12,7 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [Amazon Bedrock Guardrails supports cross-account safeguards with centralized control and management | Amazon Web Services](../entries/amazon-amazon-bedrock-guardrails-supports-cross-account-safeguards.md) |  | 2026-04-03 |  |
 | [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) | test-automation, ci-cd, reliability | 2019-09-01 | テックブログ |
 | [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) | reliability, test-strategy | 2019-09-01 | テックブログ |
 | [Challenges with distributed systems](../entries/amazon-challenges-with-distributed-systems.md) | test-strategy, reliability | 2019-09-01 | テックブログ |
@@ -39,6 +40,9 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [プロダクトエンジニア×QAエンジニアでもっと”一緒に”つくるリグレッションテスト - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-プロダクトエンジニアqaエンジニアでもっと一緒につくるリグレッションテスト-cybozu-inside-out-サイボウ.md) |  | 2026-04-06 |  |
+| [JaSST'26 Tokyo 参加レポート - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-jasst26-tokyo-参加レポート-cybozu-inside-out-サイボウズエンジニアのブログ.md) |  | 2026-04-03 |  |
+| [目的から見直すリリース基準の改善活動 - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-目的から見直すリリース基準の改善活動-cybozu-inside-out-サイボウズエンジニアのブログ.md) |  | 2026-04-03 |  |
 | [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) | test-strategy, test-automation | 2025-07-16 | テックブログ |
 | [SETからPlatform QAへ：DevOps推進のための組織再編](../entries/cybozu-set-to-platform-qa.md) | org-design | 2024-08-16 | テックブログ |
 | [アジャイル型QAの心構え](../entries/cybozu-agile-qa-mindset.md) | test-strategy, org-design | 2024-08-14 | テックブログ |
@@ -97,6 +101,15 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [Finding performance bottlenecks with Pyroscope and Alloy: An example using TON blockchain | Grafana Labs](../entries/grafanalabs-finding-performance-bottlenecks-with-pyroscope-and-alloy-an.md) |  | 2026-03-26 |  |
+| [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) |  | 2026-03-25 |  |
+| [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) |  | 2026-03-23 |  |
+| [How to monitor LLMs in production with Grafana Cloud,OpenLIT, and OpenTelemetry | Grafana Labs](../entries/grafanalabs-how-to-monitor-llms-in-production-with-grafana-cloudopenlit.md) |  | 2026-03-20 |  |
+| [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) |  | 2026-03-20 |  |
+| [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) |  | 2026-03-20 |  |
+| [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) |  | 2026-03-20 |  |
+| [AI in observability in 2026: Huge potential, lingering concerns  | Grafana Labs](../entries/grafanalabs-ai-in-observability-in-2026-huge-potential-lingering-concern.md) |  | 2026-03-18 |  |
+| [Open standards in 2026: The backbone of modern observability | Grafana Labs](../entries/grafanalabs-open-standards-in-2026-the-backbone-of-modern-observability.md) |  | 2026-03-18 |  |
 | [Observability Survey 2024](../entries/grafana-labs-observability-survey-2024.md) | observability, quality-metrics, reliability | 2024-01-01 | ケーススタディ |
 | [Understanding Grafana k6: A simple guide to the load testing tool](../entries/grafana-labs-understanding-grafana-k6-load-testing.md) | performance-test | 2023-08-10 | テックブログ |
 
@@ -282,6 +295,8 @@
 
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
+| [Figmaコンポーネントとガイドラインで実現するLP制作基盤の標準化 - ZOZO TECH BLOG](../entries/zozo-figmaコンポーネントとガイドラインで実現するlp制作基盤の標準化-zozo-tech-blog.md) |  | 2026-04-06 |  |
+| [ドメインエキスパートとの評価サイクル構築による、WEARのファッション特徴抽出とプロンプト改善 - ZOZO TECH BLOG](../entries/zozo-ドメインエキスパートとの評価サイクル構築によるwearのファッション特徴抽出とプロンプト改善-zozo-tech-blo.md) |  | 2026-04-03 |  |
 | [AI生成ユニットテスト運用の実践 — カバレッジ2倍の成果とレビュー設計のリアル](../entries/zozo-ai-generated-unit-test-practice.md) | ai-testing, test-automation, quality-metrics | 2026-03-04 | テックブログ |
 | [フロントエンドテストの正解って？FAANSにおけるテスト戦略の振り返りとこれから](../entries/zozo-faans-frontend-test-strategy.md) | test-strategy, test-automation, ci-cd, quality-metrics | 2025-01-21 | テックブログ |
 | [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) | test-automation, mobile-cross-browser | 2020-05-28 | テックブログ |
