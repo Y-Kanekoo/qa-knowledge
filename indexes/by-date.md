@@ -4,6 +4,30 @@
 
 | 追加日 | タイトル | 会社 | QA領域 |
 |--------|---------|------|--------|
+| 2026-04-09 | [AWS Weekly Roundup: AWS DevOps Agent & Security Agent GA, Product Lifecycle updates, and more (April 6, 2026) | Amazon Web Services](../entries/amazon-aws-weekly-roundup-aws-devops-agent-security-agent-ga-produc.md) | Amazon |  |
+| 2026-04-09 | [プロダクトエンジニア×QAエンジニアでもっと”一緒に”つくるリグレッションテスト - Cybozu Inside Out | サイボウズエンジニアのブログ](../entries/cybozu-プロダクトエンジニアqaエンジニアでもっと一緒につくるリグレッションテスト-cybozu-inside-out-サイボウ.md) | Cybozu |  |
+| 2026-04-09 | [インターネット副回線のトラフィックをDCに集約してコスト削減した話 | BLOG - DeNA Engineering](../entries/dena-インターネット副回線のトラフィックをdcに集約してコスト削減した話-blog-dena-engineering.md) | DeNA |  |
+| 2026-04-09 | [AI Agentに関する試行錯誤を共有する社内LTイベントを開催しました！ - freee Developers Hub](../entries/freee-ai-agentに関する試行錯誤を共有する社内ltイベントを開催しました-freee-developers-hub.md) | freee |  |
+| 2026-04-09 | [freeeにおけるAuthlete Terraform運用プラクティス - freee Developers Hub](../entries/freee-freeeにおけるauthlete-terraform運用プラクティス-freee-developers-hub.md) | freee |  |
+| 2026-04-09 | [GitLab Duo CLI: Agentic AI now in the terminal](../entries/gitlab-gitlab-duo-cli-agentic-ai-now-in-the-terminal.md) | GitLab |  |
+| 2026-04-09 | [Pipeline security lessons from March supply chain incidents](../entries/gitlab-pipeline-security-lessons-from-march-supply-chain-incidents.md) | GitLab |  |
+| 2026-04-09 | [Streamline test management with SmartBear QMetry GitLab component](../entries/gitlab-streamline-test-management-with-smartbear-qmetry-gitlab-comp.md) | GitLab |  |
+| 2026-04-09 | [Business metrics in Grafana Cloud: Get an AI assist to help securely analyze your data | Grafana Labs](../entries/grafanalabs-business-metrics-in-grafana-cloud-get-an-ai-assist-to-help-s.md) | Grafana Labs |  |
+| 2026-04-09 | [Finding performance bottlenecks with Pyroscope and Alloy: An example using TON blockchain | Grafana Labs](../entries/grafanalabs-finding-performance-bottlenecks-with-pyroscope-and-alloy-an.md) | Grafana Labs |  |
+| 2026-04-09 | [From raw data to flame graphs: A deep dive into how the OpenTelemetry eBPF profiler symbolizes Go | Grafana Labs](../entries/grafanalabs-from-raw-data-to-flame-graphs-a-deep-dive-into-how-the-opent.md) | Grafana Labs |  |
+| 2026-04-09 | [How OpenRouter and Grafana Cloud bring observability to LLM-powered applications | Grafana Labs](../entries/grafanalabs-how-openrouter-and-grafana-cloud-bring-observability-to-llm.md) | Grafana Labs |  |
+| 2026-04-09 | [Instrument zero‑code observability for LLMs and agents on Kubernetes | Grafana Labs](../entries/grafanalabs-instrument-zerocode-observability-for-llms-and-agents-on-kub.md) | Grafana Labs |  |
+| 2026-04-09 | [Monitor Model Context Protocol (MCP) servers with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-monitor-model-context-protocol-mcp-servers-with-openlit-and.md) | Grafana Labs |  |
+| 2026-04-09 | [Observability in Go: Where to start and what matters most | Grafana Labs](../entries/grafanalabs-observability-in-go-where-to-start-and-what-matters-most-gra.md) | Grafana Labs |  |
+| 2026-04-09 | [Observe your AI agents: End‑to‑end tracing with OpenLIT and Grafana Cloud | Grafana Labs](../entries/grafanalabs-observe-your-ai-agents-endtoend-tracing-with-openlit-and-gra.md) | Grafana Labs |  |
+| 2026-04-09 | [Query fair usage in Grafana Cloud: What it is and how it affects your logs observability practice | Grafana Labs](../entries/grafanalabs-query-fair-usage-in-grafana-cloud-what-it-is-and-how-it-affe.md) | Grafana Labs |  |
+| 2026-04-09 | [AIエージェントの成功率をどう引き上げるか。Long-running taskにおけるスケーリング則と検証器の役割 - LayerX エンジニアブログ](../entries/layerx-aiエージェントの成功率をどう引き上げるかlong-running-taskにおけるスケーリング則と検証器の役割-lay.md) | LayerX |  |
+| 2026-04-09 | [How Meta Used AI to Map Tribal Knowledge in Large-Scale Data Pipelines](../entries/meta-how-meta-used-ai-to-map-tribal-knowledge-in-large-scale-data.md) | Meta |  |
+| 2026-04-09 | [AIとスクラム —— ジェフ・サザーランド博士たちの最新メッセージと、SmartHRの現場で今起きていること - SmartHR Tech Blog](../entries/smarthr-aiとスクラム-ジェフサザーランド博士たちの最新メッセージとsmarthrの現場で今起きていること-smarthr-te.md) | SmartHR |  |
+| 2026-04-09 | [スクラムイベントでのAI活用 ── 叩き台を作る運用と、やめた運用 - SmartHR Tech Blog](../entries/smarthr-スクラムイベントでのai活用-叩き台を作る運用とやめた運用-smarthr-tech-blog.md) | SmartHR |  |
+| 2026-04-09 | [Atlassian Cloudへの移行 ── Data Center版から乗り換えて得た知見 - ZOZO TECH BLOG](../entries/zozo-atlassian-cloudへの移行-data-center版から乗り換えて得た知見-zozo-tech-blog.md) | ZOZO |  |
+| 2026-04-09 | [Figmaコンポーネントとガイドラインで実現するLP制作基盤の標準化 - ZOZO TECH BLOG](../entries/zozo-figmaコンポーネントとガイドラインで実現するlp制作基盤の標準化-zozo-tech-blog.md) | ZOZO |  |
+| 2026-04-09 | [ZOZOTOWN iOSアーキテクチャの進化とチームの変化 ── 「できる人がやる」から全員で設計をレビューできるようになるまでの軌跡 - ZOZO TECH BLOG](../entries/zozo-zozotown-iosアーキテクチャの進化とチームの変化-できる人がやるから全員で設計をレビューできるようになるまでの.md) | ZOZO |  |
 | 2026-03-24 | [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) | Airbnb | test-automation, mobile-cross-browser |
 | 2026-03-24 | [Automating safe, hands-off deployments](../entries/amazon-automating-safe-hands-off-deployments.md) | Amazon | test-automation, ci-cd, reliability |
 | 2026-03-24 | [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) | Amazon | reliability, test-strategy |
