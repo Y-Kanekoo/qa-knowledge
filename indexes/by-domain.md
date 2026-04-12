@@ -52,6 +52,7 @@
 | [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) | Meta | 2018-11-21 |
 | [Automated Canary Analysis at Netflix with Kayenta](../entries/netflix-kayenta-automated-canary-analysis.md) | Netflix | 2018-05-29 |
 | [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) | ThoughtWorks | 2018-02-26 |
+| [GTAC 2016: How Flaky Tests in Continuous Integration - Current Practice at Google and Future Directions](../entries/gtac-2016-flaky-tests-at-google.md) | Google | 2016-11-15 |
 | [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) | Google | 2016-05-27 |
 | [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) | ThoughtWorks | 2014-11-18 |
 
@@ -101,10 +102,12 @@
 | [Infrastructure and Quality department | The GitLab Handbook](../entries/gitlab-infrastructure-quality-handbook.md) | GitLab | 2024-01-01 |
 | [Software Engineer in Test Job Family | The GitLab Handbook](../entries/gitlab-software-engineer-in-test-job-family.md) | GitLab | 2024-01-01 |
 | [スクラムマスターを兼任して見えてきた、シフトレフトのための立ち回りとやってきたQAの活動](../entries/freee-shift-left-scrum-master-qa.md) | freee | 2023-12-07 |
+| [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) | Ministry of Testing | 2023-03-29 |
 | [「受身から攻めのQA」に至るまでの道のり](../entries/dena-road-to-aggressive-qa.md) | DeNA | 2022-05-31 |
 | [メルペイQAメンバーが明かした「全員品質」のリアルと本音｜merpay QA Tech Talk レポート](../entries/mercari-merpay-qa-tech-talk.md) | Mercari | 2021-11-10 |
 | [DeNAのエンジニアが信頼を寄せるSWETって一体何者!?](../entries/dena-what-is-swet.md) | DeNA | 2020-05-11 |
 | [「品質」の基準とは？](../entries/zozo-quality-standard-definition.md) | ZOZO | 2018-09-18 |
+| [GTAC 2016: Evolution of Business and Engineering Productivity](../entries/gtac-2016-evolution-of-engineering-productivity.md) | Google | 2016-11-15 |
 | [From QA to Engineering Productivity](../entries/google-from-qa-to-engineering-productivity.md) | Google | 2016-03-22 |
 
 ## performance-test
@@ -158,6 +161,7 @@
 | [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) | GitLab | 2024-01-01 |
 | [Observability Survey 2024](../entries/grafana-labs-observability-survey-2024.md) | Grafana Labs | 2024-01-01 |
 | [Load Testing for 2022 Wrapped](../entries/spotify-load-testing-2022-wrapped.md) | Spotify | 2023-03-31 |
+| [JaSST'23 Tokyo 基調講演: Chaos Engineering to Continuous Verification](../entries/jasst-jasst23-tokyo-chaos-engineering-keynote.md) | Verica | 2023-03-09 |
 | [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) | Uber | 2022-10-20 |
 | [Data Quality Automation at Twitter](../entries/twitter-data-quality-automation.md) | Twitter | 2022-09-15 |
 | [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) | Microsoft | 2022-08-18 |
@@ -239,6 +243,9 @@
 | [Software Engineer in Test Job Family | The GitLab Handbook](../entries/gitlab-software-engineer-in-test-job-family.md) | GitLab | 2024-01-01 |
 | [Closing the Visual Testing Gap on Android with Screenshot Tests](../entries/mercari-closing-visual-testing-gap-android-screenshot.md) | Mercari | 2023-12-16 |
 | [Honeycomb + Tracetest: Observability-Driven Development](../entries/honeycomb-observability-driven-development.md) | Honeycomb | 2023-08-24 |
+| [SeleniumConf 2023: Managing the Test Data Nightmare](../entries/seleniumconf-2023-managing-test-data-nightmare.md) | Automation Panda | 2023-03-29 |
+| [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) | Ministry of Testing | 2023-03-29 |
+| [SeleniumConf 2023: Selenium - State of the Union](../entries/seleniumconf-2023-selenium-state-of-the-union.md) | Selenium | 2023-03-28 |
 | [Pocochaで実践するAgile Testing](../entries/dena-pococha-agile-testing.md) | DeNA | 2023-03-15 |
 | [E2Eテスト自動化の裏話。開発生産性やプロダクト品質の向上を目指して](../entries/ly-corporation-e2e-test-automation-story.md) | LY Corporation | 2023-02-08 |
 | [Getting Started With Property-Based Testing in Python With Hypothesis and Pytest](../entries/semaphore-property-based-testing-python-hypothesis.md) | Semaphore | 2023-01-19 |
@@ -265,6 +272,8 @@
 | [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) | Meta | 2018-11-21 |
 | [テスト自動化の理論と技術と戦略：LINE Developer Meetup Tokyo #39 - Testing & Engineering](../entries/line-test-automation-techniques-strategies.md) | LINE | 2018-07-08 |
 | [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) | ThoughtWorks | 2018-02-26 |
+| [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) | BBC | 2016-11-16 |
+| [GTAC 2016: How Flaky Tests in Continuous Integration - Current Practice at Google and Future Directions](../entries/gtac-2016-flaky-tests-at-google.md) | Google | 2016-11-15 |
 | [Automated Testing on Devices](../entries/netflix-automated-testing-on-devices.md) | Netflix | 2016-08-01 |
 | [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) | Google | 2016-05-27 |
 | [テストを使いサービス開発を駆動していくために取り組んでいること](../entries/cookpad-test-driven-service-development.md) | Cookpad | 2016-03-02 |
@@ -302,7 +311,9 @@
 | [JaSST'24 Tokyo レポート](../entries/jasst-jasst24-tokyo-report.md) | JaSST | 2024-03-01 |
 | [スクラムマスターを兼任して見えてきた、シフトレフトのための立ち回りとやってきたQAの活動](../entries/freee-shift-left-scrum-master-qa.md) | freee | 2023-12-07 |
 | [Load Testing for 2022 Wrapped](../entries/spotify-load-testing-2022-wrapped.md) | Spotify | 2023-03-31 |
+| [SeleniumConf 2023: Managing the Test Data Nightmare](../entries/seleniumconf-2023-managing-test-data-nightmare.md) | Automation Panda | 2023-03-29 |
 | [Pocochaで実践するAgile Testing](../entries/dena-pococha-agile-testing.md) | DeNA | 2023-03-15 |
+| [JaSST'23 Tokyo 基調講演: Chaos Engineering to Continuous Verification](../entries/jasst-jasst23-tokyo-chaos-engineering-keynote.md) | Verica | 2023-03-09 |
 | [Getting Started With Property-Based Testing in Python With Hypothesis and Pytest](../entries/semaphore-property-based-testing-python-hypothesis.md) | Semaphore | 2023-01-19 |
 | [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) | Uber | 2022-10-20 |
 | [The GitLab guide to modern software testing](../entries/gitlab-guide-to-modern-software-testing.md) | GitLab | 2022-08-18 |
@@ -322,6 +333,8 @@
 | [In Praise of Property-Based Testing](../entries/increment-property-based-testing.md) | Increment | 2019-08-23 |
 | [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) | ThoughtWorks | 2018-02-26 |
 | [TC4D: Data Quality By Engineers, For Engineers](../entries/spotify-tc4d-data-quality-by-engineers.md) | Spotify | 2017-10-17 |
+| [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) | BBC | 2016-11-16 |
+| [GTAC 2016: Evolution of Business and Engineering Productivity](../entries/gtac-2016-evolution-of-engineering-productivity.md) | Google | 2016-11-15 |
 | [Automated Testing on Devices](../entries/netflix-automated-testing-on-devices.md) | Netflix | 2016-08-01 |
 | [Testing for Reliability | Google SRE Book Chapter 17](../entries/google-sre-book-testing-reliability.md) | Google | 2016-04-01 |
 | [テストを使いサービス開発を駆動していくために取り組んでいること](../entries/cookpad-test-driven-service-development.md) | Cookpad | 2016-03-02 |

@@ -35,16 +35,50 @@
 - [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
 - [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
 
-## distributed-systems (8)
+## distributed-systems (9)
 
 - [Google Cloud Introduces Chaos Engineering Framework and Recipes for Distributed Systems](../entries/google-cloud-chaos-engineering-framework.md) — Google
 - [Title Launch Observability at Netflix Scale](../entries/netflix-title-launch-observability-at-scale.md) — Netflix
+- [JaSST'23 Tokyo 基調講演: Chaos Engineering to Continuous Verification](../entries/jasst-jasst23-tokyo-chaos-engineering-keynote.md) — Verica
 - [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) — Uber
 - [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) — Amazon
 - [Challenges with distributed systems](../entries/amazon-challenges-with-distributed-systems.md) — Amazon
 - [Implementing health checks](../entries/amazon-implementing-health-checks.md) — Amazon
 - [Timeouts, retries and backoff with jitter](../entries/amazon-timeouts-retries-backoff-with-jitter.md) — Amazon
 - [Using load shedding to avoid overload](../entries/amazon-using-load-shedding-to-avoid-overload.md) — Amazon
+
+## flaky-tests (8)
+
+- [Shifting E2E Testing Left at Uber](../entries/uber-shifting-e2e-testing-left.md) — Uber
+- [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) — GitLab
+- [The GitLab guide to modern software testing](../entries/gitlab-guide-to-modern-software-testing.md) — GitLab
+- [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) — Airbnb
+- [An inside look at software testing at GitLab](../entries/gitlab-inside-look-software-testing.md) — GitLab
+- [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) — Meta
+- [GTAC 2016: How Flaky Tests in Continuous Integration - Current Practice at Google and Future Directions](../entries/gtac-2016-flaky-tests-at-google.md) — Google
+- [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) — Google
+
+## resilience (8)
+
+- [Google Cloud Introduces Chaos Engineering Framework and Recipes for Distributed Systems](../entries/google-cloud-chaos-engineering-framework.md) — Google
+- [JaSST'23 Tokyo 基調講演: Chaos Engineering to Continuous Verification](../entries/jasst-jasst23-tokyo-chaos-engineering-keynote.md) — Verica
+- [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) — Amazon
+- [Implementing health checks](../entries/amazon-implementing-health-checks.md) — Amazon
+- [Timeouts, retries and backoff with jitter](../entries/amazon-timeouts-retries-backoff-with-jitter.md) — Amazon
+- [Using load shedding to avoid overload](../entries/amazon-using-load-shedding-to-avoid-overload.md) — Amazon
+- [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
+- [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
+
+## test-automation (8)
+
+- [仕様書を起点にソフトウェアテストを自動化　24時間365日自律稼働し、テスト実行期間を最大80％短縮する「AIテストエージェント」の提供を開始](../entries/shift-ai-testing-agent.md) — SHIFT
+- [リレーブログ企画：サイボウズ QAエンジニアの取り組み紹介](../entries/cybozu-qa-engineer-relay-blog.md) — Cybozu
+- [JaSST'24 Tokyo レポート](../entries/jasst-jasst24-tokyo-report.md) — JaSST
+- [Software Engineer in Test Job Family | The GitLab Handbook](../entries/gitlab-software-engineer-in-test-job-family.md) — GitLab
+- [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) — Ministry of Testing
+- [メルペイQAメンバーが明かした「全員品質」のリアルと本音｜merpay QA Tech Talk レポート](../entries/mercari-merpay-qa-tech-talk.md) — Mercari
+- [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) — BBC
+- [From QA to Engineering Productivity](../entries/google-from-qa-to-engineering-productivity.md) — Google
 
 ## test-pyramid (8)
 
@@ -57,16 +91,6 @@
 - [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
 - [Test Sizes](../entries/google-test-sizes.md) — Google
 
-## flaky-tests (7)
-
-- [Shifting E2E Testing Left at Uber](../entries/uber-shifting-e2e-testing-left.md) — Uber
-- [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) — GitLab
-- [The GitLab guide to modern software testing](../entries/gitlab-guide-to-modern-software-testing.md) — GitLab
-- [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) — Airbnb
-- [An inside look at software testing at GitLab](../entries/gitlab-inside-look-software-testing.md) — GitLab
-- [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) — Meta
-- [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) — Google
-
 ## llm (7)
 
 - [探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](../entries/smarthr-exploratory-test-llm-auto-generation.md) — SmartHR
@@ -77,16 +101,6 @@
 - [Scaling security with AI:  from detection to solution](../entries/google-scaling-security-with-ai-from-detection-to-solution.md) — Google
 - [CodeQL team uses AI to power vulnerability detection in code](../entries/github-codeql-team-uses-ai-to-power-vulnerability-detection-in-code.md) — GitHub
 
-## resilience (7)
-
-- [Google Cloud Introduces Chaos Engineering Framework and Recipes for Distributed Systems](../entries/google-cloud-chaos-engineering-framework.md) — Google
-- [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) — Amazon
-- [Implementing health checks](../entries/amazon-implementing-health-checks.md) — Amazon
-- [Timeouts, retries and backoff with jitter](../entries/amazon-timeouts-retries-backoff-with-jitter.md) — Amazon
-- [Using load shedding to avoid overload](../entries/amazon-using-load-shedding-to-avoid-overload.md) — Amazon
-- [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
-- [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
-
 ## unit-testing (7)
 
 - [自動テストのガイドライン策定によるテスト改善への取り組み](../entries/cybozu-automated-test-guidelines.md) — Cybozu
@@ -96,6 +110,15 @@
 - [The Practical Test Pyramid](../entries/thoughtworks-practical-test-pyramid.md) — ThoughtWorks
 - [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
 - [Test Sizes](../entries/google-test-sizes.md) — Google
+
+## chaos-engineering (6)
+
+- [Google Cloud Introduces Chaos Engineering Framework and Recipes for Distributed Systems](../entries/google-cloud-chaos-engineering-framework.md) — Google
+- [Chaos Engineering in the Wild: Findings from GitHub](../entries/arxiv-chaos-engineering-in-the-wild.md) — Jheronimus Academy of Data Science
+- [JaSST'23 Tokyo 基調講演: Chaos Engineering to Continuous Verification](../entries/jasst-jasst23-tokyo-chaos-engineering-keynote.md) — Verica
+- [Using load shedding to avoid overload](../entries/amazon-using-load-shedding-to-avoid-overload.md) — Amazon
+- [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
+- [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
 
 ## code-review (6)
 
@@ -124,14 +147,14 @@
 - [E2Eテストを Playwright で作り直して開発プロセスに組み込む話](../entries/smarthr-e2e-test-playwright-migration.md) — SmartHR
 - [Using Playwright Test Shards in Combination with a Job Matrix to Improve Your CI Speed](../entries/timdeschryver-playwright-sharding-ci.md) — Tim Deschryver
 
-## test-automation (6)
+## selenium (6)
 
-- [仕様書を起点にソフトウェアテストを自動化　24時間365日自律稼働し、テスト実行期間を最大80％短縮する「AIテストエージェント」の提供を開始](../entries/shift-ai-testing-agent.md) — SHIFT
-- [リレーブログ企画：サイボウズ QAエンジニアの取り組み紹介](../entries/cybozu-qa-engineer-relay-blog.md) — Cybozu
-- [JaSST'24 Tokyo レポート](../entries/jasst-jasst24-tokyo-report.md) — JaSST
 - [Software Engineer in Test Job Family | The GitLab Handbook](../entries/gitlab-software-engineer-in-test-job-family.md) — GitLab
-- [メルペイQAメンバーが明かした「全員品質」のリアルと本音｜merpay QA Tech Talk レポート](../entries/mercari-merpay-qa-tech-talk.md) — Mercari
-- [From QA to Engineering Productivity](../entries/google-from-qa-to-engineering-productivity.md) — Google
+- [SeleniumConf 2023: Managing the Test Data Nightmare](../entries/seleniumconf-2023-managing-test-data-nightmare.md) — Automation Panda
+- [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) — Ministry of Testing
+- [SeleniumConf 2023: Selenium - State of the Union](../entries/seleniumconf-2023-selenium-state-of-the-union.md) — Selenium
+- [freeeの自動テストの全体構成](../entries/freee-automated-test-structure.md) — freee
+- [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) — ZOZO
 
 ## test-design (6)
 
@@ -141,14 +164,6 @@
 - [An inside look at software testing at GitLab](../entries/gitlab-inside-look-software-testing.md) — GitLab
 - [In Praise of Property-Based Testing](../entries/increment-property-based-testing.md) — Increment
 - [テストを使いサービス開発を駆動していくために取り組んでいること](../entries/cookpad-test-driven-service-development.md) — Cookpad
-
-## chaos-engineering (5)
-
-- [Google Cloud Introduces Chaos Engineering Framework and Recipes for Distributed Systems](../entries/google-cloud-chaos-engineering-framework.md) — Google
-- [Chaos Engineering in the Wild: Findings from GitHub](../entries/arxiv-chaos-engineering-in-the-wild.md) — Jheronimus Academy of Data Science
-- [Using load shedding to avoid overload](../entries/amazon-using-load-shedding-to-avoid-overload.md) — Amazon
-- [Chaos Monkey - Resiliency Tool That Helps Applications Tolerate Random Instance Failures](../entries/netflix-chaosmonkey.md) — Netflix
-- [FIT: Failure Injection Testing](../entries/netflix-fit-failure-injection-testing.md) — Netflix
 
 ## load-testing (5)
 
@@ -274,6 +289,12 @@
 - [E2Eテスト分析基盤としてReportPortalを導入しました](../entries/freee-reportportal-e2e-test-analysis.md) — freee
 - [freeeの自動テストの全体構成](../entries/freee-automated-test-structure.md) — freee
 
+## engineering-productivity (3)
+
+- [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) — GitLab
+- [GTAC 2016: Evolution of Business and Engineering Productivity](../entries/gtac-2016-evolution-of-engineering-productivity.md) — Google
+- [From QA to Engineering Productivity](../entries/google-from-qa-to-engineering-productivity.md) — Google
+
 ## exploratory-testing (3)
 
 - [探索的テスト補助用テストケースの自動生成 ー 使用したLLMプロンプトもご紹介](../entries/smarthr-exploratory-test-llm-auto-generation.md) — SmartHR
@@ -328,17 +349,17 @@
 - [Better Android Testing at Airbnb — Part 3: Interaction Testing](../entries/airbnb-better-android-testing-at-airbnb-part-3-interaction.md) — Airbnb
 - [毎週リリースを実現するテスト活動](../entries/cookpad-weekly-release-testing.md) — Cookpad
 
-## selenium (3)
-
-- [Software Engineer in Test Job Family | The GitLab Handbook](../entries/gitlab-software-engineer-in-test-job-family.md) — GitLab
-- [freeeの自動テストの全体構成](../entries/freee-automated-test-structure.md) — freee
-- [Autifyを導入してE2E自動テストを最適化した話](../entries/zozo-autify-e2e-test-optimization.md) — ZOZO
-
 ## test-isolation (3)
 
 - [Shifting E2E Testing Left at Uber](../entries/uber-shifting-e2e-testing-left.md) — Uber
 - [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) — Uber
 - [Test Sizes](../entries/google-test-sizes.md) — Google
+
+## test-reliability (3)
+
+- [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) — Microsoft
+- [GTAC 2016: How Flaky Tests in Continuous Integration - Current Practice at Google and Future Directions](../entries/gtac-2016-flaky-tests-at-google.md) — Google
+- [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) — Google
 
 ## unit-test (3)
 
@@ -407,6 +428,11 @@
 - [PACT Contract Testing – Because Not Everything Needs Full Integration Tests](../entries/microsoft-pact-contract-testing.md) — Microsoft
 - [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
 
+## continuous-integration (2)
+
+- [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) — Microsoft
+- [GTAC 2016: How Flaky Tests in Continuous Integration - Current Practice at Google and Future Directions](../entries/gtac-2016-flaky-tests-at-google.md) — Google
+
 ## cross-browser (2)
 
 - [Cypress to Playwright Migration: A Step-by-Step Guide](../entries/testdino-cypress-to-playwright-migration.md) — TestDino
@@ -452,11 +478,6 @@
 - [Getting Started With Property-Based Testing in Python With Hypothesis and Pytest](../entries/semaphore-property-based-testing-python-hypothesis.md) — Semaphore
 - [In Praise of Property-Based Testing](../entries/increment-property-based-testing.md) — Increment
 
-## engineering-productivity (2)
-
-- [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) — GitLab
-- [From QA to Engineering Productivity](../entries/google-from-qa-to-engineering-productivity.md) — Google
-
 ## failure-modes (2)
 
 - [Avoiding fallback in distributed systems](../entries/amazon-avoiding-fallback-in-distributed-systems.md) — Amazon
@@ -501,6 +522,11 @@
 
 - [DeNA 品質管理部門が挑むAI化戦略](../entries/dena-qa-ai-strategy.md) — DeNA
 - [Tech on the Toilet: Driving Software Excellence, One Bathroom Break at a Time](../entries/google-tech-on-toilet-driving-software-excellence.md) — Google
+
+## machine-learning (2)
+
+- [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) — Meta
+- [GTAC 2016: How Flaky Tests in Continuous Integration - Current Practice at Google and Future Directions](../entries/gtac-2016-flaky-tests-at-google.md) — Google
 
 ## metrics (2)
 
@@ -572,6 +598,11 @@
 - [LayerX バクラク事業部における探索的テストへの取り組み](../entries/layerx-exploratory-testing-bakuraku.md) — LayerX
 - [スクラムマスターを兼任して見えてきた、シフトレフトのための立ち回りとやってきたQAの活動](../entries/freee-shift-left-scrum-master-qa.md) — freee
 
+## quality-culture (2)
+
+- [JaSST'24 Tokyo レポート](../entries/jasst-jasst24-tokyo-report.md) — JaSST
+- [GTAC 2016: Evolution of Business and Engineering Productivity](../entries/gtac-2016-evolution-of-engineering-productivity.md) — Google
+
 ## regression-test (2)
 
 - [テストアーキテクチャの実践](../entries/freee-test-architecture-practice.md) — freee
@@ -625,11 +656,6 @@
 ## test-quarantine (2)
 
 - [Flaky tests management and processes | The GitLab Handbook](../entries/gitlab-flaky-tests-management.md) — GitLab
-- [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) — Google
-
-## test-reliability (2)
-
-- [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) — Microsoft
 - [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) — Google
 
 ## test-selection (2)
@@ -766,6 +792,10 @@
 
 - [Fast builds, secure builds. Choose two.](../entries/stripe-fast-secure-builds-choose-two.md) — Stripe
 
+## bbc (1)
+
+- [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) — BBC
+
 ## bdd (1)
 
 - [Pocochaで実践するAgile Testing](../entries/dena-pococha-agile-testing.md) — DeNA
@@ -781,6 +811,10 @@
 ## bpf (1)
 
 - [Introducing Ballast: An Adaptive Load Test Framework](../entries/uber-introducing-ballast-adaptive-load-test.md) — Uber
+
+## browser-automation (1)
+
+- [SeleniumConf 2023: Selenium - State of the Union](../entries/seleniumconf-2023-selenium-state-of-the-union.md) — Selenium
 
 ## browserstack (1)
 
@@ -809,6 +843,10 @@
 ## canary-testing (1)
 
 - [Testing for Reliability | Google SRE Book Chapter 17](../entries/google-sre-book-testing-reliability.md) — Google
+
+## career (1)
+
+- [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) — Ministry of Testing
 
 ## career-framework (1)
 
@@ -886,9 +924,9 @@
 
 - [Going faster with continuous delivery](../entries/amazon-going-faster-with-continuous-delivery.md) — Amazon
 
-## continuous-integration (1)
+## continuous-verification (1)
 
-- [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) — Microsoft
+- [JaSST'23 Tokyo 基調講演: Chaos Engineering to Continuous Verification](../entries/jasst-jasst23-tokyo-chaos-engineering-keynote.md) — Verica
 
 ## cost-efficiency (1)
 
@@ -914,6 +952,10 @@
 
 - [メルカリ ハロ リリースのQA戦略](../entries/mercari-hallo-release-qa-strategy.md) — Mercari
 
+## curriculum (1)
+
+- [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) — Ministry of Testing
+
 ## dark-launching (1)
 
 - [Shadow Testing - Engineering Fundamentals Playbook](../entries/microsoft-shadow-testing-playbook.md) — Microsoft
@@ -921,6 +963,10 @@
 ## dashboard (1)
 
 - [Title Launch Observability at Netflix Scale](../entries/netflix-title-launch-observability-at-scale.md) — Netflix
+
+## data-driven-testing (1)
+
+- [SeleniumConf 2023: Managing the Test Data Nightmare](../entries/seleniumconf-2023-managing-test-data-nightmare.md) — Automation Panda
 
 ## data-integrity (1)
 
@@ -1082,6 +1128,10 @@
 
 - [Introducing Ballast: An Adaptive Load Test Framework](../entries/uber-introducing-ballast-adaptive-load-test.md) — Uber
 
+## google (1)
+
+- [GTAC 2016: Evolution of Business and Engineering Productivity](../entries/gtac-2016-evolution-of-engineering-productivity.md) — Google
+
 ## gradient-boosted-decision-tree (1)
 
 - [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) — Meta
@@ -1210,10 +1260,6 @@
 
 - [Using load shedding to avoid overload](../entries/amazon-using-load-shedding-to-avoid-overload.md) — Amazon
 
-## machine-learning (1)
-
-- [Predictive Test Selection: A More Efficient Way to Ensure Reliability of Code Changes](../entries/meta-predictive-test-selection.md) — Meta
-
 ## magicpod (1)
 
 - [E2Eテスト自動化の裏話。開発生産性やプロダクト品質の向上を目指して](../entries/ly-corporation-e2e-test-automation-story.md) — LY Corporation
@@ -1337,6 +1383,10 @@
 ## org-structure (1)
 
 - [Infrastructure and Quality department | The GitLab Handbook](../entries/gitlab-infrastructure-quality-handbook.md) — GitLab
+
+## oss (1)
+
+- [SeleniumConf 2023: Selenium - State of the Union](../entries/seleniumconf-2023-selenium-state-of-the-union.md) — Selenium
 
 ## overload-protection (1)
 
@@ -1478,6 +1528,10 @@
 
 - [LINEヤフーのQAエンジニアが生成AIを利用して品質管理の生産性を向上させる方法](../entries/ly-corporation-qa-generative-ai-productivity.md) — LY Corporation
 
+## qa-role (1)
+
+- [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) — Ministry of Testing
+
 ## qa-skill-building (1)
 
 - [リレーブログ企画：自動テストをQAが実装可能にする取り組み「QAムキムキ化」](../entries/cybozu-qa-mukimuki-automation.md) — Cybozu
@@ -1486,6 +1540,10 @@
 
 - [テスト自動化の理論と技術と戦略：LINE Developer Meetup Tokyo #39 - Testing & Engineering](../entries/line-test-automation-techniques-strategies.md) — LINE
 
+## qa-transformation (1)
+
+- [GTAC 2016: Evolution of Business and Engineering Productivity](../entries/gtac-2016-evolution-of-engineering-productivity.md) — Google
+
 ## qmo (1)
 
 - [「受身から攻めのQA」に至るまでの道のり](../entries/dena-road-to-aggressive-qa.md) — DeNA
@@ -1493,10 +1551,6 @@
 ## quality-assurance (1)
 
 - [【QAエンジニア考案】スクラムチームの品質保証を強化する「不安ニングポーカー」](../entries/smarthr-fuan-ning-poker.md) — SmartHR
-
-## quality-culture (1)
-
-- [JaSST'24 Tokyo レポート](../entries/jasst-jasst24-tokyo-report.md) — JaSST
 
 ## quality-definition (1)
 
@@ -1542,6 +1596,10 @@
 
 - [【QAエンジニア考案】スクラムチームの品質保証を強化する「不安ニングポーカー」](../entries/smarthr-fuan-ning-poker.md) — SmartHR
 
+## roi (1)
+
+- [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) — BBC
+
 ## rollback-safety (1)
 
 - [Ensuring rollback safety during deployments](../entries/amazon-ensuring-rollback-safety-during-deployments.md) — Amazon
@@ -1569,6 +1627,10 @@
 ## sbtm (1)
 
 - [LayerX バクラク事業部における探索的テストへの取り組み](../entries/layerx-exploratory-testing-bakuraku.md) — LayerX
+
+## scale (1)
+
+- [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) — BBC
 
 ## schema-testing (1)
 
@@ -1678,6 +1740,10 @@
 
 - [Mutation Testing](../entries/google-mutation-testing.md) — Google
 
+## test-data (1)
+
+- [SeleniumConf 2023: Managing the Test Data Nightmare](../entries/seleniumconf-2023-managing-test-data-nightmare.md) — Automation Panda
+
 ## test-doubles (1)
 
 - [Testing Strategies in a Microservice Architecture](../entries/thoughtworks-testing-strategies-microservice-architecture.md) — ThoughtWorks
@@ -1701,6 +1767,10 @@
 ## test-maintenance (1)
 
 - [DragonCrawl: Generative AI for High-Quality Mobile Testing](../entries/uber-generative-ai-for-high-quality-mobile-testing.md) — Uber
+
+## test-management (1)
+
+- [SeleniumConf 2023: Managing the Test Data Nightmare](../entries/seleniumconf-2023-managing-test-data-nightmare.md) — Automation Panda
 
 ## test-optimization (1)
 
@@ -1733,6 +1803,10 @@
 ## test-speed (1)
 
 - [自動テスト速度改善 - 自動テストが品質のボトルネックとならないために](../entries/freee-improving-ci-testing-speed.md) — freee
+
+## test-strategy (1)
+
+- [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) — BBC
 
 ## test-taxonomy (1)
 
@@ -1845,6 +1919,10 @@
 ## wcag (1)
 
 - [Automated Accessibility Testing at Slack](../entries/slack-automated-accessibility-testing.md) — Slack
+
+## webdriver (1)
+
+- [SeleniumConf 2023: Selenium - State of the Union](../entries/seleniumconf-2023-selenium-state-of-the-union.md) — Selenium
 
 ## weekly-release (1)
 

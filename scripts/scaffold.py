@@ -134,8 +134,10 @@ def detect_language(soup: BeautifulSoup) -> str:
 
 def generate_slug(title: str) -> str:
     """タイトルからURLスラッグを生成する。"""
-    # 英数字とスペース・ハイフン以外を除去
-    slug = re.sub(r"[^\w\s-]", "", title.lower())
+    # YAMLファイル名に使えるよう、まずASCII外の文字を全て除去する
+    slug = re.sub(r"[^\x00-\x7F]+", "", title.lower())
+    # ASCII内でも英数字とスペース・アンダースコア・ハイフン以外は除去
+    slug = re.sub(r"[^a-z0-9\s_-]", "", slug)
     # スペースをハイフンに変換
     slug = re.sub(r"[\s_]+", "-", slug)
     # 連続するハイフンを1つにまとめる
@@ -145,6 +147,9 @@ def generate_slug(title: str) -> str:
     # 長すぎる場合は切り詰め（末尾のハイフンは除去）
     if len(slug) > 60:
         slug = slug[:60].rstrip("-")
+    # 文字が残らない場合はフォールバックを使う
+    if not slug:
+        slug = "untitled"
     return slug
 
 

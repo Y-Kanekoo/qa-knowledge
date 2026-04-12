@@ -149,6 +149,14 @@ class TestGenerateSlug:
         assert "world" in result
         assert "2024" in result
 
+    def test_日本語を除去して連続ハイフンをまとめる(self):
+        result = generate_slug("AIエージェント入門 - 2024年版!!!")
+        assert result == "ai-2024"
+
+    def test_日本語のみで空になる場合は_untitled_にフォールバックする(self):
+        result = generate_slug("日本語タイトルだけ")
+        assert result == "untitled"
+
 
 # ==========================================================
 # format_output（1ケース）

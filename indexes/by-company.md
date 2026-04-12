@@ -27,6 +27,18 @@
 |---------|--------|--------|------|
 | [Testing Data Migrations](../entries/atlasgo-testing-data-migrations.md) | test-automation, test-strategy | 2024-08-01 | テックブログ |
 
+## Automation Panda
+
+| タイトル | QA領域 | 公開日 | 種別 |
+|---------|--------|--------|------|
+| [SeleniumConf 2023: Managing the Test Data Nightmare](../entries/seleniumconf-2023-managing-test-data-nightmare.md) | test-automation, test-strategy | 2023-03-29 | 動画 |
+
+## BBC
+
+| タイトル | QA領域 | 公開日 | 種別 |
+|---------|--------|--------|------|
+| [GTAC 2016: Scale vs Value - Test Automation at the BBC](../entries/gtac-2016-scale-vs-value-test-automation-bbc.md) | test-automation, test-strategy | 2016-11-16 | 動画 |
+
 ## Cookpad
 
 | タイトル | QA領域 | 公開日 | 種別 |
@@ -82,6 +94,8 @@
 | [Scaling security with AI:  from detection to solution](../entries/google-scaling-security-with-ai-from-detection-to-solution.md) | security-test, ai-testing, test-automation | 2024-01-31 | テックブログ |
 | [Mutation Testing](../entries/google-mutation-testing.md) | test-automation, test-strategy | 2021-04-12 | テックブログ |
 | [Example Error Budget Policy | Google SRE Workbook Appendix B](../entries/google-sre-workbook-error-budget-policy.md) | reliability, quality-metrics | 2018-08-01 | 書籍 |
+| [GTAC 2016: Evolution of Business and Engineering Productivity](../entries/gtac-2016-evolution-of-engineering-productivity.md) | org-design, test-strategy | 2016-11-15 | カンファレンス発表 |
+| [GTAC 2016: How Flaky Tests in Continuous Integration - Current Practice at Google and Future Directions](../entries/gtac-2016-flaky-tests-at-google.md) | test-automation, ci-cd | 2016-11-15 | カンファレンス発表 |
 | [Flaky Tests at Google and How We Mitigate Them](../entries/google-flaky-tests-mitigation.md) | test-automation, ci-cd | 2016-05-27 | テックブログ |
 | [Testing for Reliability | Google SRE Book Chapter 17](../entries/google-sre-book-testing-reliability.md) | reliability, test-strategy | 2016-04-01 | 書籍 |
 | [From QA to Engineering Productivity](../entries/google-from-qa-to-engineering-productivity.md) | org-design | 2016-03-22 | テックブログ |
@@ -174,6 +188,12 @@
 | [Shadow Testing - Engineering Fundamentals Playbook](../entries/microsoft-shadow-testing-playbook.md) | test-strategy, reliability, observability | 2024-09-17 | テックブログ |
 | [Shift Left to Make Testing Fast and Reliable](../entries/microsoft-shift-left-make-testing-fast-reliable.md) | shift-left, test-strategy, test-automation, ci-cd, reliability, quality-metrics | 2022-08-18 | ハンドブック |
 
+## Ministry of Testing
+
+| タイトル | QA領域 | 公開日 | 種別 |
+|---------|--------|--------|------|
+| [SeleniumConf 2023: What Exactly Do You Do in Test Automation?](../entries/seleniumconf-2023-what-do-you-do-in-test-automation.md) | test-automation, org-design | 2023-03-29 | カンファレンス発表 |
+
 ## Netflix
 
 | タイトル | QA領域 | 公開日 | 種別 |
@@ -190,6 +210,12 @@
 | タイトル | QA領域 | 公開日 | 種別 |
 |---------|--------|--------|------|
 | [仕様書を起点にソフトウェアテストを自動化　24時間365日自律稼働し、テスト実行期間を最大80％短縮する「AIテストエージェント」の提供を開始](../entries/shift-ai-testing-agent.md) | ai-testing, test-automation | 2026-02-05 | テックブログ |
+
+## Selenium
+
+| タイトル | QA領域 | 公開日 | 種別 |
+|---------|--------|--------|------|
+| [SeleniumConf 2023: Selenium - State of the Union](../entries/seleniumconf-2023-selenium-state-of-the-union.md) | test-automation | 2023-03-28 | 動画 |
 
 ## Semaphore
 
@@ -271,6 +297,12 @@
 | [DragonCrawl: Generative AI for High-Quality Mobile Testing](../entries/uber-generative-ai-for-high-quality-mobile-testing.md) | ai-testing, test-automation, mobile-cross-browser | 2024-04-23 | テックブログ |
 | [Simplifying Developer Testing Through SLATE](../entries/uber-simplifying-developer-testing-slate.md) | test-strategy, test-automation, ci-cd, shift-left, reliability, observability | 2022-10-20 | テックブログ |
 | [Introducing Ballast: An Adaptive Load Test Framework](../entries/uber-introducing-ballast-adaptive-load-test.md) | performance-test, test-automation, reliability | 2022-03-01 | テックブログ |
+
+## Verica
+
+| タイトル | QA領域 | 公開日 | 種別 |
+|---------|--------|--------|------|
+| [JaSST'23 Tokyo 基調講演: Chaos Engineering to Continuous Verification](../entries/jasst-jasst23-tokyo-chaos-engineering-keynote.md) | reliability, test-strategy | 2023-03-09 | カンファレンス発表 |
 
 ## Yuri Kan
 
