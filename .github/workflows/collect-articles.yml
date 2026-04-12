@@ -24,7 +24,7 @@ jobs:
       - name: RSS新着記事の検出と骨格エントリ生成
         id: collect
         run: |
-          # RSS新着記事を取得（JSON形式で出力するため一時的にテキスト出力を解析）
+          # RSS新着記事を取得
           python scripts/check_rss.py --days 3 > /tmp/rss_result.txt 2>/tmp/rss_log.txt || true
 
           if ! grep -q "新着QA関連記事" /tmp/rss_result.txt; then
@@ -37,10 +37,16 @@ jobs:
           ADDED=0
 
           # テキスト出力からURLと企業名を抽出して scaffold.py で骨格生成
-          # check_rss.py のテキスト出力形式: "  [ブログ名] タイトル\n    URL: https://...\n"
           while IFS= read -r url_line; do
             URL=$(echo "$url_line" | sed 's/^.*URL: //')
-            # 直前の行からブログ名を取得（feeds.yml の company に対応）
+
+            # URLにASCII外の文字が含まれる場合はスキップ（壊れたファイル名防止）
+            if echo "$URL" | LC_ALL=C grep -q '[^[:print:]]'; then
+              echo "  スキップ（非ASCII URL）: $URL"
+              continue
+            fi
+
+            # 直前の行からブログ名を取得
             BLOG_LINE=$(grep -B1 "$URL" /tmp/rss_result.txt | head -1)
             BLOG_NAME=$(echo "$BLOG_LINE" | sed 's/^.*\[//' | sed 's/\].*//')
 
@@ -56,7 +62,7 @@ jobs:
           " 2>/dev/null || echo "")
 
             if [ -z "$COMPANY" ]; then
-              echo "企業名が取得できませんでした: $BLOG_NAME"
+              echo "  スキップ（企業名不明）: $BLOG_NAME"
               continue
             fi
 
@@ -71,10 +77,30 @@ jobs:
           echo "added_count=$ADDED" >> "$GITHUB_OUTPUT"
           echo "追加件数: $ADDED"
 
-      - name: バリデーション
+      - name: 壊れたエントリを除去してバリデーション
         if: steps.collect.outputs.has_new == 'true' && steps.collect.outputs.added_count != '0'
         run: |
-          python scripts/validate_frontmatter.py || true
+          # バリデーションを実行し、失敗したファイルを削除
+          python scripts/validate_frontmatter.py 2>&1 | tee /tmp/validate_result.txt || true
+
+          # エラーのあるファイルを特定して削除
+          grep "^\[ERROR\]" /tmp/validate_result.txt | sed 's/\[ERROR\] entries\///' | sed 's/:.*//' | sort -u | while read -r bad_file; do
+            if [ -f "entries/$bad_file" ]; then
+              # 新規追加ファイル（gitで未追跡）のみ削除
+              if ! git ls-files --error-unmatch "entries/$bad_file" > /dev/null 2>&1; then
+                echo "不正なエントリを削除: $bad_file"
+                rm "entries/$bad_file"
+              fi
+            fi
+          done
+
+          # 再バリデーション
+          python scripts/validate_frontmatter.py || {
+            echo "バリデーションエラーが残っています。PR作成をスキップします。"
+            exit 1
+          }
+
+          # インデックス再生成
           python scripts/generate_index.py
 
       - name: 変更の確認
@@ -103,6 +129,7 @@ jobs:
             - 追加件数: ${{ steps.changes.outputs.added_count }}件
             - **title, company, url, published_at, language** は自動入力済み
             - **content_type, qa_domains, tags, 概要, 何が学べるか** は未記入
+            - バリデーション不合格のファイルは自動除去済み
 
             ### 次のステップ
             1. このPRをチェックアウト
