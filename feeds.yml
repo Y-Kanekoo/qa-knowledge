@@ -108,6 +108,67 @@ feeds:
     url: https://stripe.com/blog/feed.rss
     language: en
 
+  - name: m3 Tech Blog
+    company: エムスリー
+    url: https://www.m3tech.blog/rss
+    language: ja
+
+  - name: Tabelog Tech Blog
+    company: 食べログ
+    url: https://tech-blog.tabelog.com/rss
+    language: ja
+
+  - name: CADDi Tech Blog
+    company: CADDi
+    url: https://caddi.tech/rss.xml
+    language: ja
+
+  - name: ANDPAD Tech Blog
+    company: ANDPAD
+    url: https://tech.andpad.co.jp/feed
+    language: ja
+
+  - name: Money Forward Developers Blog
+    company: Money Forward
+    url: https://moneyforward-dev.jp/rss
+    language: ja
+
+  - name: CyberAgent Developers Blog
+    company: CyberAgent
+    url: https://developers.cyberagent.co.jp/blog/feed/
+    language: ja
+
+  - name: Sansan Tech Blog
+    company: Sansan
+    url: https://buildersbox.corp-sansan.com/rss
+    language: ja
+
+  - name: Dropbox Tech Blog
+    company: Dropbox
+    url: https://dropbox.tech/feed
+    language: en
+
+  - name: Atlassian Engineering Blog
+    company: Atlassian
+    url: https://www.atlassian.com/blog/atlassian-engineering/feed
+    language: en
+
+  - name: Etsy Code as Craft
+    company: Etsy
+    url: https://www.etsy.com/codeascraft/feed/rss
+    language: en
+
+  - name: Lyft Engineering
+    company: Lyft
+    url: https://eng.lyft.com/feed
+    language: en
+
+  - name: Playwright Blog
+    company: Playwright
+    url: https://playwright.dev/blog/rss.xml
+    language: en
+    skip_keyword_filter: true
+
 # QA関連記事のフィルタリング用キーワード（タイトル・概要に含まれるか大文字小文字無視でチェック）
 keywords:
   - test
@@ -137,3 +198,14 @@ keywords:
   - TDD
   - contract test
   - load test
+  - eval
+  - evaluation
+  - llm test
+  - chaos engineering
+  - incident
+  - postmortem
+  - fault injection
+  - テスト自動化
+  - 回帰テスト
+  - 負荷テスト
+  - 探索的テスト
