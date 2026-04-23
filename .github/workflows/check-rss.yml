@@ -36,7 +36,7 @@ jobs:
           fi
       - name: 新着記事をIssueで通知
         if: steps.rss.outputs.has_new_articles == 'true'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: "[new-article] 新着QA関連記事が見つかりました"
           content-filepath: rss_result.txt
