@@ -30,7 +30,7 @@ jobs:
           fi
       - name: リンク切れをIssueで報告
         if: steps.check.outputs.has_broken_links == 'true'
-        uses: peter-evans/create-issue-from-file@v5
+        uses: peter-evans/create-issue-from-file@v6
         with:
           title: "[broken-link] リンク切れが検出されました"
           content-filepath: broken_links.txt
