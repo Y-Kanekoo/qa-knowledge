@@ -169,6 +169,303 @@ feeds:
     language: en
     skip_keyword_filter: true
 
+  # --- 国内テックブログ（第2弾: ゲーム/SaaS/EC/HRテックなど） ---
+  - name: LegalOn Technologies Tech Blog
+    company: LegalOn Technologies
+    url: https://tech.legalforce.co.jp/feed
+    language: ja
+
+  - name: Timee Product Team Blog
+    company: Timee
+    url: https://tech.timee.co.jp/feed
+    language: ja
+
+  - name: SEGA TECH Blog
+    company: SEGA
+    url: https://techblog.sega.jp/feed
+    language: ja
+
+  - name: GREE Engineering
+    company: GREE
+    url: https://labs.gree.jp/blog/feed/
+    language: ja
+
+  - name: KLab Engineer's Blog
+    company: KLab
+    url: https://www.klab.com/jp/assets/rss/rss_tech.xml
+    language: ja
+
+  - name: MIXI Developers
+    company: MIXI
+    url: https://zenn.dev/p/mixi/feed
+    language: ja
+
+  - name: Hatena Developer Blog
+    company: Hatena
+    url: https://developer.hatenastaff.com/feed
+    language: ja
+
+  - name: CARTA HOLDINGS Tech Blog
+    company: CARTA HOLDINGS
+    url: https://techblog.cartaholdings.co.jp/feed
+    language: ja
+
+  - name: GMO Developers
+    company: GMO Internet Group
+    url: https://developers.gmo.jp/feed/
+    language: ja
+
+  - name: pixiv inside
+    company: pixiv
+    url: https://inside.pixiv.blog/feed
+    language: ja
+
+  - name: Ubie Dev Tech Blog
+    company: Ubie
+    url: https://zenn.dev/p/ubie_dev/feed
+    language: ja
+
+  - name: Loglass Tech Blog
+    company: Loglass
+    url: https://prd-blog.loglass.co.jp/feed
+    language: ja
+
+  - name: 10X Product Blog
+    company: 10X
+    url: https://product.10x.co.jp/feed
+    language: ja
+
+  - name: DMM inside
+    company: DMM
+    url: https://developersblog.dmm.com/feed
+    language: ja
+
+  - name: Retty Tech Blog
+    company: Retty
+    url: https://engineer.retty.me/feed
+    language: ja
+
+  - name: Wantedly Engineer Blog
+    company: Wantedly
+    url: https://www.wantedly.com/stories/s/wantedly_engineers/rss.xml
+    language: ja
+
+  - name: BASE Developers Blog
+    company: BASE
+    url: https://devblog.thebase.in/feed
+    language: ja
+
+  - name: STORES Product Blog
+    company: STORES
+    url: https://product.st.inc/feed
+    language: ja
+
+  - name: Gunosy Tech Blog
+    company: Gunosy
+    url: https://tech.gunosy.io/feed
+    language: ja
+
+  - name: Speee DEVELOPER BLOG
+    company: Speee
+    url: https://tech.speee.jp/feed
+    language: ja
+
+  - name: Chatwork Creator's Note
+    company: kubell (Chatwork)
+    url: https://creators-note.chatwork.com/feed
+    language: ja
+
+  - name: Findy Tech Blog
+    company: Findy
+    url: https://tech.findy.co.jp/feed
+    language: ja
+
+  - name: Gaudiy Tech Blog
+    company: Gaudiy
+    url: https://techblog.gaudiy.com/feed
+    language: ja
+
+  - name: Yappli Tech Blog
+    company: Yappli
+    url: https://tech.yappli.io/feed
+    language: ja
+
+  - name: Visional Engineering Blog
+    company: Visional
+    url: https://engineering.visional.inc/blog/index.xml
+    language: ja
+
+  # --- 海外テックブログ（第2弾: Shopify/Figma/HashiCorp系） ---
+  - name: Pinterest Engineering
+    company: Pinterest
+    url: https://medium.com/feed/pinterest-engineering
+    language: en
+
+  - name: Airbnb Tech Blog
+    company: Airbnb
+    url: https://medium.com/feed/airbnb-engineering
+    language: en
+
+  - name: Shopify Engineering
+    company: Shopify
+    url: https://shopify.engineering/blog.atom
+    language: en
+
+  - name: Cloudflare Blog
+    company: Cloudflare
+    url: https://blog.cloudflare.com/rss/
+    language: en
+
+  - name: Datadog Blog
+    company: Datadog
+    url: https://www.datadoghq.com/blog/rss.xml
+    language: en
+
+  - name: Sentry Blog
+    company: Sentry
+    url: https://blog.sentry.io/feed.xml
+    language: en
+
+  - name: HashiCorp Blog
+    company: HashiCorp
+    url: https://www.hashicorp.com/blog/feed.xml
+    language: en
+
+  - name: MongoDB Blog
+    company: MongoDB
+    url: https://www.mongodb.com/blog/rss
+    language: en
+
+  - name: Elastic Blog
+    company: Elastic
+    url: https://www.elastic.co/blog/feed
+    language: en
+
+  - name: JetBrains Blog
+    company: JetBrains
+    url: https://blog.jetbrains.com/feed/
+    language: en
+
+  - name: DoorDash Engineering
+    company: DoorDash
+    url: https://doordash.engineering/blog/rss
+    language: en
+
+  - name: Figma Blog
+    company: Figma
+    url: https://www.figma.com/blog/feed/atom.xml
+    language: en
+
+  - name: Vercel Blog
+    company: Vercel
+    url: https://vercel.com/atom
+    language: en
+
+  - name: Canva Engineering
+    company: Canva
+    url: https://engineering.canva.com/rss
+    language: en
+
+  - name: Pulumi Blog
+    company: Pulumi
+    url: https://www.pulumi.com/blog/feed.xml
+    language: en
+
+  - name: Instacart Tech Blog
+    company: Instacart
+    url: https://tech.instacart.com/feed
+    language: en
+
+  - name: Yelp Engineering
+    company: Yelp
+    url: https://engineeringblog.yelp.com/feed.xml
+    language: en
+
+  - name: Thoughtworks Insights
+    company: Thoughtworks
+    url: https://www.thoughtworks.com/rss/insights.xml
+    language: en
+
+  # --- Testing ツールベンダー ---
+  - name: Cypress Blog
+    company: Cypress
+    url: https://www.cypress.io/blog/rss.xml
+    language: en
+    skip_keyword_filter: true
+
+  - name: mabl Blog
+    company: mabl
+    url: https://www.mabl.com/blog/rss.xml
+    language: en
+    skip_keyword_filter: true
+
+  - name: Applitools Blog
+    company: Applitools
+    url: https://applitools.com/blog/feed/
+    language: en
+    skip_keyword_filter: true
+
+  - name: BrowserStack Blog
+    company: BrowserStack
+    url: https://www.browserstack.com/blog/rss
+    language: en
+    skip_keyword_filter: true
+
+  - name: LambdaTest Blog
+    company: LambdaTest
+    url: https://www.lambdatest.com/blog/feed/
+    language: en
+    skip_keyword_filter: true
+
+  - name: Postman Blog
+    company: Postman
+    url: https://blog.postman.com/feed/
+    language: en
+
+  - name: SmartBear Blog
+    company: SmartBear
+    url: https://smartbear.com/blog/feed/
+    language: en
+
+  # --- SRE / Incident / Chaos ---
+  - name: PagerDuty Blog
+    company: PagerDuty
+    url: https://www.pagerduty.com/blog/feed/
+    language: en
+
+  - name: Incident.io Blog
+    company: incident.io
+    url: https://incident.io/blog.xml
+    language: en
+    skip_keyword_filter: true
+
+  - name: Harness Blog
+    company: Harness
+    url: https://www.harness.io/blog/rss.xml
+    language: en
+
+  # --- Security testing ---
+  - name: Snyk Blog
+    company: Snyk
+    url: https://snyk.io/blog/feed/
+    language: en
+
+  - name: GitGuardian Blog
+    company: GitGuardian
+    url: https://blog.gitguardian.com/rss/
+    language: en
+
+  # --- AI Evaluation / LLM testing ---
+  - name: LangChain Blog
+    company: LangChain
+    url: https://blog.langchain.dev/rss/
+    language: en
+
+  - name: PromptLayer Blog
+    company: PromptLayer
+    url: https://blog.promptlayer.com/rss/
+    language: en
+
 # QA関連記事のフィルタリング用キーワード（タイトル・概要に含まれるか大文字小文字無視でチェック）
 keywords:
   - test
