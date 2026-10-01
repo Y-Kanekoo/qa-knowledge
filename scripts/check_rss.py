@@ -360,7 +360,11 @@ def main() -> int:
         level=logging.DEBUG if args.dry_run else logging.INFO,
         handlers=[handler], force=True,
     )
-    status = {"collection": "pending", "delivery": "not_requested", "article_count": 0}
+    status = {
+        "collection": "pending",
+        "delivery": "not_attempted" if args.notify else "not_requested",
+        "article_count": 0,
+    }
     exit_code = 0
     try:
         config = load_feeds_config()

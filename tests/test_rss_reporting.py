@@ -122,6 +122,7 @@ def test_unexpected_exception_never_prints_raw_traceback(run_main, monkeypatch, 
     out, err = capsys.readouterr()
     assert code == 1
     assert status["collection"] == "failed"
+    assert status["delivery"] == "not_attempted"
     assert out == ""
     assert FAKE_TOKEN not in err
     assert "ValueError" in err
@@ -184,6 +185,7 @@ def test_invalid_configuration_is_a_collection_failure(run_main, monkeypatch):
     code, status = run_main("--notify", "discord")
     assert code == 1
     assert status["collection"] == "failed"
+    assert status["delivery"] == "not_attempted"
     assert status["article_count"] == 0
     run_main.post.assert_not_called()
 
@@ -193,4 +195,5 @@ def test_report_rendering_failure_does_not_publish_successful_collection(run_mai
     code, status = run_main("--notify", "discord")
     assert code == 1
     assert status["collection"] == "failed"
+    assert status["delivery"] == "not_attempted"
     run_main.post.assert_not_called()
