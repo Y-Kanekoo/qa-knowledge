@@ -11,6 +11,7 @@ jobs:
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     permissions:
+      contents: read
       issues: write
     steps:
       - uses: actions/checkout@v6
@@ -21,23 +22,42 @@ jobs:
         run: pip install feedparser pyyaml python-frontmatter requests
       - name: RSSフィードの巡回
         id: rss
+        # Retain the failure outcome while allowing the independent Issue
+        # delivery to proceed. The final gate makes the job fail visibly.
+        continue-on-error: true
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          NOTIFY_FLAG=""
-          if [ -n "$DISCORD_WEBHOOK_URL" ]; then
-            NOTIFY_FLAG="--notify discord"
-          fi
-          python scripts/check_rss.py --format markdown $NOTIFY_FLAG > rss_result.txt 2>&1 || true
-          if [ -s rss_result.txt ] && grep -q "新着QA関連記事" rss_result.txt; then
-            echo "has_new_articles=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_new_articles=false" >> "$GITHUB_OUTPUT"
-          fi
+          python scripts/check_rss.py --format markdown --notify discord \
+            --status-file rss_status.json > rss_result.txt
+      - name: 収集・配信結果を確認
+        id: result
+        if: always() && steps.rss.outcome != 'skipped'
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          path = Path("rss_status.json")
+          status = json.loads(path.read_text()) if path.exists() else {}
+          has_articles = status.get("collection") == "succeeded" and status.get("article_count", 0) > 0
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"has_new_articles={str(has_articles).lower()}\n")
+          # Only the fixed status fields belong in the Actions summary.
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
+              summary.write(f"Collection: {status.get('collection', 'failed')}\n\n")
+              summary.write(f"Discord delivery: {status.get('delivery', 'unknown')}\n")
+          PY
       - name: 新着記事をIssueで通知
-        if: steps.rss.outputs.has_new_articles == 'true'
+        if: steps.result.outputs.has_new_articles == 'true'
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: "[new-article] 新着QA関連記事が見つかりました"
           content-filepath: rss_result.txt
           labels: new-article
+      - name: 収集・配信失敗をジョブ結果に反映
+        if: always() && steps.rss.outcome == 'failure'
+        run: |
+          echo "RSS collection or Discord delivery failed. Check the sanitized diagnostics and summary."
+          exit 1

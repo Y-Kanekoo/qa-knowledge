@@ -56,6 +56,25 @@ mkdocs serve
 - QAキーワードでフィルタリング（汎用ブログからQA記事のみ抽出）
 - 手動実行: Actions タブ → 「新着QA記事チェック（日次）」→ Run workflow
 
+### 配信結果と安全なレポート
+
+- Issue 本文には記事一覧（標準出力）のみを使用し、診断ログ（標準エラー）は混ぜません
+- Discord Webhook の URL・トークンは、HTTP エラーやデバッグログを含めて伏せ字にします
+- `--notify discord` を明示した場合、Webhook 未設定・配信失敗は終了コード 1 です
+- 日次ワークフローは Discord が失敗しても、収集済み記事を Issue で通知し、最後にジョブを失敗として記録します
+- `--status-file` は収集結果・配信結果・記事件数だけを保存します。`sent`、`no_articles`、`missing_configuration`、`failed` を区別します
+- `--dry-run` はフィード取得・記事一覧の出力だけを行い、`--notify` と併用しても通知しません
+
+```bash
+# 通知なしで候補を確認（RSS の取得は行います）
+python scripts/check_rss.py --format markdown --dry-run
+
+# 明示的に Discord 通知を要求し、結果を機械可読形式でも確認
+python scripts/check_rss.py --format markdown --notify discord --status-file rss_status.json
+```
+
+同じ実行内の重複 URL は正規化して 1 件にまとめます。日をまたぐ送信済み履歴はまだ保持していないため、未収録記事は翌日も候補になります。永続的な重複排除には、Issue と Discord それぞれの配信成功を別々に記録する必要があります。部分送信失敗や状態保存失敗を「全件送信済み」と扱ってはいけません。
+
 ### フィードの追加
 
 `feeds.yml` に追記する:

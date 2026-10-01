@@ -20,8 +20,10 @@ import requests
 import yaml
 
 try:
+    from scripts._safe_logging import CredentialRedactingFormatter, redact_credentials
     from scripts._url import normalize_url
 except ImportError:
+    from _safe_logging import CredentialRedactingFormatter, redact_credentials
     from _url import normalize_url
 
 # モジュールレベルのロガー
@@ -145,6 +147,7 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
     feeds = config.get("feeds", [])
     keywords = config.get("keywords", [])
     new_articles: list[dict] = []
+    seen_urls = set(existing_urls)  # Do not mutate the caller or mark filtered articles as seen.
 
     # 日付フィルタの基準日
     cutoff_date = (datetime.now(tz=UTC) - timedelta(days=days_limit)).date()
@@ -176,7 +179,8 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
                 continue
 
             # 既存エントリとの重複チェック
-            if normalize_url(link) in existing_urls:
+            normalized_url = normalize_url(link)
+            if normalized_url in seen_urls:
                 continue
 
             # 日付フィルタ（古い記事の除外）
@@ -205,6 +209,7 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
                 "published": published,
                 "language": language,
             })
+            seen_urls.add(normalized_url)
             feed_new_count += 1
 
         if dry_run:
@@ -260,7 +265,13 @@ def send_discord_notification(webhook_url: str, articles: list[dict]) -> bool:
             )
             resp.raise_for_status()
         except requests.exceptions.RequestException as e:
-            logger.error("Discord通知の送信に失敗しました: %s", e)
+            # RequestException text and response bodies can contain the webhook
+            # credential. Log only the type and numeric HTTP status, never e.
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            logger.error(
+                "Discord通知の送信に失敗しました: %s (HTTP %s)",
+                type(e).__name__, status if isinstance(status, int) else "unknown",
+            )
             return False
 
     logger.info("Discord通知を送信しました: %d件", len(articles))
@@ -304,7 +315,7 @@ def format_markdown(articles: list[dict]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def main() -> None:
+def main() -> int:
     def positive_int(value: str) -> int:
         """非負整数のバリデータ。"""
         n = int(value)
@@ -324,7 +335,7 @@ def main() -> None:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="各フィードの取得状況を表示する（デバッグ用）",
+        help="各フィードの取得状況を表示する（通知は送信しない）",
     )
     parser.add_argument(
         "--days", type=positive_int, default=365,
@@ -336,51 +347,72 @@ def main() -> None:
         default=None,
         help="通知先（discord: Discord Webhook で通知）",
     )
+    parser.add_argument(
+        "--status-file", type=Path,
+        help="収集・配信結果をJSONで保存（記事や認証情報を含まない）",
+    )
     args = parser.parse_args()
 
-    # ロギングの設定
+    webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
+    handler = logging.StreamHandler(sys.stderr)
+    handler.setFormatter(CredentialRedactingFormatter(webhook_url))
     logging.basicConfig(
         level=logging.DEBUG if args.dry_run else logging.INFO,
-        format="[%(levelname)s] %(message)s",
-        stream=sys.stderr,
+        handlers=[handler], force=True,
     )
-
-    # 設定と既存URLの読み込み
-    config = load_feeds_config()
-
-    # feeds.yml のバリデーション
-    errors = validate_feeds_config(config)
-    if errors:
-        for err in errors:
-            logger.error("設定エラー: %s", err)
-        sys.exit(1)
-
-    existing_urls = load_existing_urls()
-
-    if args.dry_run:
-        logger.info("既存エントリ: %d件", len(existing_urls))
-
-    # フィード巡回
-    articles = check_feeds(config, existing_urls, dry_run=args.dry_run, days_limit=args.days)
-
-    # 出力
-    if args.format == "markdown":
-        output = format_markdown(articles)
-    else:
-        output = format_text(articles)
-
-    if output:
-        print(output)
-
-    # Discord通知
-    if args.notify == "discord" and articles:
-        webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "")
-        if not webhook_url:
-            logger.warning("DISCORD_WEBHOOK_URL が設定されていません。通知をスキップします")
+    status = {"collection": "pending", "delivery": "not_requested", "article_count": 0}
+    exit_code = 0
+    try:
+        config = load_feeds_config()
+        errors = validate_feeds_config(config)
+        if errors:
+            for err in errors:
+                logger.error("設定エラー: %s", err)
+            status["collection"] = "failed"
+            exit_code = 1
         else:
-            if not send_discord_notification(webhook_url, articles):
-                sys.exit(1)
+            existing_urls = load_existing_urls()
+            if args.dry_run:
+                logger.info("既存エントリ: %d件", len(existing_urls))
+            articles = check_feeds(config, existing_urls, dry_run=args.dry_run, days_limit=args.days)
+            output = format_markdown(articles) if args.format == "markdown" else format_text(articles)
+            if output:
+                # stdout is a public report, stderr is diagnostic output only.
+                print(redact_credentials(output, webhook_url))
+            status.update(collection="succeeded", article_count=len(articles))
+
+            if args.notify == "discord":
+                if args.dry_run:
+                    status["delivery"] = "dry_run"
+                elif not webhook_url:
+                    status["delivery"] = "missing_configuration"
+                    logger.error("DISCORD_WEBHOOK_URL が未設定です。Discord配信は完了していません")
+                    exit_code = 1
+                elif not articles:
+                    status["delivery"] = "no_articles"
+                elif send_discord_notification(webhook_url, articles):
+                    status["delivery"] = "sent"
+                else:
+                    status["delivery"] = "failed"
+                    exit_code = 1
+    except Exception as exc:
+        # Fail closed without an unredacted traceback from a third-party parser.
+        logger.error("RSS処理に失敗しました: %s", type(exc).__name__)
+        if status["collection"] == "pending":
+            status["collection"] = "failed"
+        elif args.notify == "discord":
+            status["delivery"] = "failed"
+        exit_code = 1
+
+    logger.info("収集結果: %s / 配信結果: %s", status["collection"], status["delivery"])
+    if args.status_file:
+        try:
+            args.status_file.write_text(json.dumps(status, ensure_ascii=False) + "\n", encoding="utf-8")
+        except OSError:
+            logger.error("ステータスファイルを保存できませんでした")
+            exit_code = 1
+    return exit_code
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
