@@ -2,6 +2,14 @@ site_name: QA Knowledge - 他社QA事例・ナレッジ集
 site_description: テック企業のQA事例・ナレッジを構造化して収集するリポジトリ
 repo_name: qa-knowledge
 
+# Select public root-relative sources without exposing repository internals.
+hooks:
+  - scripts/mkdocs_hooks.py
+watch:
+  - index.md
+  - indexes
+  - entries
+
 theme:
   name: material
   language: ja

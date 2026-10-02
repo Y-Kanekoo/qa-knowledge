@@ -4,10 +4,15 @@ from datetime import date, datetime
 from pathlib import Path
 from unittest.mock import patch
 
+import markdown
+import pytest
+from bs4 import BeautifulSoup
+
 from scripts.generate_index import (
     EntryMeta,
     _format_date,
     generate_by_company,
+    generate_by_date,
     generate_by_domain,
     generate_by_tag,
     generate_index_md,
@@ -278,3 +283,23 @@ class TestMain:
         index_content = index_md.read_text(encoding="utf-8")
         assert "| 総エントリ数 | 0 |" in index_content
         assert "エントリ追加後に自動更新されます" in index_content
+
+
+@pytest.mark.parametrize(
+    "generate", [generate_by_company, generate_by_domain, generate_by_tag, generate_by_date, generate_index_md],
+)
+@pytest.mark.parametrize("title", [
+    "Testing for Reliability | Google SRE Book",
+    "Testing [draft] and [reference] | Handbook",
+    r"Testing \backslashes\ | Handbook",
+    r"Testing \[brackets\] and \| pipes",
+    "Testing trailing backslash " + "\\",
+])
+def test_literal_titles_remain_clickable_in_generated_indexes(generate, title):
+    entry = _make_entry(filename="article.md", title=title)
+
+    document = BeautifulSoup(markdown.markdown(generate([entry]), extensions=["tables"]), "html.parser")
+    links = document.find_all("a", string=title)
+
+    assert links
+    assert all(link["href"].endswith("entries/article.md") for link in links)

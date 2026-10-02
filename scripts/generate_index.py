@@ -97,6 +97,11 @@ def _content_type_label(content_type: str) -> str:
     return CONTENT_TYPE_LABELS.get(content_type, content_type)
 
 
+def _link_title(title: str) -> str:
+    """Escape link-label syntax and table delimiters, preserving the title text."""
+    return title.replace("\\", r"\\").replace("[", r"\[").replace("]", r"\]").replace("|", r"\|")
+
+
 def _index_link(filename: str) -> str:
     """indexes/ ディレクトリからの相対リンクを生成する。"""
     return f"../entries/{filename}"
@@ -170,7 +175,7 @@ def generate_by_company(entries: list[EntryMeta]) -> str:
         lines.append("| タイトル | QA領域 | 公開日 | 種別 |")
         lines.append("|---------|--------|--------|------|")
         for entry in sorted(group, key=lambda e: e["published_at"], reverse=True):
-            title_link = f"[{entry['title']}]({_index_link(entry['filename'])})"
+            title_link = f"[{_link_title(entry['title'])}]({_index_link(entry['filename'])})"
             domains = ", ".join(entry["qa_domains"])
             published = entry["published_at"]
             content_type = _content_type_label(entry["content_type"])
@@ -211,7 +216,7 @@ def generate_by_domain(entries: list[EntryMeta]) -> str:
         lines.append("| タイトル | 会社 | 公開日 |")
         lines.append("|---------|------|--------|")
         for entry in sorted(group, key=lambda e: e["published_at"], reverse=True):
-            title_link = f"[{entry['title']}]({_index_link(entry['filename'])})"
+            title_link = f"[{_link_title(entry['title'])}]({_index_link(entry['filename'])})"
             lines.append(f"| {title_link} | {entry['company']} | {entry['published_at']} |")
         lines.append("")
 
@@ -249,7 +254,7 @@ def generate_by_tag(entries: list[EntryMeta]) -> str:
         lines.append(f"## {tag} ({len(group)})")
         lines.append("")
         for entry in sorted(group, key=lambda e: e["published_at"], reverse=True):
-            title_link = f"[{entry['title']}]({_index_link(entry['filename'])})"
+            title_link = f"[{_link_title(entry['title'])}]({_index_link(entry['filename'])})"
             lines.append(f"- {title_link} — {entry['company']}")
         lines.append("")
 
@@ -275,7 +280,7 @@ def generate_by_date(entries: list[EntryMeta]) -> str:
     lines.append("| 追加日 | タイトル | 会社 | QA領域 |")
     lines.append("|--------|---------|------|--------|")
     for entry in sorted_entries:
-        title_link = f"[{entry['title']}]({_index_link(entry['filename'])})"
+        title_link = f"[{_link_title(entry['title'])}]({_index_link(entry['filename'])})"
         domains = ", ".join(entry["qa_domains"])
         lines.append(
             f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |"
@@ -327,7 +332,7 @@ def generate_index_md(entries: list[EntryMeta]) -> str:
         lines.append("| 追加日 | タイトル | 会社 | QA領域 |")
         lines.append("|--------|---------|------|--------|")
         for entry in recent:
-            title_link = f"[{entry['title']}]({_root_link(entry['filename'])})"
+            title_link = f"[{_link_title(entry['title'])}]({_root_link(entry['filename'])})"
             domains = ", ".join(entry["qa_domains"])
             lines.append(
                 f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |"

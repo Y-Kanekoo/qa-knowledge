@@ -43,9 +43,19 @@
 
 ```bash
 pip install -r requirements.txt
+python scripts/generate_index.py
 mkdocs serve
 # http://127.0.0.1:8000 で確認
 ```
+
+サイトには `mkdocs.yml` のナビゲーションに指定したページと、
+`entries/` のエントリ（`_template.md` を除く）だけを公開します。
+`scripts/mkdocs_hooks.py` がリポジトリ内の相対パスを維持するため、
+インデックス・関連エントリのリンクは GitHub とサイトの両方で利用できます。
+ナビゲーションにない運用資料や、コード・設定ファイルは公開しません。
+
+PR と main の CI ではインデックスを再生成し、`mkdocs build --strict` で検証します。
+ローカルでも同じコマンドで確認できます（ビルドのみで、デプロイはしません）。
 
 ## RSS監視（自動・日次）
 
