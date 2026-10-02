@@ -164,7 +164,7 @@ def test_workflow_keeps_diagnostics_out_of_public_issues_and_fails_on_delivery_e
     assert "|| true" not in rss["run"]
     assert "--notify discord" in rss["run"]
     assert rss["continue-on-error"] is True
-    assert steps[-1]["if"] == "always() && steps.rss.outcome == 'failure'"
+    assert steps[-1]["if"] == "always() && (steps.rss.outcome == 'failure' || steps.ledger_rss.outcome == 'failure')"
     assert "exit 1" in steps[-1]["run"]
 
 

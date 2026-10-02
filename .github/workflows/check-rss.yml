@@ -5,6 +5,10 @@ on:
     - cron: "0 0 * * *"  # 毎日 00:00 UTC（JST 09:00）
   workflow_dispatch: {}   # 手動実行も可能
 
+concurrency:
+  group: qa-rss-notifications
+  cancel-in-progress: false
+
 jobs:
   check-rss:
     runs-on: ubuntu-latest
@@ -22,6 +26,7 @@ jobs:
         run: pip install feedparser pyyaml python-frontmatter requests
       - name: RSSフィードの巡回
         id: rss
+        if: vars.RSS_DELIVERY_LEDGER_ENABLED != 'true'
         # Retain the failure outcome while allowing the independent Issue
         # delivery to proceed. The final gate makes the job fail visibly.
         continue-on-error: true
@@ -30,9 +35,21 @@ jobs:
         run: |
           python scripts/check_rss.py --format markdown --notify discord \
             --status-file rss_status.json > rss_result.txt
+      - name: 台帳付きRSS通知（明示的な有効化時のみ）
+        id: ledger_rss
+        if: vars.RSS_DELIVERY_LEDGER_ENABLED == 'true'
+        continue-on-error: true
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Activation requires separately reviewed contents:write and an existing
+        # dedicated state branch/file. Permissions remain read-only in this PR.
+        run: |
+          python -m scripts.notify_rss --enabled --format markdown \
+            --status-file rss_status.json > rss_result.txt
       - name: 収集・配信結果を確認
         id: result
-        if: always() && steps.rss.outcome != 'skipped'
+        if: always() && (steps.rss.outcome != 'skipped' || steps.ledger_rss.outcome != 'skipped')
         run: |
           python - <<'PY'
           import json
@@ -47,17 +64,22 @@ jobs:
           # Only the fixed status fields belong in the Actions summary.
           with open(os.environ["GITHUB_STEP_SUMMARY"], "a") as summary:
               summary.write(f"Collection: {status.get('collection', 'failed')}\n\n")
-              summary.write(f"Discord delivery: {status.get('delivery', 'unknown')}\n")
+              summary.write(f"Delivery: {status.get('delivery', 'unknown')}\n")
+              for name, result in status.get("destinations", {}).items():
+                  summary.write(f"\n{name}: {result['status']}\n")
+                  for key in ("delivered", "already_delivered", "pending", "rejected", "not_attempted"):
+                      if key in result:
+                          summary.write(f"- {key}: {result[key]}\n")
           PY
       - name: 新着記事をIssueで通知
-        if: steps.result.outputs.has_new_articles == 'true'
+        if: vars.RSS_DELIVERY_LEDGER_ENABLED != 'true' && steps.result.outputs.has_new_articles == 'true'
         uses: peter-evans/create-issue-from-file@v6
         with:
           title: "[new-article] 新着QA関連記事が見つかりました"
           content-filepath: rss_result.txt
           labels: new-article
       - name: 収集・配信失敗をジョブ結果に反映
-        if: always() && steps.rss.outcome == 'failure'
+        if: always() && (steps.rss.outcome == 'failure' || steps.ledger_rss.outcome == 'failure')
         run: |
           echo "RSS collection or Discord delivery failed. Check the sanitized diagnostics and summary."
           exit 1
