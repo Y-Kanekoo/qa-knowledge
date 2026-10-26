@@ -59,10 +59,18 @@ entries/ 内の既存エントリの frontmatter を確認し、同じ qa_domain
 
 Edit ツールで生成ファイルを更新する。
 
-### ステップ7: バリデーション
+### ステップ7: 公開記事への移行とバリデーション
+
+未完成なら `drafts/` に保持し、公開インデックスへ追加しない。補完が完了したら生成ファイルを指定して移行する。
+
+```bash
+.venv/bin/python scripts/validate_drafts.py
+.venv/bin/python scripts/promote_draft.py drafts/<生成ファイル>.md
+```
 
 ```bash
 .venv/bin/python scripts/validate_frontmatter.py
+.venv/bin/python scripts/generate_index.py
 ```
 
 エラーがあれば修正する。

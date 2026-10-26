@@ -43,3 +43,7 @@ nav:
       - 知識ゼロから学ぶソフトウェアテスト: docs/book-report-software-testing-basics.md
       - ソフトウェアテスト技法ドリル: docs/book-report-test-technique-drill.md
   - スキーマ定義: docs/schema.md
+
+# 公開対象外。docs_dirをルートへ変更しても下書きをサイトや検索に含めない。
+exclude_docs: |
+  drafts/

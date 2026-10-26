@@ -21,3 +21,7 @@ jobs:
         run: ruff check .
       - name: Pytest によるテスト実行
         run: pytest -v --tb=short --cov=scripts --cov-report=term-missing
+      - name: 公開記事と下書きの検証
+        run: |
+          python scripts/validate_frontmatter.py
+          python scripts/validate_drafts.py

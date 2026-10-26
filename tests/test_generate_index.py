@@ -227,6 +227,7 @@ class TestMain:
                 "content_type": "blog",
                 "qa_domains": ["test-automation"],
                 "tags": ["selenium"],
+                "language": "ja",
                 "added_at": date(2024, 7, 1),
             },
         )

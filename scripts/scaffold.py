@@ -2,24 +2,28 @@
 """URLからWebページのメタデータを取得し、エントリの骨格ファイルを生成するスクリプト。
 
 HTMLの<title>タグとmetaタグから自動抽出できる情報（タイトル・公開日）を埋め込んだ
-テンプレートを entries/ に出力する。概要や知見は手動で記入する。
+テンプレートを drafts/ に出力する。概要や知見は手動で記入してから公開する。
 """
 
 import argparse
+import hashlib
 import json
 import logging
 import os
 import re
 import sys
 from datetime import date
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
 
 try:
     from scripts._http import create_session
+    from scripts._url import normalize_url
 except ImportError:
     from _http import create_session
+    from _url import normalize_url
 
 # モジュールレベルのロガー
 logger = logging.getLogger(__name__)
@@ -56,7 +60,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--output",
         default=None,
-        help="出力先ファイルパスをカスタマイズ（デフォルト: entries/{company}-{slug}.md）",
+        help="下書きの出力先を指定（デフォルト: drafts/{company}-{slug}-{URLハッシュ}.md）",
     )
     return parser.parse_args()
 
@@ -170,17 +174,21 @@ def format_output(
 ) -> str:
     """抽出したメタデータをYAML frontmatter + Markdown骨格に整形する。"""
     today = date.today().isoformat()
-    published_at_value = f'"{published_at}"' if published_at else '""'
+    # JSONの文字列リテラルはYAMLでも有効。引用符・改行・backslashを安全に保存する。
+    title, company, url, published_at, language = (
+        json.dumps(value, ensure_ascii=False) for value in (title, company, url, published_at, language)
+    )
 
     return f"""---
-title: "{title}"
-company: "{company}"
-url: "{url}"
-published_at: {published_at_value}
+status: draft
+title: {title}
+company: {company}
+url: {url}
+published_at: {published_at}
 content_type: ""
 qa_domains: []
 tags: []
-language: "{language}"
+language: {language}
 added_at: "{today}"
 industry: ""
 difficulty: ""
@@ -200,6 +208,20 @@ deprecated: false
 """
 
 
+def draft_path(company: str, title: str, url: str, drafts_dir: Path) -> Path:
+    """日本語タイトル同士でも衝突しない、URLごとに安定した下書き名。"""
+    base = Path(generate_output_path(company, title, str(drafts_dir)))
+    digest = hashlib.sha256(normalize_url(url).encode("utf-8")).hexdigest()[:12]
+    return base.with_stem(f"{base.stem}-{digest}")
+
+
+def save_draft(path: Path, content: str) -> None:
+    """既存の下書き・編集内容を上書きしない。"""
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("x", encoding="utf-8") as stream:
+        stream.write(content)
+
+
 def main() -> None:
     """メインエントリーポイント。"""
     args = parse_args()
@@ -214,7 +236,7 @@ def main() -> None:
     # プロジェクトルートの特定
     script_dir = os.path.dirname(os.path.abspath(__file__))
     project_root = os.path.dirname(script_dir)
-    entries_dir = os.path.join(project_root, "entries")
+    drafts_dir = Path(project_root) / "drafts"
 
     # HTMLの取得
     html = fetch_html(args.url)
@@ -232,22 +254,18 @@ def main() -> None:
 
     # 出力先の決定
     if args.output:
-        output_path = args.output
-    elif company:
-        output_path = generate_output_path(company, title or "untitled", entries_dir)
+        output_path = Path(args.output)
     else:
-        slug = generate_slug(title or "untitled")
-        output_path = os.path.join(entries_dir, f"{slug}.md")
+        output_path = draft_path(company, title or "untitled", args.url, drafts_dir)
+
+    if output_path.resolve().is_relative_to(Path(project_root) / "entries"):
+        logger.error("骨格は entries/ に保存できません。drafts/ で補完してから promote_draft.py を使ってください")
+        sys.exit(1)
 
     # ファイル出力
-    content = format_output(title, args.url, published_at, language, company)
+    content = format_output(title, normalize_url(args.url), published_at, language, company)
 
-    output_dir = os.path.dirname(output_path)
-    if output_dir and not os.path.isdir(output_dir):
-        os.makedirs(output_dir, exist_ok=True)
-
-    with open(output_path, "w", encoding="utf-8") as f:
-        f.write(content)
+    save_draft(output_path, content)
 
     logger.info("骨格ファイルを生成しました: %s", output_path)
     logger.info("  → content_type, qa_domains, tags, 概要, 何が学べるか を手動で記入してください")

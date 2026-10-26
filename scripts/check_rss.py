@@ -31,6 +31,7 @@ logger = logging.getLogger(__name__)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = PROJECT_ROOT / "feeds.yml"
 ENTRIES_DIR = PROJECT_ROOT / "entries"
+DRAFTS_DIR = PROJECT_ROOT / "drafts"
 
 
 def load_feeds_config() -> dict:
@@ -62,13 +63,12 @@ def validate_feeds_config(config: dict) -> list[str]:
     return errors
 
 
-def load_existing_urls() -> set[str]:
-    """entries/ 内の全 .md ファイルから url フィールドを収集する。"""
+def load_existing_urls(directories: tuple[Path, ...] | None = None) -> set[str]:
+    """公開済み・下書き保存済みURLを収集する。"""
     urls: set[str] = set()
-    if not ENTRIES_DIR.exists():
-        return urls
 
-    for md_file in ENTRIES_DIR.glob("*.md"):
+    files = [path for directory in (directories or (ENTRIES_DIR, DRAFTS_DIR)) for path in directory.glob("*.md")]
+    for md_file in files:
         if md_file.name == "_template.md":
             continue
         try:
@@ -140,14 +140,18 @@ def get_entry_text(entry: dict) -> str:
     return " ".join(parts)
 
 
-def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, days_limit: int = 365) -> list[dict]:
+def check_feeds(
+    config: dict, existing_urls: set[str], dry_run: bool = False, days_limit: int = 365,
+    *, today: datetime | None = None,
+) -> list[dict]:
     """全フィードを巡回し、新着QA関連記事を検出する。"""
     feeds = config.get("feeds", [])
     keywords = config.get("keywords", [])
     new_articles: list[dict] = []
 
     # 日付フィルタの基準日
-    cutoff_date = (datetime.now(tz=UTC) - timedelta(days=days_limit)).date()
+    cutoff_date = ((today or datetime.now(tz=UTC)) - timedelta(days=days_limit)).date()
+    seen_urls = set(existing_urls)
 
     for feed_config in feeds:
         name = feed_config["name"]
@@ -176,7 +180,7 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
                 continue
 
             # 既存エントリとの重複チェック
-            if normalize_url(link) in existing_urls:
+            if normalize_url(link) in seen_urls:
                 continue
 
             # 日付フィルタ（古い記事の除外）
@@ -205,6 +209,7 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
                 "published": published,
                 "language": language,
             })
+            seen_urls.add(normalize_url(link))
             feed_new_count += 1
 
         if dry_run:
@@ -317,7 +322,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--format",
-        choices=["text", "markdown"],
+        choices=["text", "markdown", "json"],
         default="text",
         help="出力形式（デフォルト: text）",
     )
@@ -336,6 +341,7 @@ def main() -> None:
         default=None,
         help="通知先（discord: Discord Webhook で通知）",
     )
+    parser.add_argument("--github-output", type=Path, help="GitHub Actionsの件数・新着判定の出力先")
     args = parser.parse_args()
 
     # ロギングの設定
@@ -364,13 +370,19 @@ def main() -> None:
     articles = check_feeds(config, existing_urls, dry_run=args.dry_run, days_limit=args.days)
 
     # 出力
-    if args.format == "markdown":
+    if args.format == "json":
+        output = json.dumps(articles, ensure_ascii=False)
+    elif args.format == "markdown":
         output = format_markdown(articles)
     else:
         output = format_text(articles)
 
     if output:
         print(output)
+
+    if args.github_output:
+        with args.github_output.open("a", encoding="utf-8") as stream:
+            stream.write(f"article_count={len(articles)}\nhas_new_articles={str(bool(articles)).lower()}\n")
 
     # Discord通知
     if args.notify == "discord" and articles:

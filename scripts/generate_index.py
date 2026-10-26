@@ -21,6 +21,11 @@ from typing import TypedDict
 
 import frontmatter
 
+try:
+    from scripts.validate_frontmatter import check_duplicate_urls, find_entry_files, validate_file
+except ImportError:
+    from validate_frontmatter import check_duplicate_urls, find_entry_files, validate_file
+
 logger = logging.getLogger(__name__)
 
 # ---------- 定数 ----------
@@ -116,6 +121,12 @@ def load_entries() -> list[EntryMeta]:
 
     if not ENTRIES_DIR.exists():
         return entries
+
+    files = find_entry_files(ENTRIES_DIR)
+    errors = {str(path): problems for path in files if (problems := validate_file(path))}
+    errors.update({str(path): problems for path, problems in check_duplicate_urls(files).items()})
+    if errors:
+        raise ValueError(f"公開記事の検証に失敗しました（インデックスは更新しません）: {errors}")
 
     for md_file in sorted(ENTRIES_DIR.glob("*.md")):
         if md_file.name in EXCLUDE_FILES:
@@ -294,8 +305,8 @@ def generate_index_md(entries: list[EntryMeta]) -> str:
     for entry in entries:
         all_domains.update(entry["qa_domains"])
 
-    today = date.today().isoformat()
-    last_updated = today if total_entries > 0 else "-"
+    # 実行日ではなく、実際に公開記事を収録した日。再実行だけでは変更しない。
+    last_updated = max((e["added_at"] for e in entries if e["added_at"]), default="-")
 
     lines: list[str] = [
         INDEX_AUTO_COMMENT,
