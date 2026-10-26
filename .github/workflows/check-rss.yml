@@ -28,12 +28,9 @@ jobs:
           if [ -n "$DISCORD_WEBHOOK_URL" ]; then
             NOTIFY_FLAG="--notify discord"
           fi
-          python scripts/check_rss.py --format markdown $NOTIFY_FLAG > rss_result.txt 2>&1 || true
-          if [ -s rss_result.txt ] && grep -q "新着QA関連記事" rss_result.txt; then
-            echo "has_new_articles=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "has_new_articles=false" >> "$GITHUB_OUTPUT"
-          fi
+          status=0
+          python scripts/check_rss.py --days 365 --format markdown --github-output "$GITHUB_OUTPUT" $NOTIFY_FLAG > rss_result.txt || status=$?
+          echo "exit_code=$status" >> "$GITHUB_OUTPUT"
       - name: 新着記事をIssueで通知
         if: steps.rss.outputs.has_new_articles == 'true'
         uses: peter-evans/create-issue-from-file@v6
@@ -41,3 +38,6 @@ jobs:
           title: "[new-article] 新着QA関連記事が見つかりました"
           content-filepath: rss_result.txt
           labels: new-article
+      - name: RSS実行結果の確認
+        if: always() && steps.rss.outputs.exit_code != '0'
+        run: exit 1

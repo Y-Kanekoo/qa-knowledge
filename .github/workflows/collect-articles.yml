@@ -2,8 +2,12 @@ name: QA記事自動収集（日次）
 
 on:
   schedule:
-    - cron: "30 0 * * *"  # 毎日 00:30 UTC（JST 09:30）、RSS巡回の30分後
-  workflow_dispatch: {}    # 手動実行も可能
+    - cron: "30 0 * * *"  # 毎日00:30 UTC（JST 09:30）
+  workflow_dispatch: {}
+
+concurrency:
+  group: collect-articles
+  cancel-in-progress: false
 
 jobs:
   collect:
@@ -15,127 +19,55 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v6
-
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-
       - name: 依存パッケージのインストール
         run: pip install -r requirements.txt
 
-      - name: RSS新着記事の検出と骨格エントリ生成
+      - name: 既存収集PRの下書きを保持
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 開いている収集PRだけを継続。マージ・却下済みの下書きは復活させない。
+          pending=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --head auto/collect-articles --json number --jq length)
+          if [ "$pending" != 0 ]; then
+            git fetch --depth=1 origin auto/collect-articles
+            python scripts/collect_articles.py --restore-ref FETCH_HEAD
+          fi
+
+      - name: RSS新着記事の検出
+        run: python scripts/check_rss.py --days 3 --format json > "$RUNNER_TEMP/rss_articles.json"
+
+      - name: 下書きを保存
         id: collect
+        run: python scripts/collect_articles.py --input "$RUNNER_TEMP/rss_articles.json" --github-output "$GITHUB_OUTPUT"
+
+      - name: 下書きと既存公開記事を別々に検証
         run: |
-          # RSS新着記事を取得
-          python scripts/check_rss.py --days 3 > /tmp/rss_result.txt 2>/tmp/rss_log.txt || true
+          python scripts/validate_drafts.py
+          python scripts/validate_frontmatter.py
 
-          if ! grep -q "新着QA関連記事" /tmp/rss_result.txt; then
-            echo "新着記事なし"
-            echo "has_new=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          echo "has_new=true" >> "$GITHUB_OUTPUT"
-          ADDED=0
-
-          # テキスト出力からURLと企業名を抽出して scaffold.py で骨格生成
-          while IFS= read -r url_line; do
-            URL=$(echo "$url_line" | sed 's/^.*URL: //')
-
-            # URLにASCII外の文字が含まれる場合はスキップ（壊れたファイル名防止）
-            if echo "$URL" | LC_ALL=C grep -q '[^[:print:]]'; then
-              echo "  スキップ（非ASCII URL）: $URL"
-              continue
-            fi
-
-            # 直前の行からブログ名を取得
-            BLOG_LINE=$(grep -B1 "$URL" /tmp/rss_result.txt | head -1)
-            BLOG_NAME=$(echo "$BLOG_LINE" | sed 's/^.*\[//' | sed 's/\].*//')
-
-            # feeds.yml からブログ名に対応する企業名を取得
-            COMPANY=$(python -c "
-          import yaml
-          with open('feeds.yml') as f:
-              config = yaml.safe_load(f)
-          for feed in config.get('feeds', []):
-              if feed['name'] == '$BLOG_NAME':
-                  print(feed['company'])
-                  break
-          " 2>/dev/null || echo "")
-
-            if [ -z "$COMPANY" ]; then
-              echo "  スキップ（企業名不明）: $BLOG_NAME"
-              continue
-            fi
-
-            echo "骨格生成: $URL (企業: $COMPANY)"
-            python scripts/scaffold.py "$URL" --company "$COMPANY" 2>/tmp/scaffold_err.txt || {
-              echo "  scaffold失敗: $(cat /tmp/scaffold_err.txt)"
-              continue
-            }
-            ADDED=$((ADDED + 1))
-          done < <(grep "URL:" /tmp/rss_result.txt)
-
-          echo "added_count=$ADDED" >> "$GITHUB_OUTPUT"
-          echo "追加件数: $ADDED"
-
-      - name: 壊れたエントリを除去してバリデーション
-        if: steps.collect.outputs.has_new == 'true' && steps.collect.outputs.added_count != '0'
-        run: |
-          # バリデーションを実行し、失敗したファイルを削除
-          python scripts/validate_frontmatter.py 2>&1 | tee /tmp/validate_result.txt || true
-
-          # エラーのあるファイルを特定して削除
-          grep "^\[ERROR\]" /tmp/validate_result.txt | sed 's/\[ERROR\] entries\///' | sed 's/:.*//' | sort -u | while read -r bad_file; do
-            if [ -f "entries/$bad_file" ]; then
-              # 新規追加ファイル（gitで未追跡）のみ削除
-              if ! git ls-files --error-unmatch "entries/$bad_file" > /dev/null 2>&1; then
-                echo "不正なエントリを削除: $bad_file"
-                rm "entries/$bad_file"
-              fi
-            fi
-          done
-
-          # 再バリデーション
-          python scripts/validate_frontmatter.py || {
-            echo "バリデーションエラーが残っています。PR作成をスキップします。"
-            exit 1
-          }
-
-          # インデックス再生成
-          python scripts/generate_index.py
-
-      - name: 変更の確認
-        id: changes
-        run: |
-          if git diff --quiet && [ -z "$(git ls-files --others --exclude-standard entries/)" ]; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
-          else
-            ADDED=$(git ls-files --others --exclude-standard entries/ | wc -l | tr -d ' ')
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
-            echo "added_count=$ADDED" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: PRを作成
-        if: steps.changes.outputs.has_changes == 'true'
+      - name: 下書きPRを作成・更新
+        if: steps.collect.outputs.has_changes == 'true' && steps.collect.outputs.added_count != '0'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "[feat] QA記事の骨格を自動生成する（${{ steps.changes.outputs.added_count }}件）"
-          title: "[auto] QA記事骨格 (${{ steps.changes.outputs.added_count }}件) - ${{ github.run_id }}"
+          commit-message: "[feat] QA記事の下書きを保存する"
+          title: "[auto] QA記事の下書き（要補完）"
           body: |
-            ## 自動生成された記事骨格
+            ## 収集した下書き
 
-            RSS日次巡回で検出された新着QA記事の骨格ファイルを `scaffold.py` で自動生成しました。
+            RSSの直近3日分（UTCの3日前以降、境界日を含む）を対象に収集しています。
+            日付不明の記事は下書きに残します。Issue通知の365日分とは対象期間が異なります。
 
-            - 追加件数: ${{ steps.changes.outputs.added_count }}件
-            - **title, company, url, published_at, language** は自動入力済み
-            - **content_type, qa_domains, tags, 概要, 何が学べるか** は未記入
-            - バリデーション不合格のファイルは自動除去済み
+            - 今回新たに保存した下書き: ${{ steps.collect.outputs.added_count }}件
+            - 公開記事追加: 0件（`drafts/` は公開索引に含めません）
+            - 既存PR上の補完中の下書きは保持します
 
-            ### 次のステップ
-            1. このPRをチェックアウト
-            2. 各エントリに対して `/add-entry` で内容を補完（ローカルの Claude Code で無料実行）
-            3. レビューしてマージ
-          branch: auto/collect-articles-${{ github.run_number }}
-          labels: auto-collect,new-article
+            下書きのままマージして保存できます。内容を補完し、`python scripts/promote_draft.py drafts/<file>.md` で
+            公開記事の必須項目・本文を検証して `entries/` に移してください。
+            続いて `python scripts/validate_frontmatter.py` と `python scripts/generate_index.py` を実行してください。
+          branch: auto/collect-articles
+          base: main
+          add-paths: drafts/*.md
