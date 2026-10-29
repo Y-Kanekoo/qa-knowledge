@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: RSS新着記事の検出
-        run: python scripts/check_rss.py --days 3 --format json > "$RUNNER_TEMP/rss_articles.json"
+        run: python scripts/check_rss.py --days 3 --format json --allow-partial-feeds > "$RUNNER_TEMP/rss_articles.json"
 
       - name: 下書きを保存
         id: collect

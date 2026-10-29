@@ -27,6 +27,8 @@ jobs:
         run: pip install mkdocs-material python-frontmatter pyyaml
       - name: インデックスを最新化
         run: python scripts/generate_index.py
+      - name: 公開用文書を準備
+        run: python scripts/prepare_site_docs.py
       - name: MkDocsビルド
         run: mkdocs build --strict
       - name: アーティファクトのアップロード
