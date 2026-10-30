@@ -1,6 +1,14 @@
 site_name: QA Knowledge - 他社QA事例・ナレッジ集
 site_description: テック企業のQA事例・ナレッジを構造化して収集するリポジトリ
 repo_name: qa-knowledge
+docs_dir: .site-docs
+hooks:
+  - scripts/mkdocs_hooks.py
+watch:
+  - index.md
+  - indexes
+  - entries
+  - docs
 
 theme:
   name: material
@@ -44,6 +52,6 @@ nav:
       - ソフトウェアテスト技法ドリル: docs/book-report-test-technique-drill.md
   - スキーマ定義: docs/schema.md
 
-# 公開対象外。docs_dirをルートへ変更しても下書きをサイトや検索に含めない。
+# 下書きは公開用入力へ複製しない。将来のdocs_dir変更にも備えて除外する。
 exclude_docs: |
   drafts/

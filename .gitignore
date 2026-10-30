@@ -8,6 +8,8 @@ venv/
 
 # MkDocs
 site/
+.site-docs/*
+!.site-docs/.gitkeep
 
 # OS
 .DS_Store

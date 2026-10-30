@@ -43,6 +43,8 @@
 
 ```bash
 pip install -r requirements.txt
+python scripts/generate_index.py
+python scripts/prepare_site_docs.py
 mkdocs serve
 # http://127.0.0.1:8000 で確認
 ```

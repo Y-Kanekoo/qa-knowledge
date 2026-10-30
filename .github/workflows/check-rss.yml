@@ -24,12 +24,12 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          NOTIFY_FLAG=""
+          NOTIFY_FLAG=()
           if [ -n "$DISCORD_WEBHOOK_URL" ]; then
-            NOTIFY_FLAG="--notify discord"
+            NOTIFY_FLAG=(--notify discord)
           fi
           status=0
-          python scripts/check_rss.py --days 365 --format markdown --github-output "$GITHUB_OUTPUT" $NOTIFY_FLAG > rss_result.txt || status=$?
+          python scripts/check_rss.py --days 365 --format markdown --github-output "$GITHUB_OUTPUT" "${NOTIFY_FLAG[@]}" > rss_result.txt || status=$?
           echo "exit_code=$status" >> "$GITHUB_OUTPUT"
       - name: 新着記事をIssueで通知
         if: steps.rss.outputs.has_new_articles == 'true'
