@@ -109,13 +109,9 @@ def validate_metadata(metadata: dict, *, draft: bool = False) -> list[str]:
         pass
     elif isinstance(published_at, str):
         if not _is_valid_date(published_at):
-            errors.append(
-                f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}"
-            )
+            errors.append(f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}")
     else:
-        errors.append(
-            f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}"
-        )
+        errors.append(f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}")
 
     # content_type: string（許可値リストに含まれる）
     content_type = metadata.get("content_type")
@@ -127,8 +123,7 @@ def validate_metadata(metadata: dict, *, draft: bool = False) -> list[str]:
         errors.append("'content_type' は空でない文字列である必要があります")
     elif content_type not in ALLOWED_CONTENT_TYPES:
         errors.append(
-            f"'content_type' の値が不正です: '{content_type}' "
-            f"(許可値: {', '.join(sorted(ALLOWED_CONTENT_TYPES))})"
+            f"'content_type' の値が不正です: '{content_type}' (許可値: {', '.join(sorted(ALLOWED_CONTENT_TYPES))})"
         )
 
     # qa_domains: list[string]（1つ以上、各値が許可値リストに含まれる）
@@ -154,18 +149,14 @@ def validate_metadata(metadata: dict, *, draft: bool = False) -> list[str]:
     else:
         for tag in tags:
             if not isinstance(tag, str) or not KEBAB_CASE_RE.match(tag):
-                errors.append(
-                    f"'tags' の値はケバブケース（小文字英数字とハイフンのみ）である必要があります: '{tag}'"
-                )
+                errors.append(f"'tags' の値はケバブケース（小文字英数字とハイフンのみ）である必要があります: '{tag}'")
 
     # language: string（"en" or "ja"）
     language = metadata.get("language")
     if language is None:
         errors.append("必須フィールド 'language' がありません")
     elif not isinstance(language, str) or language not in ALLOWED_LANGUAGES:
-        errors.append(
-            f"'language' の値が不正です: '{language}' (許可値: {', '.join(sorted(ALLOWED_LANGUAGES))})"
-        )
+        errors.append(f"'language' の値が不正です: '{language}' (許可値: {', '.join(sorted(ALLOWED_LANGUAGES))})")
 
     # added_at: date（ISO 8601形式 YYYY-MM-DD）
     added_at = metadata.get("added_at")
@@ -176,13 +167,9 @@ def validate_metadata(metadata: dict, *, draft: bool = False) -> list[str]:
         pass
     elif isinstance(added_at, str):
         if not _is_valid_date(added_at):
-            errors.append(
-                f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}"
-            )
+            errors.append(f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}")
     else:
-        errors.append(
-            f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}"
-        )
+        errors.append(f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}")
 
     return errors
 
@@ -227,10 +214,7 @@ def check_duplicate_urls(files: list[Path]) -> dict[Path, list[str]]:
         if len(filepaths) > 1:
             filenames = [f.name for f in filepaths]
             for filepath in filepaths:
-                msg = (
-                    f"URL が重複しています: {url} "
-                    f"(重複ファイル: {', '.join(filenames)})"
-                )
+                msg = f"URL が重複しています: {url} (重複ファイル: {', '.join(filenames)})"
                 errors_by_file.setdefault(filepath, []).append(msg)
 
     return errors_by_file

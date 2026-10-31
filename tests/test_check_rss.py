@@ -259,11 +259,15 @@ class TestCheckFeeds:
         mock_parse.return_value = mock_result
 
         config = {
-            "feeds": [{
-                "name": "Blog", "url": "https://example.com/feed",
-                "company": "Example", "language": "ja",
-                "skip_keyword_filter": True,
-            }],
+            "feeds": [
+                {
+                    "name": "Blog",
+                    "url": "https://example.com/feed",
+                    "company": "Example",
+                    "language": "ja",
+                    "skip_keyword_filter": True,
+                }
+            ],
             "keywords": ["テスト"],
         }
         results = check_feeds(config, existing_urls=set(), dry_run=False, days_limit=0)
@@ -326,8 +330,7 @@ class TestSendDiscordNotification:
 
         # 11件の記事を生成
         articles = [
-            {**self.SAMPLE_ARTICLES[0], "title": f"記事{i}", "url": f"https://example.com/{i}"}
-            for i in range(11)
+            {**self.SAMPLE_ARTICLES[0], "title": f"記事{i}", "url": f"https://example.com/{i}"} for i in range(11)
         ]
         result = send_discord_notification("https://discord.com/api/webhooks/test", articles)
         assert result is True

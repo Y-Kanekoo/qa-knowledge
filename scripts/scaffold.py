@@ -69,9 +69,9 @@ def fetch_html(url: str) -> str:
     """URLからHTMLを取得する。"""
     logger.info("URLを取得中: %s", url)
     try:
-        response = _session.get(url, timeout=30, headers={
-            "User-Agent": f"Mozilla/5.0 (compatible; qa-knowledge-scaffold/{VERSION})"
-        })
+        response = _session.get(
+            url, timeout=30, headers={"User-Agent": f"Mozilla/5.0 (compatible; qa-knowledge-scaffold/{VERSION})"}
+        )
         response.raise_for_status()
         return response.text
     except requests.exceptions.RequestException as e:

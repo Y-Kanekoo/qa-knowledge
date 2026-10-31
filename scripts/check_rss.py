@@ -93,8 +93,8 @@ def matches_keywords(text: str, keywords: list[str]) -> bool:
         # 英語キーワードは単語境界で検索（日本語キーワードは部分一致のまま）
         if kw.isascii():
             # 区切り文字（スペース、ハイフン等）を柔軟にマッチ
-            parts = re.split(r'[\s\-_/]+', kw)
-            pattern = r'\b' + r'[\s\-_/]+'.join(re.escape(p) for p in parts) + r'\b'
+            parts = re.split(r"[\s\-_/]+", kw)
+            pattern = r"\b" + r"[\s\-_/]+".join(re.escape(p) for p in parts) + r"\b"
             if re.search(pattern, text_lower, re.ASCII):
                 return True
         else:
@@ -143,8 +143,13 @@ def get_entry_text(entry: dict) -> str:
 
 
 def check_feeds(
-    config: dict, existing_urls: set[str], dry_run: bool = False, days_limit: int = 365,
-    *, today: datetime | None = None, feed_outcomes: list[bool] | None = None,
+    config: dict,
+    existing_urls: set[str],
+    dry_run: bool = False,
+    days_limit: int = 365,
+    *,
+    today: datetime | None = None,
+    feed_outcomes: list[bool] | None = None,
 ) -> list[dict]:
     """全フィードを巡回し、新着QA関連記事を検出する。"""
     feeds = config.get("feeds", [])
@@ -217,14 +222,16 @@ def check_feeds(
 
             title = entry.get("title", "（タイトル不明）")
 
-            new_articles.append({
-                "blog": name,
-                "company": company,
-                "title": title,
-                "url": link,
-                "published": published,
-                "language": language,
-            })
+            new_articles.append(
+                {
+                    "blog": name,
+                    "company": company,
+                    "title": title,
+                    "url": link,
+                    "published": published,
+                    "language": language,
+                }
+            )
             seen_urls.add(normalize_url(link))
             feed_new_count += 1
 
@@ -251,7 +258,7 @@ def send_discord_notification(webhook_url: str, articles: list[dict]) -> bool:
     # 10件ずつに分割して送信
     batch_size = 10
     for i in range(0, len(articles), batch_size):
-        batch = articles[i:i + batch_size]
+        batch = articles[i : i + batch_size]
         embeds = []
         for article in batch:
             embed = {
@@ -284,7 +291,8 @@ def send_discord_notification(webhook_url: str, articles: list[dict]) -> bool:
             status = getattr(getattr(e, "response", None), "status_code", None)
             logger.error(
                 "Discord通知の送信に失敗しました: %s (HTTP %s)",
-                type(e).__name__, status if type(status) is int and 100 <= status <= 599 else "unknown",
+                type(e).__name__,
+                status if type(status) is int and 100 <= status <= 599 else "unknown",
             )
             return False
 
@@ -337,9 +345,7 @@ def main() -> int:
             raise argparse.ArgumentTypeError(f"0以上の整数を指定してください: {value}")
         return n
 
-    parser = argparse.ArgumentParser(
-        description="RSSフィードを巡回し、未収録のQA関連記事を検出する。"
-    )
+    parser = argparse.ArgumentParser(description="RSSフィードを巡回し、未収録のQA関連記事を検出する。")
     parser.add_argument(
         "--format",
         choices=["text", "markdown", "json"],
@@ -352,7 +358,9 @@ def main() -> int:
         help="各フィードの取得状況を表示する（デバッグ用）",
     )
     parser.add_argument(
-        "--days", type=positive_int, default=365,
+        "--days",
+        type=positive_int,
+        default=365,
         help="この日数以内の記事のみ対象（デフォルト: 365）",
     )
     parser.add_argument(
@@ -362,7 +370,8 @@ def main() -> int:
         help="通知先（discord: Discord Webhook で通知）",
     )
     parser.add_argument(
-        "--allow-partial-feeds", action="store_true",
+        "--allow-partial-feeds",
+        action="store_true",
         help="一部フィードが失敗しても取得済み記事を収集処理へ渡す",
     )
     parser.add_argument("--github-output", type=Path, help="GitHub Actionsの件数・新着判定の出力先")
@@ -373,7 +382,8 @@ def main() -> int:
     handler.setFormatter(CredentialRedactingFormatter(webhook_url))
     logging.basicConfig(
         level=logging.DEBUG if args.dry_run else logging.INFO,
-        handlers=[handler], force=True,
+        handlers=[handler],
+        force=True,
     )
 
     try:
@@ -390,7 +400,10 @@ def main() -> int:
 
         feed_outcomes: list[bool] = []
         articles = check_feeds(
-            config, existing_urls, dry_run=args.dry_run, days_limit=args.days,
+            config,
+            existing_urls,
+            dry_run=args.dry_run,
+            days_limit=args.days,
             feed_outcomes=feed_outcomes,
         )
         if feed_outcomes and not any(feed_outcomes):
@@ -398,8 +411,10 @@ def main() -> int:
             return 1
 
         safe_articles = [
-            {key: redact_credentials(value, webhook_url) if isinstance(value, str) else value
-             for key, value in article.items()}
+            {
+                key: redact_credentials(value, webhook_url) if isinstance(value, str) else value
+                for key, value in article.items()
+            }
             for article in articles
         ]
         if args.format == "json":

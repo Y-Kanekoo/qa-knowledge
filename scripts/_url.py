@@ -19,8 +19,7 @@ def normalize_url(url: str) -> str:
     path = parsed.path.rstrip("/")
     # UTM等のトラッキングパラメータを除去
     params = parse_qs(parsed.query, keep_blank_values=True)
-    clean_params = {k: v for k, v in params.items()
-                    if not k.lower().startswith(("utm_", "fbclid", "gclid"))}
+    clean_params = {k: v for k, v in params.items() if not k.lower().startswith(("utm_", "fbclid", "gclid"))}
     query = urlencode(clean_params, doseq=True) if clean_params else ""
     normalized = f"{scheme}://{netloc}{path}"
     if query:
