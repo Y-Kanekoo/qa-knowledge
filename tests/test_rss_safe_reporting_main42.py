@@ -12,8 +12,12 @@ from scripts import check_rss
 from tests.test_safe_logging import FAKE_TOKEN, FAKE_WEBHOOK
 
 ARTICLE = {
-    "blog": "Example", "company": "Example", "title": "testing guide",
-    "url": "https://example.invalid/testing-guide", "published": "2026-10-01", "language": "en",
+    "blog": "Example",
+    "company": "Example",
+    "title": "testing guide",
+    "url": "https://example.invalid/testing-guide",
+    "published": "2026-10-01",
+    "language": "en",
 }
 CONFIG = {
     "feeds": [{"name": "Example", "url": "https://example.invalid/feed", "company": "Example"}],
@@ -23,9 +27,17 @@ CONFIG = {
 
 def run_main(monkeypatch, tmp_path, *options, config=CONFIG, output_format="markdown"):
     output_path = tmp_path / "github_output"
-    monkeypatch.setattr("sys.argv", [
-        "check_rss.py", "--format", output_format, "--github-output", str(output_path), *options,
-    ])
+    monkeypatch.setattr(
+        "sys.argv",
+        [
+            "check_rss.py",
+            "--format",
+            output_format,
+            "--github-output",
+            str(output_path),
+            *options,
+        ],
+    )
     monkeypatch.setenv("DISCORD_WEBHOOK_URL", FAKE_WEBHOOK)
     monkeypatch.setattr(check_rss, "load_feeds_config", lambda: config)
     monkeypatch.setattr(check_rss, "load_existing_urls", lambda: set())
@@ -61,8 +73,13 @@ def test_discord_http_error_keeps_issue_report_and_failure(monkeypatch, tmp_path
 
 
 def test_partial_feed_exception_keeps_issue_report_and_failure(monkeypatch, tmp_path, capsys):
-    config = {**CONFIG, "feeds": [CONFIG["feeds"][0],
-                                  {"name": "Second", "url": "https://example.invalid/second", "company": "Example"}]}
+    config = {
+        **CONFIG,
+        "feeds": [
+            CONFIG["feeds"][0],
+            {"name": "Second", "url": "https://example.invalid/second", "company": "Example"},
+        ],
+    }
     parsed = SimpleNamespace(bozo=False, entries=[{"title": ARTICLE["title"], "link": ARTICLE["url"]}])
     monkeypatch.setattr(check_rss.feedparser, "parse", Mock(side_effect=[RuntimeError(FAKE_WEBHOOK), parsed]))
     post = Mock(side_effect=AssertionError("unexpected network request"))
@@ -127,15 +144,24 @@ def test_json_report_remains_parseable_after_redaction(monkeypatch, tmp_path, ca
 
 
 def test_json_collection_accepts_partial_feed_results(monkeypatch, tmp_path, capsys):
-    config = {**CONFIG, "feeds": [CONFIG["feeds"][0],
-                                  {"name": "Second", "url": "https://example.invalid/second", "company": "Example"}]}
+    config = {
+        **CONFIG,
+        "feeds": [
+            CONFIG["feeds"][0],
+            {"name": "Second", "url": "https://example.invalid/second", "company": "Example"},
+        ],
+    }
     parsed_feed = SimpleNamespace(bozo=False, entries=[{"title": ARTICLE["title"], "link": ARTICLE["url"]}])
     monkeypatch.setattr(check_rss.feedparser, "parse", Mock(side_effect=[RuntimeError(FAKE_WEBHOOK), parsed_feed]))
     post = Mock(side_effect=AssertionError("unexpected network request"))
     monkeypatch.setattr(check_rss.requests, "post", post)
 
     code, github_output = run_main(
-        monkeypatch, tmp_path, "--allow-partial-feeds", config=config, output_format="json",
+        monkeypatch,
+        tmp_path,
+        "--allow-partial-feeds",
+        config=config,
+        output_format="json",
     )
     out, err = capsys.readouterr()
     assert code == 0
@@ -143,9 +169,7 @@ def test_json_collection_accepts_partial_feed_results(monkeypatch, tmp_path, cap
     assert "一部フィードの取得に失敗" in err
     assert github_output == "article_count=1\nhas_new_articles=true\n"
     assert FAKE_TOKEN not in out + err + github_output
-    assert "--allow-partial-feeds" in (
-        check_rss.PROJECT_ROOT / ".github/workflows/collect-articles.yml"
-    ).read_text()
+    assert "--allow-partial-feeds" in (check_rss.PROJECT_ROOT / ".github/workflows/collect-articles.yml").read_text()
     post.assert_not_called()
 
 

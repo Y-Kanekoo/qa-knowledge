@@ -126,7 +126,6 @@ def test_mkdocs_cli_builds_from_clean_checkout(tmp_path):
     env = os.environ.copy()
     env["PYTHONPATH"] = ""
     command = Path(sys.executable).with_name("mkdocs")
-    result = subprocess.run([str(command), "build", "--strict"], cwd=tmp_path, env=env,
-                            capture_output=True, text=True)
+    result = subprocess.run([str(command), "build", "--strict"], cwd=tmp_path, env=env, capture_output=True, text=True)
     assert result.returncode == 0, result.stderr[-1000:]
     assert (tmp_path / "site/entries/example/index.html").is_file()

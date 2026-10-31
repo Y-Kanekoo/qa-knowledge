@@ -41,10 +41,7 @@ INDEX_MD = PROJECT_ROOT / "index.md"
 EXCLUDE_FILES = {"_template.md"}
 
 # 自動生成コメント
-AUTO_GENERATED_COMMENT = (
-    "<!-- このファイルは generate_index.py によって自動生成されます。"
-    "手動編集しないでください -->"
-)
+AUTO_GENERATED_COMMENT = "<!-- このファイルは generate_index.py によって自動生成されます。手動編集しないでください -->"
 
 # index.md 用の自動更新コメント
 INDEX_AUTO_COMMENT = "<!-- このファイルは generate_index.py によって自動更新されます -->"
@@ -288,9 +285,7 @@ def generate_by_date(entries: list[EntryMeta]) -> str:
     for entry in sorted_entries:
         title_link = f"[{entry['title']}]({_index_link(entry['filename'])})"
         domains = ", ".join(entry["qa_domains"])
-        lines.append(
-            f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |"
-        )
+        lines.append(f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |")
     lines.append("")
 
     return "\n".join(lines) + "\n"
@@ -332,17 +327,13 @@ def generate_index_md(entries: list[EntryMeta]) -> str:
         lines.append("（エントリ追加後に自動更新されます）")
     else:
         # added_at の降順でソートし、上位N件を表示
-        recent = sorted(entries, key=lambda e: e["added_at"], reverse=True)[
-            :RECENT_ENTRIES_LIMIT
-        ]
+        recent = sorted(entries, key=lambda e: e["added_at"], reverse=True)[:RECENT_ENTRIES_LIMIT]
         lines.append("| 追加日 | タイトル | 会社 | QA領域 |")
         lines.append("|--------|---------|------|--------|")
         for entry in recent:
             title_link = f"[{entry['title']}]({_root_link(entry['filename'])})"
             domains = ", ".join(entry["qa_domains"])
-            lines.append(
-                f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |"
-            )
+            lines.append(f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |")
 
     lines.extend(
         [

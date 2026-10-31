@@ -121,15 +121,20 @@ def score_entry(filepath: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="エントリの品質スコアを算出する。")
     parser.add_argument(
-        "--threshold", type=int, default=0,
+        "--threshold",
+        type=int,
+        default=0,
         help="このスコア以下のエントリのみ表示（デフォルト: 0=全件表示）",
     )
     parser.add_argument(
-        "--detail", action="store_true",
+        "--detail",
+        action="store_true",
         help="各エントリのスコア詳細を表示する",
     )
     parser.add_argument(
-        "--sort", choices=["score", "name"], default="score",
+        "--sort",
+        choices=["score", "name"],
+        default="score",
         help="ソート順（デフォルト: score=スコア昇順）",
     )
     args = parser.parse_args()

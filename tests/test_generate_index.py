@@ -76,11 +76,15 @@ class TestGenerateByCompany:
     def test_エントリありの場合は会社名とテーブルを含む(self):
         entries = [
             _make_entry(
-                filename="a.md", title="記事A", company="Alpha",
+                filename="a.md",
+                title="記事A",
+                company="Alpha",
                 published_at="2024-01-01",
             ),
             _make_entry(
-                filename="b.md", title="記事B", company="Alpha",
+                filename="b.md",
+                title="記事B",
+                company="Alpha",
                 published_at="2024-06-01",
             ),
             _make_entry(filename="c.md", title="記事C", company="Beta"),
@@ -156,7 +160,8 @@ class TestGenerateIndexMd:
         entries = [
             _make_entry(company="Alpha", qa_domains=["test-automation"]),
             _make_entry(
-                filename="b.md", company="Beta",
+                filename="b.md",
+                company="Beta",
                 qa_domains=["ci-cd", "reliability"],
             ),
         ]
@@ -172,7 +177,9 @@ class TestGenerateIndexMd:
     def test_最近追加されたエントリを含む(self):
         entries = [
             _make_entry(
-                filename="recent.md", title="最新記事", added_at="2024-12-01",
+                filename="recent.md",
+                title="最新記事",
+                added_at="2024-12-01",
             ),
         ]
         result = generate_index_md(entries)

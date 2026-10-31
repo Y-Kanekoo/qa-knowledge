@@ -22,9 +22,14 @@ except ImportError:
 
 def restore_pending_drafts(ref: str, root: Path) -> None:
     """収集ブランチの下書きだけを復元。mainの下書き・公開済みURLを優先する。"""
-    files = subprocess.check_output(
-        ["git", "ls-tree", "-rz", "--name-only", ref, "--", "drafts/"], cwd=root,
-    ).decode("utf-8").split("\0")
+    files = (
+        subprocess.check_output(
+            ["git", "ls-tree", "-rz", "--name-only", ref, "--", "drafts/"],
+            cwd=root,
+        )
+        .decode("utf-8")
+        .split("\0")
+    )
     published = load_existing_urls((root / "entries",))
     for filename in filter(None, files):
         relative = Path(filename)

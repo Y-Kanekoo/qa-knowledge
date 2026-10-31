@@ -49,10 +49,7 @@ def prepare_site_docs(project_root: Path = PROJECT_ROOT) -> list[Path]:
             raise ValueError("公開用文書の目印がシンボリックリンクです")
         marker_bytes = marker.read_bytes() if marker.is_file() else None
         existing = list(target_root.rglob("*"))
-        existing_files = {
-            path.relative_to(target_root) for path in existing
-            if path.is_file() and path != marker
-        }
+        existing_files = {path.relative_to(target_root) for path in existing if path.is_file() and path != marker}
         if any(path.is_symlink() for path in existing) or existing_files != set(pages):
             shutil.rmtree(target_root)
             if marker_bytes is not None:

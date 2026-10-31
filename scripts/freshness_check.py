@@ -123,9 +123,7 @@ def format_table(rows: list[dict[str, object]]) -> str:
     for row in rows:
         title = str(row["title"]).replace("|", "\\|")
         company = str(row["company"]).replace("|", "\\|")
-        lines.append(
-            f"| {row['filename']} | {title} | {company} | {row['published_at']} | {row['elapsed_years']} |"
-        )
+        lines.append(f"| {row['filename']} | {title} | {company} | {row['published_at']} | {row['elapsed_years']} |")
     return "\n".join(lines)
 
 

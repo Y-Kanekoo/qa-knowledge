@@ -23,8 +23,12 @@ from scripts.validate_frontmatter import validate_file
 
 ROOT = Path(__file__).resolve().parent.parent
 ARTICLE = {
-    "blog": "QA Blog", "company": "Example", "title": "日本語の記事",
-    "url": "https://example.com/new", "published": "2026-10-23", "language": "ja",
+    "blog": "QA Blog",
+    "company": "Example",
+    "title": "日本語の記事",
+    "url": "https://example.com/new",
+    "published": "2026-10-23",
+    "language": "ja",
 }
 
 
@@ -53,11 +57,15 @@ def complete(path):
 
 def test_draft_survives_strict_validation_failure_and_promotes_after_completion(tmp_path, sample_entry_meta):
     published_entry(tmp_path, sample_entry_meta)
-    with patch.multiple(generate_index, ENTRIES_DIR=tmp_path / "entries", INDEXES_DIR=tmp_path / "indexes",
-                        INDEX_MD=tmp_path / "index.md"):
+    with patch.multiple(
+        generate_index,
+        ENTRIES_DIR=tmp_path / "entries",
+        INDEXES_DIR=tmp_path / "indexes",
+        INDEX_MD=tmp_path / "index.md",
+    ):
         generate_index.main()
         before = index_snapshot(tmp_path)
-        draft, = collect_articles([ARTICLE], tmp_path)
+        (draft,) = collect_articles([ARTICLE], tmp_path)
         original = draft.read_bytes()
         assert validate_file(draft, draft=True) == []
         assert validate_file(draft)  # 公開検証は空の分類を許さない
@@ -83,7 +91,7 @@ def test_draft_survives_strict_validation_failure_and_promotes_after_completion(
 def test_no_articles_no_writes_and_duplicates_preserve_edits(tmp_path):
     assert collect_articles([], tmp_path) == []
     assert not list(tmp_path.iterdir())
-    draft, = collect_articles([ARTICLE, {**ARTICLE, "url": "http://www.example.com/new/?utm_source=rss"}], tmp_path)
+    (draft,) = collect_articles([ARTICLE, {**ARTICLE, "url": "http://www.example.com/new/?utm_source=rss"}], tmp_path)
     complete(draft)
     before = draft.read_bytes()
     assert collect_articles([ARTICLE], tmp_path) == []
@@ -101,12 +109,24 @@ def test_unicode_titles_and_quotes_are_lossless_and_do_not_collide(tmp_path):
         assert frontmatter.load(path)["company"] == first["company"]
         assert path.name.isascii()
     assert draft_path("Example", "日本語", ARTICLE["url"], tmp_path) == draft_path(
-        "Example", "日本語", "http://www.example.com/new/?utm_source=rss", tmp_path,
+        "Example",
+        "日本語",
+        "http://www.example.com/new/?utm_source=rss",
+        tmp_path,
     )
 
 
-@pytest.mark.parametrize("bad", [{}, "新着QA関連記事はありません。", [None], [dict(ARTICLE, title=None)],
-                                 [dict(ARTICLE, published="invalid")], [dict(ARTICLE, url="file:///tmp/no")]])
+@pytest.mark.parametrize(
+    "bad",
+    [
+        {},
+        "新着QA関連記事はありません。",
+        [None],
+        [dict(ARTICLE, title=None)],
+        [dict(ARTICLE, published="invalid")],
+        [dict(ARTICLE, url="file:///tmp/no")],
+    ],
+)
 def test_invalid_input_fails_without_writing(tmp_path, bad):
     with pytest.raises(ValueError):
         collect_articles(bad, tmp_path)
@@ -120,7 +140,7 @@ def test_all_input_is_validated_before_any_draft_is_saved(tmp_path):
 
 
 def test_unknown_date_remains_draft_and_body_is_required_for_promotion(tmp_path):
-    draft, = collect_articles([{**ARTICLE, "published": ""}], tmp_path)
+    (draft,) = collect_articles([{**ARTICLE, "published": ""}], tmp_path)
     assert frontmatter.load(draft)["published_at"] == ""
     assert validate_file(draft, draft=True) == []
     complete(draft)
@@ -136,7 +156,7 @@ def test_unknown_date_remains_draft_and_body_is_required_for_promotion(tmp_path)
 
 
 def test_promote_never_overwrites_or_duplicates_published_entry(tmp_path, sample_entry_meta):
-    draft, = collect_articles([ARTICLE], tmp_path)
+    (draft,) = collect_articles([ARTICLE], tmp_path)
     complete(draft)
     target = tmp_path / "entries" / draft.name
     target.parent.mkdir()
@@ -162,8 +182,12 @@ def test_save_draft_never_overwrites(tmp_path):
 
 def test_index_is_deterministic_and_invalid_entry_does_not_rewrite_indexes(tmp_path, sample_entry_meta):
     entry = published_entry(tmp_path, sample_entry_meta)
-    with patch.multiple(generate_index, ENTRIES_DIR=tmp_path / "entries", INDEXES_DIR=tmp_path / "indexes",
-                        INDEX_MD=tmp_path / "index.md"):
+    with patch.multiple(
+        generate_index,
+        ENTRIES_DIR=tmp_path / "entries",
+        INDEXES_DIR=tmp_path / "indexes",
+        INDEX_MD=tmp_path / "index.md",
+    ):
         generate_index.main()
         before = index_snapshot(tmp_path)
         assert "最終更新 | 2024-07-01" in (tmp_path / "index.md").read_text()
@@ -178,28 +202,40 @@ def test_index_is_deterministic_and_invalid_entry_does_not_rewrite_indexes(tmp_p
 def test_three_day_and_365_day_windows_have_different_boundary_results():
     today = datetime(2026, 10, 26, 0, 30, tzinfo=UTC)
     offsets = [0, 2, 3, 4, 364, 365, 366]
-    entries = [{"title": "QA test", "link": f"https://example.com/day-{days}",
-                "published": (today - timedelta(days=days)).date().isoformat()} for days in offsets]
+    entries = [
+        {
+            "title": "QA test",
+            "link": f"https://example.com/day-{days}",
+            "published": (today - timedelta(days=days)).date().isoformat(),
+        }
+        for days in offsets
+    ]
     entries.append({"title": "QA test (date unknown)", "link": "https://example.com/unknown"})
-    config = {"feeds": [{"name": "Blog", "company": "Example", "url": "https://example.com/rss"}],
-              "keywords": ["test"]}
+    config = {"feeds": [{"name": "Blog", "company": "Example", "url": "https://example.com/rss"}], "keywords": ["test"]}
     parsed = feedparser.FeedParserDict(bozo=False, entries=entries)
     with patch.object(check_rss.feedparser, "parse", return_value=parsed):
         narrow = check_rss.check_feeds(config, set(), days_limit=3, today=today)
         wide = check_rss.check_feeds(config, set(), days_limit=365, today=today)
     assert {a["url"].rsplit("/", 1)[-1] for a in narrow} == {"day-0", "day-2", "day-3", "unknown"}
     assert {a["url"].rsplit("/", 1)[-1] for a in wide} == {
-        "day-0", "day-2", "day-3", "day-4", "day-364", "day-365", "unknown",
+        "day-0",
+        "day-2",
+        "day-3",
+        "day-4",
+        "day-364",
+        "day-365",
+        "unknown",
     }
 
 
 def test_pending_drafts_preserve_edits_and_do_not_restore_published_urls(tmp_path, sample_entry_meta):
     def git(*args):
         return subprocess.run(["git", *args], cwd=tmp_path, check=True, capture_output=True, text=True).stdout.strip()
+
     git("init", "-b", "main")
     git("config", "user.email", "test@example.com")
     git("config", "user.name", "Test")
-    path, = collect_articles([ARTICLE], tmp_path)
+    (path,) = collect_articles([ARTICLE], tmp_path)
     complete(path)
     edited = path.read_bytes()
     git("add", ".")
@@ -235,14 +271,17 @@ def process_repo(tmp_path, sample_entry_meta):
 @pytest.fixture
 def rss_server():
     payload = [b""]
+
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
             self.send_response(200)
             self.send_header("Content-Type", "application/rss+xml")
             self.end_headers()
             self.wfile.write(payload[0])
+
         def log_message(self, *args):
             pass
+
     server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -256,11 +295,16 @@ def rss_server():
 
 def setup_feed(root, rss_server, articles):
     payload, url = rss_server
-    items = "".join(f"<item><title>{a['title']}</title><link>{a['url']}</link>"
-                    f"<pubDate>{datetime.now(tz=UTC):%a, %d %b %Y %H:%M:%S GMT}</pubDate></item>" for a in articles)
+    items = "".join(
+        f"<item><title>{a['title']}</title><link>{a['url']}</link>"
+        f"<pubDate>{datetime.now(tz=UTC):%a, %d %b %Y %H:%M:%S GMT}</pubDate></item>"
+        for a in articles
+    )
     payload[0] = f'<rss version="2.0"><channel><title>QA Blog</title>{items}</channel></rss>'.encode()
-    config = {"feeds": [{"name": "新着QA関連記事はありません。", "url": url, "company": "Example", "language": "ja"}],
-              "keywords": ["test"],}
+    config = {
+        "feeds": [{"name": "新着QA関連記事はありません。", "url": url, "company": "Example", "language": "ja"}],
+        "keywords": ["test"],
+    }
     (root / "feeds.yml").write_text(yaml.safe_dump(config), encoding="utf-8")
 
 
@@ -269,11 +313,21 @@ def workflow(name):
 
 
 def shell_step(root, step, output):
-    env = {**os.environ, "PATH": f"{root / 'bin'}:{Path(sys.executable).parent}:{os.environ['PATH']}",
-           "RUNNER_TEMP": str(root), "GITHUB_OUTPUT": str(output), "GITHUB_REPOSITORY": "fixture/qa-knowledge",
-           "DISCORD_WEBHOOK_URL": ""}
-    return subprocess.run(["bash", "--noprofile", "--norc", "-e", "-o", "pipefail", "-c", step["run"]],
-                          cwd=root, env=env, capture_output=True, text=True)
+    env = {
+        **os.environ,
+        "PATH": f"{root / 'bin'}:{Path(sys.executable).parent}:{os.environ['PATH']}",
+        "RUNNER_TEMP": str(root),
+        "GITHUB_OUTPUT": str(output),
+        "GITHUB_REPOSITORY": "fixture/qa-knowledge",
+        "DISCORD_WEBHOOK_URL": "",
+    }
+    return subprocess.run(
+        ["bash", "--noprofile", "--norc", "-e", "-o", "pipefail", "-c", step["run"]],
+        cwd=root,
+        env=env,
+        capture_output=True,
+        text=True,
+    )
 
 
 @pytest.mark.parametrize("article_count", [0, 1])
@@ -306,8 +360,11 @@ def test_collection_workflow_executes_real_producers_and_keeps_public_indexes(pr
 
 def test_workflow_failure_cannot_create_pr(process_repo):
     (process_repo / "feeds.yml").write_text("feeds: []\nkeywords: []\n")
-    step = next(s for s in workflow("collect-articles.yml")["jobs"]["collect"]["steps"]
-                if s.get("run", "").startswith("python scripts/check_rss.py"))
+    step = next(
+        s
+        for s in workflow("collect-articles.yml")["jobs"]["collect"]["steps"]
+        if s.get("run", "").startswith("python scripts/check_rss.py")
+    )
     output = process_repo / "output"
     result = shell_step(process_repo, step, output)
     assert result.returncode != 0
@@ -331,16 +388,20 @@ def test_rss_workflow_uses_count_not_message_or_stderr(process_repo, rss_server,
         # 元のテキストメッセージは部分一致するが、新判定はfalse。
         assert "新着QA関連記事" in check_rss.format_text([])
     assert "--days 365" in step["run"]
-    assert "--days 3" in next(s["run"] for s in workflow("collect-articles.yml")["jobs"]["collect"]["steps"]
-                               if s.get("run", "").startswith("python scripts/check_rss.py"))
+    assert "--days 3" in next(
+        s["run"]
+        for s in workflow("collect-articles.yml")["jobs"]["collect"]["steps"]
+        if s.get("run", "").startswith("python scripts/check_rss.py")
+    )
 
 
 def test_invalid_json_cli_fails_without_success_outputs(process_repo):
     source = process_repo / "invalid.json"
     source.write_text("not JSON")
     output = process_repo / "output"
-    result = run_python(process_repo, "scripts/collect_articles.py", "--input", str(source),
-                        "--github-output", str(output))
+    result = run_python(
+        process_repo, "scripts/collect_articles.py", "--input", str(source), "--github-output", str(output)
+    )
     assert result.returncode != 0
     assert not output.exists()
     assert not (process_repo / "drafts").exists()
@@ -349,6 +410,7 @@ def test_invalid_json_cli_fails_without_success_outputs(process_repo):
 def test_mkdocs_excludes_drafts_even_with_root_docs_dir():
     config = yaml.safe_load((ROOT / "mkdocs.yml").read_text())
     from mkdocs.config import load_config
+
     # MkDocsの実際のpathspecで公開・検索対象からの除外を確認。
     configured = load_config(config_file=str(ROOT / "mkdocs.yml"))
     assert config["exclude_docs"] == "drafts/\n"
@@ -361,15 +423,16 @@ def test_scaffold_cli_defaults_to_drafts_and_refuses_overwrite_or_entries(proces
     _, url = rss_server
     result = run_python(process_repo, "scripts/scaffold.py", url, "--company", "Example")
     assert result.returncode == 0, result.stderr
-    path, = (process_repo / "drafts").glob("*.md")
+    (path,) = (process_repo / "drafts").glob("*.md")
     original = path.read_bytes()
     assert frontmatter.load(path)["status"] == "draft"
     assert validate_file(path, draft=True) == []
     repeated = run_python(process_repo, "scripts/scaffold.py", url, "--company", "Example")
     assert repeated.returncode != 0
     assert path.read_bytes() == original
-    refused = run_python(process_repo, "scripts/scaffold.py", url, "--company", "Example",
-                         "--output", "entries/incomplete.md")
+    refused = run_python(
+        process_repo, "scripts/scaffold.py", url, "--company", "Example", "--output", "entries/incomplete.md"
+    )
     assert refused.returncode != 0
     assert not (process_repo / "entries" / "incomplete.md").exists()
 
