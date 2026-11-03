@@ -93,11 +93,6 @@ feeds:
     url: https://tech.layerx.co.jp/rss
     language: ja
 
-  - name: Uber Engineering
-    company: Uber
-    url: https://www.uber.com/en-JP/blog/engineering/rss/
-    language: en
-
   - name: Slack Engineering
     company: Slack
     url: https://slack.engineering/feed/
