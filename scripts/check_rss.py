@@ -20,8 +20,10 @@ import requests
 import yaml
 
 try:
+    from scripts._safe_logging import CredentialRedactingFormatter, CredentialRedactingStreamHandler, redact_credentials
     from scripts._url import normalize_url
 except ImportError:
+    from _safe_logging import CredentialRedactingFormatter, CredentialRedactingStreamHandler, redact_credentials
     from _url import normalize_url
 
 # モジュールレベルのロガー
@@ -31,6 +33,7 @@ logger = logging.getLogger(__name__)
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FEEDS_FILE = PROJECT_ROOT / "feeds.yml"
 ENTRIES_DIR = PROJECT_ROOT / "entries"
+DRAFTS_DIR = PROJECT_ROOT / "drafts"
 
 
 def load_feeds_config() -> dict:
@@ -62,13 +65,12 @@ def validate_feeds_config(config: dict) -> list[str]:
     return errors
 
 
-def load_existing_urls() -> set[str]:
-    """entries/ 内の全 .md ファイルから url フィールドを収集する。"""
+def load_existing_urls(directories: tuple[Path, ...] | None = None) -> set[str]:
+    """公開済み・下書き保存済みURLを収集する。"""
     urls: set[str] = set()
-    if not ENTRIES_DIR.exists():
-        return urls
 
-    for md_file in ENTRIES_DIR.glob("*.md"):
+    files = [path for directory in (directories or (ENTRIES_DIR, DRAFTS_DIR)) for path in directory.glob("*.md")]
+    for md_file in files:
         if md_file.name == "_template.md":
             continue
         try:
@@ -77,7 +79,7 @@ def load_existing_urls() -> set[str]:
             if url:
                 urls.add(normalize_url(url))
         except (yaml.YAMLError, OSError) as e:
-            logger.warning("%s の読み込みに失敗: %s", md_file.name, e)
+            logger.warning("%s の読み込みに失敗しました: %s", md_file.name, type(e).__name__)
             continue
 
     return urls
@@ -91,8 +93,8 @@ def matches_keywords(text: str, keywords: list[str]) -> bool:
         # 英語キーワードは単語境界で検索（日本語キーワードは部分一致のまま）
         if kw.isascii():
             # 区切り文字（スペース、ハイフン等）を柔軟にマッチ
-            parts = re.split(r'[\s\-_/]+', kw)
-            pattern = r'\b' + r'[\s\-_/]+'.join(re.escape(p) for p in parts) + r'\b'
+            parts = re.split(r"[\s\-_/]+", kw)
+            pattern = r"\b" + r"[\s\-_/]+".join(re.escape(p) for p in parts) + r"\b"
             if re.search(pattern, text_lower, re.ASCII):
                 return True
         else:
@@ -140,14 +142,23 @@ def get_entry_text(entry: dict) -> str:
     return " ".join(parts)
 
 
-def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, days_limit: int = 365) -> list[dict]:
+def check_feeds(
+    config: dict,
+    existing_urls: set[str],
+    dry_run: bool = False,
+    days_limit: int = 365,
+    *,
+    today: datetime | None = None,
+    feed_outcomes: list[bool] | None = None,
+) -> list[dict]:
     """全フィードを巡回し、新着QA関連記事を検出する。"""
     feeds = config.get("feeds", [])
     keywords = config.get("keywords", [])
     new_articles: list[dict] = []
 
     # 日付フィルタの基準日
-    cutoff_date = (datetime.now(tz=UTC) - timedelta(days=days_limit)).date()
+    cutoff_date = ((today or datetime.now(tz=UTC)) - timedelta(days=days_limit)).date()
+    seen_urls = set(existing_urls)
 
     for feed_config in feeds:
         name = feed_config["name"]
@@ -162,12 +173,26 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
         try:
             parsed = feedparser.parse(feed_url)
         except Exception as e:
-            logger.warning("%s の取得に失敗しました: %s", name, e)
+            logger.warning("%s の取得に失敗しました: %s", name, type(e).__name__)
+            if feed_outcomes is not None:
+                feed_outcomes.append(False)
             continue
 
-        if parsed.bozo and not parsed.entries:
-            logger.warning("%s のパースに問題があります: %s", name, parsed.bozo_exception)
+        http_status = getattr(parsed, "status", None)
+        version = getattr(parsed, "version", None)
+        if type(http_status) is int and http_status >= 400:
+            logger.warning("%s の取得に失敗しました: HTTP %d", name, http_status)
+            if feed_outcomes is not None:
+                feed_outcomes.append(False)
             continue
+        if version == "" or (parsed.bozo and not parsed.entries):
+            logger.warning("%s のフィード形式を確認できませんでした", name)
+            if feed_outcomes is not None:
+                feed_outcomes.append(False)
+            continue
+
+        if feed_outcomes is not None:
+            feed_outcomes.append(True)
 
         feed_new_count = 0
         for entry in parsed.entries:
@@ -176,7 +201,7 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
                 continue
 
             # 既存エントリとの重複チェック
-            if normalize_url(link) in existing_urls:
+            if normalize_url(link) in seen_urls:
                 continue
 
             # 日付フィルタ（古い記事の除外）
@@ -197,14 +222,17 @@ def check_feeds(config: dict, existing_urls: set[str], dry_run: bool = False, da
 
             title = entry.get("title", "（タイトル不明）")
 
-            new_articles.append({
-                "blog": name,
-                "company": company,
-                "title": title,
-                "url": link,
-                "published": published,
-                "language": language,
-            })
+            new_articles.append(
+                {
+                    "blog": name,
+                    "company": company,
+                    "title": title,
+                    "url": link,
+                    "published": published,
+                    "language": language,
+                }
+            )
+            seen_urls.add(normalize_url(link))
             feed_new_count += 1
 
         if dry_run:
@@ -230,7 +258,7 @@ def send_discord_notification(webhook_url: str, articles: list[dict]) -> bool:
     # 10件ずつに分割して送信
     batch_size = 10
     for i in range(0, len(articles), batch_size):
-        batch = articles[i:i + batch_size]
+        batch = articles[i : i + batch_size]
         embeds = []
         for article in batch:
             embed = {
@@ -260,7 +288,12 @@ def send_discord_notification(webhook_url: str, articles: list[dict]) -> bool:
             )
             resp.raise_for_status()
         except requests.exceptions.RequestException as e:
-            logger.error("Discord通知の送信に失敗しました: %s", e)
+            status = getattr(getattr(e, "response", None), "status_code", None)
+            logger.error(
+                "Discord通知の送信に失敗しました: %s (HTTP %s)",
+                type(e).__name__,
+                status if type(status) is int and 100 <= status <= 599 else "unknown",
+            )
             return False
 
     logger.info("Discord通知を送信しました: %d件", len(articles))
@@ -304,7 +337,7 @@ def format_markdown(articles: list[dict]) -> str:
     return "\n".join(lines) + "\n"
 
 
-def main() -> None:
+def main() -> int:
     def positive_int(value: str) -> int:
         """非負整数のバリデータ。"""
         n = int(value)
@@ -312,12 +345,10 @@ def main() -> None:
             raise argparse.ArgumentTypeError(f"0以上の整数を指定してください: {value}")
         return n
 
-    parser = argparse.ArgumentParser(
-        description="RSSフィードを巡回し、未収録のQA関連記事を検出する。"
-    )
+    parser = argparse.ArgumentParser(description="RSSフィードを巡回し、未収録のQA関連記事を検出する。")
     parser.add_argument(
         "--format",
-        choices=["text", "markdown"],
+        choices=["text", "markdown", "json"],
         default="text",
         help="出力形式（デフォルト: text）",
     )
@@ -327,7 +358,9 @@ def main() -> None:
         help="各フィードの取得状況を表示する（デバッグ用）",
     )
     parser.add_argument(
-        "--days", type=positive_int, default=365,
+        "--days",
+        type=positive_int,
+        default=365,
         help="この日数以内の記事のみ対象（デフォルト: 365）",
     )
     parser.add_argument(
@@ -336,51 +369,86 @@ def main() -> None:
         default=None,
         help="通知先（discord: Discord Webhook で通知）",
     )
+    parser.add_argument(
+        "--allow-partial-feeds",
+        action="store_true",
+        help="一部フィードが失敗しても取得済み記事を収集処理へ渡す",
+    )
+    parser.add_argument("--github-output", type=Path, help="GitHub Actionsの件数・新着判定の出力先")
     args = parser.parse_args()
 
-    # ロギングの設定
+    webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
+    handler = CredentialRedactingStreamHandler(sys.stderr)
+    handler.setFormatter(CredentialRedactingFormatter(webhook_url))
     logging.basicConfig(
         level=logging.DEBUG if args.dry_run else logging.INFO,
-        format="[%(levelname)s] %(message)s",
-        stream=sys.stderr,
+        handlers=[handler],
+        force=True,
     )
 
-    # 設定と既存URLの読み込み
-    config = load_feeds_config()
+    try:
+        config = load_feeds_config()
+        errors = validate_feeds_config(config)
+        if errors:
+            for err in errors:
+                logger.error("設定エラー: %s", err)
+            return 1
 
-    # feeds.yml のバリデーション
-    errors = validate_feeds_config(config)
-    if errors:
-        for err in errors:
-            logger.error("設定エラー: %s", err)
-        sys.exit(1)
+        existing_urls = load_existing_urls()
+        if args.dry_run:
+            logger.info("既存エントリ: %d件", len(existing_urls))
 
-    existing_urls = load_existing_urls()
+        feed_outcomes: list[bool] = []
+        articles = check_feeds(
+            config,
+            existing_urls,
+            dry_run=args.dry_run,
+            days_limit=args.days,
+            feed_outcomes=feed_outcomes,
+        )
+        if feed_outcomes and not any(feed_outcomes):
+            logger.error("全フィードの取得に失敗しました")
+            return 1
 
-    if args.dry_run:
-        logger.info("既存エントリ: %d件", len(existing_urls))
-
-    # フィード巡回
-    articles = check_feeds(config, existing_urls, dry_run=args.dry_run, days_limit=args.days)
-
-    # 出力
-    if args.format == "markdown":
-        output = format_markdown(articles)
-    else:
-        output = format_text(articles)
-
-    if output:
-        print(output)
-
-    # Discord通知
-    if args.notify == "discord" and articles:
-        webhook_url = os.environ.get("DISCORD_WEBHOOK_URL", "")
-        if not webhook_url:
-            logger.warning("DISCORD_WEBHOOK_URL が設定されていません。通知をスキップします")
+        safe_articles = [
+            {
+                key: redact_credentials(value, webhook_url) if isinstance(value, str) else value
+                for key, value in article.items()
+            }
+            for article in articles
+        ]
+        if args.format == "json":
+            output = json.dumps(safe_articles, ensure_ascii=False)
+        elif args.format == "markdown":
+            output = format_markdown(safe_articles)
         else:
-            if not send_discord_notification(webhook_url, articles):
-                sys.exit(1)
+            output = format_text(safe_articles)
+        if output:
+            # JSON のエスケープ後に置換すると構文が壊れるため、フィールドごとに秘匿化済み。
+            print(output)
+
+        if args.github_output:
+            with args.github_output.open("a", encoding="utf-8") as stream:
+                stream.write(f"article_count={len(articles)}\nhas_new_articles={str(bool(articles)).lower()}\n")
+
+        partial = bool(feed_outcomes and not all(feed_outcomes))
+        if partial:
+            logger.warning("一部フィードの取得に失敗しました")
+        exit_code = 1 if partial and not args.allow_partial_feeds else 0
+        if args.notify == "discord":
+            if args.dry_run:
+                logger.info("dry-run: Discord通知をスキップします")
+            elif not webhook_url:
+                logger.error("DISCORD_WEBHOOK_URL が未設定です。Discord配信は完了していません")
+                exit_code = 1
+            elif articles and not send_discord_notification(webhook_url, safe_articles):
+                exit_code = 1
+        return exit_code
+    except Exception as exc:
+        # サードパーティの例外本文や traceback を Actions ログへ渡さない。
+        logger.error("RSS処理に失敗しました: %s", type(exc).__name__)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
