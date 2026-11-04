@@ -52,7 +52,7 @@ ALLOWED_LANGUAGES: set[str] = {"en", "ja"}
 KEBAB_CASE_RE = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 
 
-def validate_file(filepath: Path) -> list[str]:
+def validate_file(filepath: Path, *, draft: bool = False) -> list[str]:
     """単一ファイルの frontmatter をバリデーションし、エラーメッセージのリストを返す。"""
     errors: list[str] = []
 
@@ -62,7 +62,15 @@ def validate_file(filepath: Path) -> list[str]:
         errors.append(f"frontmatter の読み込みに失敗しました: {e}")
         return errors
 
-    metadata = post.metadata
+    return validate_metadata(post.metadata, draft=draft)
+
+
+def validate_metadata(metadata: dict, *, draft: bool = False) -> list[str]:
+    """公開記事の必須項目を検証する。旧記事はstatus未指定のまま利用できる。"""
+    errors: list[str] = []
+    expected_status = "draft" if draft else "published"
+    if metadata.get("status", "published") != expected_status:
+        errors.append(f"'status' は {expected_status} である必要があります（下書きは drafts/ に保存）")
 
     # --- 必須フィールドの存在チェックと型・値の検証 ---
 
@@ -91,7 +99,9 @@ def validate_file(filepath: Path) -> list[str]:
 
     # published_at: date（ISO 8601形式 YYYY-MM-DD）
     published_at = metadata.get("published_at")
-    if published_at is None:
+    if draft and published_at == "":
+        pass  # 不明な公開日は下書きのまま保存し、公開前に確認する
+    elif published_at is None:
         errors.append("必須フィールド 'published_at' がありません")
     elif isinstance(published_at, date):
         # python-frontmatter が自動的に date オブジェクトに変換する場合がある
@@ -99,35 +109,32 @@ def validate_file(filepath: Path) -> list[str]:
         pass
     elif isinstance(published_at, str):
         if not _is_valid_date(published_at):
-            errors.append(
-                f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}"
-            )
+            errors.append(f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}")
     else:
-        errors.append(
-            f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}"
-        )
+        errors.append(f"'published_at' は YYYY-MM-DD 形式の日付である必要があります: {published_at}")
 
     # content_type: string（許可値リストに含まれる）
     content_type = metadata.get("content_type")
-    if content_type is None:
+    if draft and content_type == "":
+        pass
+    elif content_type is None:
         errors.append("必須フィールド 'content_type' がありません")
     elif not isinstance(content_type, str) or not content_type.strip():
         errors.append("'content_type' は空でない文字列である必要があります")
     elif content_type not in ALLOWED_CONTENT_TYPES:
         errors.append(
-            f"'content_type' の値が不正です: '{content_type}' "
-            f"(許可値: {', '.join(sorted(ALLOWED_CONTENT_TYPES))})"
+            f"'content_type' の値が不正です: '{content_type}' (許可値: {', '.join(sorted(ALLOWED_CONTENT_TYPES))})"
         )
 
     # qa_domains: list[string]（1つ以上、各値が許可値リストに含まれる）
     qa_domains = metadata.get("qa_domains")
     if qa_domains is None:
         errors.append("必須フィールド 'qa_domains' がありません")
-    elif not isinstance(qa_domains, list) or len(qa_domains) == 0:
+    elif not isinstance(qa_domains, list) or (not draft and len(qa_domains) == 0):
         errors.append("'qa_domains' は1つ以上の要素を持つリストである必要があります")
     else:
         for domain in qa_domains:
-            if domain not in ALLOWED_QA_DOMAINS:
+            if not isinstance(domain, str) or domain not in ALLOWED_QA_DOMAINS:
                 errors.append(
                     f"'qa_domains' に不正な値が含まれています: '{domain}' "
                     f"(許可値: {', '.join(sorted(ALLOWED_QA_DOMAINS))})"
@@ -137,23 +144,19 @@ def validate_file(filepath: Path) -> list[str]:
     tags = metadata.get("tags")
     if tags is None:
         errors.append("必須フィールド 'tags' がありません")
-    elif not isinstance(tags, list) or len(tags) == 0:
+    elif not isinstance(tags, list) or (not draft and len(tags) == 0):
         errors.append("'tags' は1つ以上の要素を持つリストである必要があります")
     else:
         for tag in tags:
             if not isinstance(tag, str) or not KEBAB_CASE_RE.match(tag):
-                errors.append(
-                    f"'tags' の値はケバブケース（小文字英数字とハイフンのみ）である必要があります: '{tag}'"
-                )
+                errors.append(f"'tags' の値はケバブケース（小文字英数字とハイフンのみ）である必要があります: '{tag}'")
 
     # language: string（"en" or "ja"）
     language = metadata.get("language")
     if language is None:
         errors.append("必須フィールド 'language' がありません")
-    elif language not in ALLOWED_LANGUAGES:
-        errors.append(
-            f"'language' の値が不正です: '{language}' (許可値: {', '.join(sorted(ALLOWED_LANGUAGES))})"
-        )
+    elif not isinstance(language, str) or language not in ALLOWED_LANGUAGES:
+        errors.append(f"'language' の値が不正です: '{language}' (許可値: {', '.join(sorted(ALLOWED_LANGUAGES))})")
 
     # added_at: date（ISO 8601形式 YYYY-MM-DD）
     added_at = metadata.get("added_at")
@@ -164,13 +167,9 @@ def validate_file(filepath: Path) -> list[str]:
         pass
     elif isinstance(added_at, str):
         if not _is_valid_date(added_at):
-            errors.append(
-                f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}"
-            )
+            errors.append(f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}")
     else:
-        errors.append(
-            f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}"
-        )
+        errors.append(f"'added_at' は YYYY-MM-DD 形式の日付である必要があります: {added_at}")
 
     return errors
 
@@ -215,10 +214,7 @@ def check_duplicate_urls(files: list[Path]) -> dict[Path, list[str]]:
         if len(filepaths) > 1:
             filenames = [f.name for f in filepaths]
             for filepath in filepaths:
-                msg = (
-                    f"URL が重複しています: {url} "
-                    f"(重複ファイル: {', '.join(filenames)})"
-                )
+                msg = f"URL が重複しています: {url} (重複ファイル: {', '.join(filenames)})"
                 errors_by_file.setdefault(filepath, []).append(msg)
 
     return errors_by_file

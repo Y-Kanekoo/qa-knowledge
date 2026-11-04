@@ -14,7 +14,13 @@
 .venv/bin/python scripts/generate_index.py
 ```
 
-### ステップ2: サイトビルド
+### ステップ2: 公開用文書の準備
+
+```bash
+.venv/bin/python scripts/prepare_site_docs.py
+```
+
+### ステップ3: サイトビルド
 
 ```bash
 .venv/bin/python -m mkdocs build --strict
@@ -22,7 +28,7 @@
 
 エラーがあれば内容を表示して修正を提案する。ビルド成功時はそのまま次へ。
 
-### ステップ3: プレビューサーバー起動
+### ステップ4: プレビューサーバー起動
 
 ```bash
 .venv/bin/python -m mkdocs serve

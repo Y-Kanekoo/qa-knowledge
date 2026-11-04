@@ -182,7 +182,8 @@ class TestMain:
     @patch("scripts.score_entries.ENTRIES_DIR")
     def test_エントリがある場合はスコアレポートを出力する(self, mock_dir, tmp_path, capsys):
         entry = tmp_path / "test.md"
-        entry.write_text("""\
+        entry.write_text(
+            """\
 ---
 title: "テスト"
 company: "Example"
@@ -206,7 +207,9 @@ difficulty: "intermediate"
 - 学び1
 - 学び2
 - 学び3
-""", encoding="utf-8")
+""",
+            encoding="utf-8",
+        )
         mock_dir.exists.return_value = True
         mock_dir.glob.return_value = [entry]
 
