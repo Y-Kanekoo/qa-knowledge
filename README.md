@@ -43,6 +43,8 @@
 
 ```bash
 pip install -r requirements.txt
+python scripts/generate_index.py
+python scripts/prepare_site_docs.py
 mkdocs serve
 # http://127.0.0.1:8000 で確認
 ```
@@ -52,7 +54,7 @@ mkdocs serve
 毎日 GitHub Actions が RSS フィードを巡回し、未収録のQA関連記事を検出する。
 
 - **通知先**: Discord Webhook（リッチEmbed形式）+ GitHub Issue
-- 監視対象: `feeds.yml` で定義（Google, Netflix, Spotify, Mercari, LY Corporation, Cybozu, DeNA 等14フィード）
+- 監視対象: `feeds.yml` で定義（Google, Netflix, Spotify, Mercari, LY Corporation, Cybozu, DeNA 等20フィード）
 - QAキーワードでフィルタリング（汎用ブログからQA記事のみ抽出）
 - 手動実行: Actions タブ → 「新着QA記事チェック（日次）」→ Run workflow
 

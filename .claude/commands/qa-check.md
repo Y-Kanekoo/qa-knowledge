@@ -37,6 +37,7 @@ ruff（Lint）、pytest（テスト）、validate_frontmatter（スキーマ検�
 ### チェック4: サイトビルド
 
 ```bash
+.venv/bin/python scripts/prepare_site_docs.py
 .venv/bin/python -m mkdocs build --strict 2>&1 | tail -20
 ```
 
