@@ -13,13 +13,16 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
     permissions:
       contents: write
+      issues: write
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: 依存パッケージのインストール
         run: pip install python-frontmatter pyyaml
+      - name: 公開記事を検証
+        run: python scripts/validate_frontmatter.py
       - name: インデックスを生成
         run: python scripts/generate_index.py
       - name: 変更を自動コミット

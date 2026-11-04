@@ -1,7 +1,7 @@
 # QA Knowledge プロジェクト設定
 
 ## プロジェクト概要
-テック企業のQA事例・ナレッジを構造化して収集するリポジトリ（103件、22社以上）。
+テック企業のQA事例・ナレッジを構造化して収集するリポジトリ（件数は公開インデックスを参照）。
 
 ## カスタムコマンド（14種）
 
@@ -27,7 +27,7 @@
 | ワークフロー | 頻度 | 内容 |
 |-------------|------|------|
 | check-rss.yml | 日次 | RSS巡回 → Discord通知 + Issue |
-| collect-articles.yml | 日次 | scaffold.py で骨格PR自動作成 |
+| collect-articles.yml | 日次 | 直近3日分をdrafts/へ保存、実追加がある場合だけPR作成 |
 | ci.yml | push/PR | ruff + pytest |
 | validate.yml | entries変更時 | Frontmatter検証 |
 | generate-index.yml | main push | インデックス自動再生成 |
@@ -50,9 +50,11 @@
 ## エントリ追加の標準手順
 
 1. `/add-entry <URL> --company <企業名>` でエントリ作成（推奨）
-2. または `python scripts/scaffold.py <URL> --company <企業名>` で骨格生成 → 手動記入
-3. `python scripts/validate_frontmatter.py` で検証
-4. `python scripts/generate_index.py` でインデックス更新
+2. または `python scripts/scaffold.py <URL> --company <企業名>` で `drafts/` に骨格生成 → 手動記入
+3. `python scripts/validate_drafts.py` で下書きの保存形式を検証（未完成でも保存可能）
+4. `python scripts/promote_draft.py drafts/<file>.md` で補完済み記事を検証し `entries/` へ移す
+5. `python scripts/validate_frontmatter.py` で公開記事を検証
+6. `python scripts/generate_index.py` で公開インデックス更新（最終更新は公開記事の収録日）
 
 ## Frontmatter スキーマ（主要フィールド）
 

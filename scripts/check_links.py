@@ -54,10 +54,12 @@ def load_entries() -> list[dict]:
         if not url:
             continue
 
-        entries.append({
-            "filename": md_path.name,
-            "url": url,
-        })
+        entries.append(
+            {
+                "filename": md_path.name,
+                "url": url,
+            }
+        )
 
     return entries
 
@@ -111,10 +113,7 @@ def run_checks(entries: list[dict]) -> list[dict]:
     results = []
 
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        future_to_entry = {
-            executor.submit(check_url, entry): entry
-            for entry in entries
-        }
+        future_to_entry = {executor.submit(check_url, entry): entry for entry in entries}
 
         for future in as_completed(future_to_entry):
             results.append(future.result())

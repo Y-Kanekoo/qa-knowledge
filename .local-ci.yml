@@ -1,0 +1,38 @@
+# local-ci の設定（development-hub テンプレート v1・テスト標準の4段階、既存repo向け）。
+# skip の段階は docs/TESTING.md のスキップ記録と合わせて、整備したら外す。
+fail_fast: true
+# 依存は requirements.txt で管理している（pyproject は pytest・ruff の設定だけ）ので、
+# GitHub Actions の CI と同じく requirements.txt から入れる。Python は CI と同じ 3.12。
+setup:
+  - uv venv --allow-existing -q --python 3.12
+  - uv pip install -q -r requirements.txt
+jobs:
+  lint:
+    kind: lint
+    stage: static
+    run: ["uv run --no-project ruff check .", "uv run --no-project ruff format --check ."]
+  typecheck:
+    kind: typecheck
+    stage: static
+    run: "uv run --no-project mypy"
+    skip: true
+    skip_reason: "mypy が未導入（対象を絞って導入したら skip を外す）"
+  secrets:
+    kind: lint
+    stage: static
+    run: "uv run --no-project python scripts/scan_secrets.py"
+  unit:
+    kind: test
+    stage: unit
+    run: "uv run --no-project pytest --ignore=tests/api"
+  api:
+    kind: api
+    stage: api
+    run: "uv run --no-project pytest tests/api"
+  e2e:
+    kind: e2e
+    stage: e2e
+    run: "npx playwright test --grep @smoke"
+    skip: true
+    skip_reason: "Playwright 設定がない（UI がある場合は --extras e2e で雛形を追加）"
+include_auto: false

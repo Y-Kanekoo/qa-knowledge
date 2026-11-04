@@ -21,6 +21,11 @@ from typing import TypedDict
 
 import frontmatter
 
+try:
+    from scripts.validate_frontmatter import check_duplicate_urls, find_entry_files, validate_file
+except ImportError:
+    from validate_frontmatter import check_duplicate_urls, find_entry_files, validate_file
+
 logger = logging.getLogger(__name__)
 
 # ---------- 定数 ----------
@@ -36,10 +41,7 @@ INDEX_MD = PROJECT_ROOT / "index.md"
 EXCLUDE_FILES = {"_template.md"}
 
 # 自動生成コメント
-AUTO_GENERATED_COMMENT = (
-    "<!-- このファイルは generate_index.py によって自動生成されます。"
-    "手動編集しないでください -->"
-)
+AUTO_GENERATED_COMMENT = "<!-- このファイルは generate_index.py によって自動生成されます。手動編集しないでください -->"
 
 # index.md 用の自動更新コメント
 INDEX_AUTO_COMMENT = "<!-- このファイルは generate_index.py によって自動更新されます -->"
@@ -116,6 +118,12 @@ def load_entries() -> list[EntryMeta]:
 
     if not ENTRIES_DIR.exists():
         return entries
+
+    files = find_entry_files(ENTRIES_DIR)
+    errors = {str(path): problems for path in files if (problems := validate_file(path))}
+    errors.update({str(path): problems for path, problems in check_duplicate_urls(files).items()})
+    if errors:
+        raise ValueError(f"公開記事の検証に失敗しました（インデックスは更新しません）: {errors}")
 
     for md_file in sorted(ENTRIES_DIR.glob("*.md")):
         if md_file.name in EXCLUDE_FILES:
@@ -277,9 +285,7 @@ def generate_by_date(entries: list[EntryMeta]) -> str:
     for entry in sorted_entries:
         title_link = f"[{entry['title']}]({_index_link(entry['filename'])})"
         domains = ", ".join(entry["qa_domains"])
-        lines.append(
-            f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |"
-        )
+        lines.append(f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |")
     lines.append("")
 
     return "\n".join(lines) + "\n"
@@ -294,8 +300,8 @@ def generate_index_md(entries: list[EntryMeta]) -> str:
     for entry in entries:
         all_domains.update(entry["qa_domains"])
 
-    today = date.today().isoformat()
-    last_updated = today if total_entries > 0 else "-"
+    # 実行日ではなく、実際に公開記事を収録した日。再実行だけでは変更しない。
+    last_updated = max((e["added_at"] for e in entries if e["added_at"]), default="-")
 
     lines: list[str] = [
         INDEX_AUTO_COMMENT,
@@ -321,17 +327,13 @@ def generate_index_md(entries: list[EntryMeta]) -> str:
         lines.append("（エントリ追加後に自動更新されます）")
     else:
         # added_at の降順でソートし、上位N件を表示
-        recent = sorted(entries, key=lambda e: e["added_at"], reverse=True)[
-            :RECENT_ENTRIES_LIMIT
-        ]
+        recent = sorted(entries, key=lambda e: e["added_at"], reverse=True)[:RECENT_ENTRIES_LIMIT]
         lines.append("| 追加日 | タイトル | 会社 | QA領域 |")
         lines.append("|--------|---------|------|--------|")
         for entry in recent:
             title_link = f"[{entry['title']}]({_root_link(entry['filename'])})"
             domains = ", ".join(entry["qa_domains"])
-            lines.append(
-                f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |"
-            )
+            lines.append(f"| {entry['added_at']} | {title_link} | {entry['company']} | {domains} |")
 
     lines.extend(
         [
