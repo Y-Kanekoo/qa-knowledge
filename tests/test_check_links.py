@@ -109,9 +109,7 @@ class TestLoadEntries:
     def test_deprecated_エントリをスキップする(self, mock_dir: MagicMock, tmp_path: Path):
         entries_dir = tmp_path / "entries"
         entries_dir.mkdir()
-        _write_entry_md(
-            entries_dir / "old-entry.md", "https://example.com/old", deprecated=True
-        )
+        _write_entry_md(entries_dir / "old-entry.md", "https://example.com/old", deprecated=True)
         _write_entry_md(entries_dir / "active-entry.md", "https://example.com/active")
         mock_dir.__class__ = Path
         mock_dir.glob = entries_dir.glob
@@ -171,6 +169,7 @@ class TestRunChecks:
         ok_response.reason = "OK"
 
         import requests
+
         mock_session.head.side_effect = [
             ok_response,
             requests.exceptions.Timeout("タイムアウト"),
