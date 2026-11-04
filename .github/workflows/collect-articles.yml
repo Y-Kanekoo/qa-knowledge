@@ -50,7 +50,7 @@ jobs:
 
       - name: 下書きPRを作成・更新
         if: steps.collect.outputs.has_changes == 'true' && steps.collect.outputs.added_count != '0'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "[feat] QA記事の下書きを保存する"
