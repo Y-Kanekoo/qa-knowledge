@@ -13,6 +13,7 @@ import re
 import sys
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import feedparser
 import frontmatter
@@ -42,26 +43,51 @@ def load_feeds_config() -> dict:
         return yaml.safe_load(f)
 
 
-def validate_feeds_config(config: dict) -> list[str]:
-    """feeds.yml の構造を検証する。"""
+def validate_feeds_config(config: object) -> list[str]:
+    """YAML の型も検証し、不正な設定を外部通信前に拒否する。"""
+    if not isinstance(config, dict):
+        return ["設定全体はマッピングで指定してください"]
+
     errors: list[str] = []
     feeds = config.get("feeds")
     if not isinstance(feeds, list) or not feeds:
         errors.append("feeds: フィードが定義されていません")
         return errors
     for i, feed in enumerate(feeds):
+        if not isinstance(feed, dict):
+            errors.append(f"feeds[{i}]: マッピングで指定してください")
+            continue
         for key in ("name", "url", "company"):
-            if not feed.get(key):
-                errors.append(f"feeds[{i}]: '{key}' が未設定です")
-        url = feed.get("url", "")
-        if url and not url.startswith("http"):
-            errors.append(f"feeds[{i}]: url が不正です: {url}")
+            value = feed.get(key)
+            if not isinstance(value, str) or not value.strip():
+                errors.append(f"feeds[{i}]: '{key}' は空でない文字列で指定してください")
+        url = feed.get("url")
+        if isinstance(url, str) and url.strip():
+            try:
+                parsed = urlsplit(url)
+                # port の参照でも不正な値や範囲を検出する。入力値はエラーに含めない。
+                valid_url = (
+                    parsed.scheme in ("http", "https")
+                    and bool(parsed.hostname)
+                    and not any(char.isspace() or ord(char) < 32 or ord(char) == 127 for char in url)
+                )
+                _ = parsed.port
+            except ValueError:
+                valid_url = False
+            if not valid_url:
+                errors.append(f"feeds[{i}]: url は有効な HTTP(S) URL で指定してください")
         lang = feed.get("language", "en")
         if lang not in ("en", "ja"):
-            errors.append(f"feeds[{i}]: language は 'en' または 'ja' を指定: {lang}")
+            errors.append(f"feeds[{i}]: language は 'en' または 'ja' を指定してください")
+        if "skip_keyword_filter" in feed and not isinstance(feed["skip_keyword_filter"], bool):
+            errors.append(f"feeds[{i}]: skip_keyword_filter は真偽値で指定してください")
     keywords = config.get("keywords")
     if not isinstance(keywords, list) or not keywords:
         errors.append("keywords: キーワードが定義されていません")
+    else:
+        for i, keyword in enumerate(keywords):
+            if not isinstance(keyword, str) or not keyword.strip():
+                errors.append(f"keywords[{i}]: 空でない文字列で指定してください")
     return errors
 
 
