@@ -1,5 +1,6 @@
 """RSS 設定の型誤りを外部通信前に検出する回帰テスト。"""
 
+import logging
 from copy import deepcopy
 from unittest.mock import Mock
 
@@ -122,7 +123,16 @@ def test_main_stops_before_collection_notification_and_output(config, monkeypatc
     monkeypatch.setattr(check_rss, "load_existing_urls", existing)
     monkeypatch.setattr(check_rss, "check_feeds", fetch)
     monkeypatch.setattr(check_rss, "send_discord_notification", notify)
-    assert check_rss.main() == 1
+    root = logging.getLogger()
+    handlers, level = root.handlers[:], root.level
+    try:
+        assert check_rss.main() == 1
+    finally:
+        for handler in root.handlers:
+            if handler not in handlers:
+                handler.close()
+        root.handlers = handlers
+        root.setLevel(level)
     captured = capsys.readouterr()
     assert "設定エラー:" in captured.err
     assert "RSS処理に失敗" not in captured.err
