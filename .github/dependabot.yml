@@ -2,6 +2,13 @@ version: 2
 updates:
   - package-ecosystem: "pip"
     directory: "/"
+    open-pull-requests-limit: 2
+    # 通常更新のminor/patchだけをまとめる。security updatesは変更しない。
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: [minor, patch]
     schedule:
       interval: "weekly"
     allow:
@@ -9,5 +16,12 @@ updates:
 
   - package-ecosystem: "github-actions"
     directory: "/"
+    open-pull-requests-limit: 2
+    # 通常更新のminor/patchだけをまとめる。security updatesは変更しない。
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: [minor, patch]
     schedule:
-      interval: "weekly"
+      interval: "monthly"
